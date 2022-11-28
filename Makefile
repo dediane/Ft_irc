@@ -6,7 +6,7 @@
 #    By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/24 13:01:02 by ddecourt          #+#    #+#              #
-#    Updated: 2022/11/24 13:01:58 by ddecourt         ###   ########.fr        #
+#    Updated: 2022/11/28 19:22:16 by ddecourt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,14 +19,14 @@ else
 endif
 
 
-NAME =	ft_containers
+NAME =	ircserv
 
 CFLAGS	=	-Wall -Wextra -Werror -g -fsanitize=address -std=c++98
 
 SRCS =	server/main.cpp \
 
 
-CC	=	clang++
+CC	=	c++
 RM	=	rm -f
 
 MESSAGE = Compilation ok - ready to test
