@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:12 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/11/30 17:43:39 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/11/30 19:00:35 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,15 +85,43 @@ void Server::execute()
     // fds -> Use ref ptr &myvar[0]
     // nfds -> Nbr of fd open myvar.size()
     // timeout -> heartbeat timeout ping delay from, config (1 min)
+    
     int rc = -1;
     if ((rc = poll(&this->fds[0], fds.size(), timeout)) < 0)
     {
         std::cerr << "  poll() failed." << std::endl;
-        exit(EXIT_FAILURE);
+        // exit(EXIT_FAILURE);
+        return;
     }
     if (rc == 0)
     {
         std::cerr << "  poll() timed out.  End program." << std::endl;
-        exit(EXIT_FAILURE);
+        return;
+        // exit(EXIT_FAILURE);
     }
+    if(this->fds[0].revents == POLLIN)
+        accept_new_user();
+    else
+    {
+        //iterer sur les fd 
+        //for
+            //if(this->fds[it].revents == POLLIN)
+            //    receive (UDF)
+        std::cout << "need to find back the users of POLLIN" << std::endl;
+    }
+}
+
+void Server::accept_new_user()
+{
+    std::cout << "need to accept a user in the channel" << std::endl;
+    sockaddr_in address;
+    socklen_t len = sizeof(address);
+
+    //int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
+    int fd = accept(fds[0].fd, (struct sockaddr*)&address, &len);
+    if ( fd < 0)
+        return;
+    User newuser;
+    (fd, address);
+    users.insert(fd, newuser);
 }
