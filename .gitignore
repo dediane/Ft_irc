@@ -1,2 +1,6 @@
 .o
 .vscode
+server/channel/*.o
+server/user/*.o
+server/*.o
+ircserv

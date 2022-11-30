@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:20 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/11/30 17:38:54 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/11/30 17:47:04 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@
             time_t last_ping;
             time_t heartbeat;
             
+            int _port;
             std::vector<pollfd> fds;
             //std::vector<Channel> channels; //contains all channels
             //std::map<unsigned int, User> users; //contains all users as pair of: fd of the user and the user 
