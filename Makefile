@@ -6,7 +6,7 @@
 #    By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/24 13:01:02 by ddecourt          #+#    #+#              #
-#    Updated: 2022/11/28 19:22:16 by ddecourt         ###   ########.fr        #
+#    Updated: 2022/11/30 15:38:19 by ddecourt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ NAME =	ircserv
 CFLAGS	=	-Wall -Wextra -Werror -g -fsanitize=address -std=c++98
 
 SRCS =	server/main.cpp \
+		server/server.cpp \
 
 
 CC	=	c++

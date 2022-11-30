@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:03:05 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/11/28 19:39:48 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/11/30 15:37:45 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <csignal>
+#include "server.hpp"
 
 void handler(int sig)
 {
@@ -34,6 +35,9 @@ int main(int argc, char**argv)
     }
     std::signal(SIGINT, handler);
     std::cout << "OK" << std::endl;
+
+    Server server;
+    server.init();
 
     while (!stop)
         usleep(1);
