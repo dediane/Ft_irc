@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:46:55 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/11/29 12:47:21 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/11/30 17:09:45 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 
 class Channel
 {
-    Channel();
-    Channel(Channel &lhs);
-    ~Channel();
+    public:
+        Channel();
+        Channel(Channel &lhs);
+        ~Channel();
 };
 
 #endif

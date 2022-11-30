@@ -6,7 +6,7 @@
 #    By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/24 13:01:02 by ddecourt          #+#    #+#              #
-#    Updated: 2022/11/30 15:38:19 by ddecourt         ###   ########.fr        #
+#    Updated: 2022/11/30 17:11:46 by ddecourt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,8 @@ CFLAGS	=	-Wall -Wextra -Werror -g -fsanitize=address -std=c++98
 
 SRCS =	server/main.cpp \
 		server/server.cpp \
+		server/channel/channel.cpp \
+		server/user/user.cpp \
 
 
 CC	=	c++
