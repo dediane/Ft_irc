@@ -66,3 +66,9 @@ The first parameter is always the target of the reply, typically a nick.
 
 :irc.example.org 332 borja #cmsc23300 :A channel for CMSC 23300 studen
 ````
+
+### Connect to irssi
+
+````
+ irssi -c localhost -p 1050
+ ````

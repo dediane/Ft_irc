@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:03:05 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/11/30 18:07:14 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/11/30 22:02:06 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,6 @@ int main(int argc, char**argv)
     server.init();
 
     while (!stop)
-        usleep(1);
+        server.execute();
 }
 

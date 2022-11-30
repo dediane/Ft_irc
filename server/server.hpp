@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:20 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/11/30 18:56:05 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/11/30 22:35:15 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 #define END = "\r\n"
 
     class User;
+    class Channel;
+    
     class Server
     {
         private:
@@ -47,8 +49,10 @@
             time_t heartbeat;
             
             int _port;
+            int sockfd;
+            
             std::vector<pollfd> fds;
-            //std::vector<Channel> channels; //contains all channels
+            std::vector<Channel> channels; //contains all channels
             std::map<unsigned int, User> users; //contains all users as pair of: fd of the user and the user 
 
         public:

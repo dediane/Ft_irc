@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:12 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/11/30 19:00:35 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/11/30 22:44:46 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,9 @@ Server::~Server()
 void Server::init()
 {
     int opt = 1;
-    int PORT = 8000;
-    int sockfd = -1;
+    int PORT = 1050;
 
-    if (( sockfd = (socket(AF_INET, SOCK_STREAM, 0))) < 0)
+    if (( sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
     {
         perror("socket creation failed");
         exit(EXIT_FAILURE);
@@ -57,6 +56,7 @@ void Server::init()
     address.sin_addr.s_addr = INADDR_ANY;
     address.sin_port = htons(PORT);  //The htons() function converts the unsigned short integer hostshort from host byte order to network byte order.
 
+
     if (bind(sockfd, (struct sockaddr*)&address, sizeof(address)) < 0)
     {
         perror("bind failed");
@@ -79,26 +79,31 @@ void Server::execute()
 {
     //https://www.ibm.com/docs/en/i/7.2?topic=designs-using-poll-instead-select
     
-    int timeout = (3 * 60 * 1000);
+    int ping = 5000;
+    // int timeout = (3 * 60 * 1000);
     
+    std::cout << "Start executing" << std::endl;
     //int poll(struct pollfd *fds, nfds_t nfds, int timeout);
     // fds -> Use ref ptr &myvar[0]
     // nfds -> Nbr of fd open myvar.size()
     // timeout -> heartbeat timeout ping delay from, config (1 min)
     
     int rc = -1;
-    if ((rc = poll(&this->fds[0], fds.size(), timeout)) < 0)
+    //if ( poll(&fds[0], fds.size(), ping) < 0)
+    if ((rc = poll(&this->fds[0], fds.size(), ping)) < 0)
     {
         std::cerr << "  poll() failed." << std::endl;
         // exit(EXIT_FAILURE);
         return;
     }
-    if (rc == 0)
-    {
-        std::cerr << "  poll() timed out.  End program." << std::endl;
-        return;
-        // exit(EXIT_FAILURE);
-    }
+    std::cout << " SOCKFD = "<< sockfd << std::endl;
+    
+    // if (rc == 0)
+    // {
+    //     std::cerr << "  poll() timed out.  End program." << std::endl;
+    //     return;
+    //     // exit(EXIT_FAILURE);
+    // }
     if(this->fds[0].revents == POLLIN)
         accept_new_user();
     else
@@ -118,10 +123,10 @@ void Server::accept_new_user()
     socklen_t len = sizeof(address);
 
     //int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
-    int fd = accept(fds[0].fd, (struct sockaddr*)&address, &len);
+    int fd = accept(sockfd, (struct sockaddr*)&address, &len);
     if ( fd < 0)
         return;
-    User newuser;
-    (fd, address);
-    users.insert(fd, newuser);
+    // User newuser;
+    // (fd, address);
+    // users.insert(std::make_pair(fd, newuser));
 }
