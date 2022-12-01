@@ -6,13 +6,18 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:58:37 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/11/30 19:01:56 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/01 14:33:07 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "user.hpp"
 
 User::User()
+{
+    
+}
+
+User::User(User &lhs)
 {
     
 }

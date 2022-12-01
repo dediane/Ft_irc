@@ -6,28 +6,14 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:20 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/11/30 22:35:15 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/01 14:12:06 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SERVER_HPP
 #define SERVER_HPP
 
-#include <vector>
-#include <map>
-#include <iostream>
-#include <stdlib.h>
-#include <stdio.h>
-#include <errno.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <netinet/in.h>
-#include <poll.h>
-#include "channel/channel.hpp"
-#include "user/user.hpp"
+#include "main.hpp"
 
 #define END = "\r\n"
 
@@ -64,6 +50,7 @@
             void init();
             void execute();
             void accept_new_user();
+            User get_user_by_fd(int user_fd);
     };
 
 #endif

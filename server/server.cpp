@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:12 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/11/30 22:44:46 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/01 14:31:30 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,9 @@ void Server::init()
     struct sockaddr_in address;
     address.sin_family = AF_INET;
     address.sin_addr.s_addr = INADDR_ANY;
-    address.sin_port = htons(PORT);  //The htons() function converts the unsigned short integer hostshort from host byte order to network byte order.
+    address.sin_port = htons(PORT);
+    //The htons() function converts the unsigned short integer 
+    //hostshort from host byte order to network byte order.
 
 
     if (bind(sockfd, (struct sockaddr*)&address, sizeof(address)) < 0)
@@ -70,7 +72,8 @@ void Server::init()
     }
 
     //memset(&this->fds[0], 0 , sizeof(fds));
-    fds.push_back(pollfd()); //if we don't push_back an element to "malloc" the space for a pollfd struct -> segv
+    //SEGV if we don't push_back an element to "malloc" the space for a pollfd 
+    fds.push_back(pollfd());
     fds.back().fd = sockfd;
     fds.back().events = POLLIN;
 }
@@ -83,35 +86,40 @@ void Server::execute()
     // int timeout = (3 * 60 * 1000);
     
     std::cout << "Start executing" << std::endl;
-    //int poll(struct pollfd *fds, nfds_t nfds, int timeout);
+    
     // fds -> Use ref ptr &myvar[0]
     // nfds -> Nbr of fd open myvar.size()
-    // timeout -> heartbeat timeout ping delay from, config (1 min)
+    // timeout -> heartbeat timeout ping delay
     
+    //int poll(struct pollfd *fds, nfds_t nfds, int timeout);
     int rc = -1;
-    //if ( poll(&fds[0], fds.size(), ping) < 0)
     if ((rc = poll(&this->fds[0], fds.size(), ping)) < 0)
     {
         std::cerr << "  poll() failed." << std::endl;
-        // exit(EXIT_FAILURE);
         return;
     }
     std::cout << " SOCKFD = "<< sockfd << std::endl;
     
-    // if (rc == 0)
-    // {
-    //     std::cerr << "  poll() timed out.  End program." << std::endl;
-    //     return;
-    //     // exit(EXIT_FAILURE);
-    // }
+    if (rc == 0)
+    {
+        std::cerr << "  poll() timed out.  End program." << std::endl;
+        return;
+    }
     if(this->fds[0].revents == POLLIN)
         accept_new_user();
     else
     {
+        //How do I access each element?  
         //iterer sur les fd 
         //for
             //if(this->fds[it].revents == POLLIN)
             //    receive (UDF)
+        std::vector<pollfd>::iterator it = fds.begin();
+        for (it ; it != fds.end(); it++)
+        {
+            if((*it).revents == POLLIN)
+                User user = get_user_by_fd((*it).fd);
+        }
         std::cout << "need to find back the users of POLLIN" << std::endl;
     }
 }
@@ -129,4 +137,14 @@ void Server::accept_new_user()
     // User newuser;
     // (fd, address);
     // users.insert(std::make_pair(fd, newuser));
+}
+
+User Server::get_user_by_fd(int user_fd)
+{
+    std::map<unsigned int, User>::iterator it = users.begin();
+    for (it; it != users.end(); it++)
+    {
+        if((*it).first == user_fd)
+            return ((*it).second);
+    }
 }
