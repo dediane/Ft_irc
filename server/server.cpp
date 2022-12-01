@@ -6,11 +6,12 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:12 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/01 14:31:30 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/01 19:27:10 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "server.hpp"
+#include "user/user.hpp"
 
 Server::Server()
 {
@@ -98,13 +99,13 @@ void Server::execute()
         std::cerr << "  poll() failed." << std::endl;
         return;
     }
-    std::cout << " SOCKFD = "<< sockfd << std::endl;
     
-    if (rc == 0)
-    {
-        std::cerr << "  poll() timed out.  End program." << std::endl;
-        return;
-    }
+    // if (rc == 0)
+    // {
+    //     std::cerr << "  poll() timed out.  End program." << std::endl;
+    //     return;
+    // }
+    
     if(this->fds[0].revents == POLLIN)
         accept_new_user();
     else
@@ -114,11 +115,15 @@ void Server::execute()
         //for
             //if(this->fds[it].revents == POLLIN)
             //    receive (UDF)
-        std::vector<pollfd>::iterator it = fds.begin();
-        for (it ; it != fds.end(); it++)
+        std::vector<pollfd>::iterator it;
+        for (it = fds.begin() ; it != fds.end(); it++)
         {
             if((*it).revents == POLLIN)
+            {
+                std::cout << (*it).revents << std::endl;
                 User user = get_user_by_fd((*it).fd);
+                
+            }
         }
         std::cout << "need to find back the users of POLLIN" << std::endl;
     }
@@ -134,17 +139,25 @@ void Server::accept_new_user()
     int fd = accept(sockfd, (struct sockaddr*)&address, &len);
     if ( fd < 0)
         return;
-    // User newuser;
+    // char *username = NULL;
+    // getlogin_r(username, 9);
+    User newuser(fd, "username");
+    
+    std::map<int, User>::iterator it;
+    it = users.end();
+    users.insert(it, std::make_pair(fd, newuser));
+    
+    //users.insert(std::make_pair(fd, newuser));
     // (fd, address);
-    // users.insert(std::make_pair(fd, newuser));
 }
 
 User Server::get_user_by_fd(int user_fd)
 {
-    std::map<unsigned int, User>::iterator it = users.begin();
-    for (it; it != users.end(); it++)
+    std::map<int, User>::iterator it;
+    for (it = users.begin(); it != users.end(); it++)
     {
         if((*it).first == user_fd)
-            return ((*it).second);
+            break;
     }
+    return ((*it).second);
 }

@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:45:40 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/01 14:34:22 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/01 19:20:58 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,23 @@ class User
 {
     public:
         User();
-        User(User &lhs);
+        User(int fd, std::string nickname);
+        User(const User &lhs);
         ~User();
+        User &operator=(const User &lhs);
+
+        std::string getNickname();
+
+        bool isRegistered();
+        bool isOnline();
+        bool isDeleted();
+
     private:
         std::string _nickname;
-        unsigned int fd;
-        bool registered;
-        bool online;
-        bool 
-        
+        int fd;
+        bool _registered;
+        bool _online;
+        bool _deleted;
 };
 
 #endif
