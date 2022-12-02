@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:12 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/02 17:02:39 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/02 23:50:45 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,9 +138,9 @@ void Server::accept_new_user()
     int fd = accept(sockfd, (struct sockaddr*)&address, &len);
     if ( fd < 0)
         return;
-    char *username = getenv("LOGNAME");
-    std:: cout << username << std::endl;
-    User newuser(fd, username);
+    //char *username = getenv("LOGNAME");
+    //std:: cout << username << std::endl;
+    User newuser(fd, address);
     
     std::map<int, User>::iterator it;
     it = users.begin();
@@ -149,6 +149,31 @@ void Server::accept_new_user()
     fds.push_back(pollfd());
     fds.back().fd = fd;
     fds.back().events = POLLIN;
+
+    std::cout << fds.back().events << std::endl;
+
+    //do_handshake(fd);
+
+//     :dianita!diane@localhost 001 dianita :Welcome to the Internet Relay Network dianita!diane@localhost
+// <== :dianita!diane@localhost 002 dianita :Your host is localhost, running version 1.69
+// <== :dianita!diane@localhost 003 dianita :This server was created Fri Dec  2 19:54:52 2022
+}
+
+void Server::do_handshake(int fd)
+{
+    std::string buffer = ": NICK :dianita\r\n";
+
+    if (send(fd, buffer.c_str(), buffer.length(), 0) == -1)
+			std::cout << "error" << std::endl;
+    buffer = ":dianita!diane@localhost 001 dianita\r\n";
+
+    if (send(fd, buffer.c_str(), buffer.length(), 0) == -1)
+			std::cout << "error" << std::endl;
+    buffer = ":dianita!diane@localhost 002 dianita\r\n";
+
+    if (send(fd, buffer.c_str(), buffer.length(), 0) == -1)
+			std::cout << "error" << std::endl;
+    buffer = ":dianita!diane@localhost 003 dianita\r\n";
 }
 
 User Server::get_user_by_fd(int user_fd)

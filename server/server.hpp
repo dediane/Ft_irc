@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:20 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/02 16:25:17 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/02 21:58:22 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@
             void init();
             void execute();
             void accept_new_user();
+            void do_handshake(int fd );
             User get_user_by_fd(int user_fd);
     };
 
