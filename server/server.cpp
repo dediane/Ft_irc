@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:12 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/01 19:27:10 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/02 15:35:37 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ void Server::accept_new_user()
         return;
     // char *username = NULL;
     // getlogin_r(username, 9);
+    //std::cout << system("whoami");
     User newuser(fd, "username");
     
     std::map<int, User>::iterator it;
