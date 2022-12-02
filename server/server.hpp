@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:20 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/01 19:15:16 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/02 16:25:17 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,11 @@
 
 #include "main.hpp"
 
-#define END = "\r\n"
-
-    class User;
     class Channel;
-    
+    class User;
     class Server
     {
+        friend class User;
         private:
             //We don't need it cause it is in <poll.h>
             // struct pollfd 

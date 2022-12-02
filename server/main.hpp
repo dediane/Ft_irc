@@ -6,13 +6,15 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:03:02 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/01 13:47:51 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/02 16:00:51 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAIN_HPP
 #define MAIN_HPP
 
+#define END "\r\n"
+#define BUFFER_SIZE 1024
 #include <vector>
 #include <map>
 #include <iostream>

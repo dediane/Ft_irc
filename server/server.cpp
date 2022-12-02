@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:12 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/02 15:35:37 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/02 17:02:39 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void Server::execute()
     int ping = 5000;
     // int timeout = (3 * 60 * 1000);
     
-    std::cout << "Start executing" << std::endl;
+    //std::cout << "Start executing" << std::endl;
     
     // fds -> Use ref ptr &myvar[0]
     // nfds -> Nbr of fd open myvar.size()
@@ -120,18 +120,17 @@ void Server::execute()
         {
             if((*it).revents == POLLIN)
             {
-                std::cout << (*it).revents << std::endl;
                 User user = get_user_by_fd((*it).fd);
-                
+                user.receive(this);
             }
         }
-        std::cout << "need to find back the users of POLLIN" << std::endl;
+        //std::cout << "need to find back the users of POLLIN" << std::endl;
     }
 }
 
 void Server::accept_new_user()
 {
-    std::cout << "need to accept a user in the channel" << std::endl;
+    //std::cout << "need to accept a user in the channel" << std::endl;
     sockaddr_in address;
     socklen_t len = sizeof(address);
 
@@ -139,17 +138,17 @@ void Server::accept_new_user()
     int fd = accept(sockfd, (struct sockaddr*)&address, &len);
     if ( fd < 0)
         return;
-    // char *username = NULL;
-    // getlogin_r(username, 9);
-    //std::cout << system("whoami");
-    User newuser(fd, "username");
+    char *username = getenv("LOGNAME");
+    std:: cout << username << std::endl;
+    User newuser(fd, username);
     
     std::map<int, User>::iterator it;
-    it = users.end();
+    it = users.begin();
     users.insert(it, std::make_pair(fd, newuser));
     
-    //users.insert(std::make_pair(fd, newuser));
-    // (fd, address);
+    fds.push_back(pollfd());
+    fds.back().fd = fd;
+    fds.back().events = POLLIN;
 }
 
 User Server::get_user_by_fd(int user_fd)
