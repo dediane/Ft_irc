@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:12 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/05 15:46:43 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/05 18:53:09 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,9 +120,7 @@ void Server::execute()
             if((*it).revents == POLLIN)
             {
                 User user = get_user_by_fd((*it).fd);
-                std::cout << user.fd << " - user.fd" << std::endl;
-                std::cout << (*it).fd << "- (*it).fd" << std::endl;
-                user.receive(this);
+                user.receive();
             }
         }
         //std::cout << "need to find back the users of POLLIN" << std::endl;
@@ -134,12 +132,12 @@ void Server::accept_new_user()
     //std::cout << "need to accept a user in the channel" << std::endl;
     sockaddr_in address;
     socklen_t len = sizeof(address);
+    std::string infos;
 
     //int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
     int fd = accept(sockfd, (struct sockaddr*)&address, &len);
     if ( fd < 0)
         return;
-    std::cout << fd << "accept user" << std::endl;
     //char *username = getenv("LOGNAME");
     //std:: cout << username << std::endl;
     User newuser(fd, address);
@@ -150,6 +148,7 @@ void Server::accept_new_user()
     fds.push_back(pollfd());
     fds.back().fd = fd;
     fds.back().events = POLLIN;
+
 
     //do_handshake(fd, newuser);
 
@@ -196,8 +195,6 @@ User Server::get_user_by_fd(int user_fd)
     {
         if((*it).first == user_fd) 
         {    
-            std::cout << (*it).first << "break first" << std::endl;
-            std::cout << (*it).second.fd << "break second" << std::endl;
             break;
         }
     }

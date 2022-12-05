@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:58:37 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/05 18:34:05 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/05 23:24:20 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,28 +48,45 @@ User &User::operator=(const User &lhs)
     return (*this);
 }
 
-void User::receive(Server *server)
+void User::receive()
 {
-    (void)(server);
-    std::string end = END;
     char buffer[BUFFER_SIZE + 1];
-    
-
     
     ssize_t response_size = recv(fd, buffer, BUFFER_SIZE, 0);
     if (response_size == -1)
         return;
-    std::cout << buffer << std::endl;
-    std::cout << response_size << std::endl;
+    //std::cout << buffer << std::endl;
+    //std::cout << response_size << std::endl;
     if (response_size == 0)
-    {
-        //end of socket stream or zero byte received
         return;
-    }
-
     buffer[response_size] = 0;
     user_buffer = user_buffer + buffer;
-    std::cout << user_buffer << std::endl;
+    //std::cout << user_buffer << std::endl;
+    split_buffer(user_buffer);
+    //exec_command();
+}
+
+void User::split_buffer(std::string str)
+{
+    std::string tofind = "\r\n";
+    int index = 0;
+    while ((index = str.find(tofind, index)) != (int)(std::string::npos)) 
+    {
+        std::string tmp;
+        for(int i = 0; i < index; i++)
+            tmp.push_back(str[i]);
+        tmp.append(tofind);
+        _messages.push_back(tmp);
+        tmp.clear();
+        index += tofind.length();
+        str.erase(0, index);
+        index = 0;
+        _numberCmd++;
+    }
+    return;
+    // std::vector<std::string>::iterator it;
+    // for (it = _messages.begin(); it != _messages.end(); it++)
+    //     std::cout << *it; 
 }
 
 /***********/
