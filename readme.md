@@ -67,6 +67,37 @@ The first parameter is always the target of the reply, typically a nick.
 :irc.example.org 332 borja #cmsc23300 :A channel for CMSC 23300 studen
 ````
 
+
+### functions to use:
+
+socket() create endpoint and return fd. 
+
+getsockopt() to get socket options you need to send the fd returned by socket() function
+
+getsockname() return 0 on success and -1 on error, return the current address to which the socket is bound.
+
+gethostbyname() return a struct type hostent and copy name into the h_name of the struct.
+
+getaddrinfo() returns struct addrinfo: 
+struct addrinfo {
+    int              ai_flags;
+    int              ai_family;
+    int              ai_socktype;
+    int              ai_protocol;
+    socklen_t        ai_addrlen;
+    struct sockaddr *ai_addr;
+    char            *ai_canonname;
+    struct addrinfo *ai_next;
+};
+freeaddrinfo -> to free.
+
+bind() assigns the address specified by addr to the socket referred to
+by the file descriptor sockfd
+
+fcntl() performs one of the operations described below on the
+open file descriptor fd.  The operation is determined by cmd.
+
+
 ### Connect to irssi
 
 ````

@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:12 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/02 23:50:45 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/05 15:46:43 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ Server::Server()
 {
     last_ping = time(0);
     heartbeat = time(0);
+    creation = time(0);
     std::cout << "Create new server" << std::endl;
 }
 
@@ -24,7 +25,6 @@ Server::~Server()
 {
     std::cout << "Server deleted" << std::endl;
 }
-
 
 //https://www.geeksforgeeks.org/socket-programming-cc/
 void Server::init()
@@ -58,7 +58,6 @@ void Server::init()
     address.sin_port = htons(PORT);
     //The htons() function converts the unsigned short integer 
     //hostshort from host byte order to network byte order.
-
 
     if (bind(sockfd, (struct sockaddr*)&address, sizeof(address)) < 0)
     {
@@ -121,6 +120,8 @@ void Server::execute()
             if((*it).revents == POLLIN)
             {
                 User user = get_user_by_fd((*it).fd);
+                std::cout << user.fd << " - user.fd" << std::endl;
+                std::cout << (*it).fd << "- (*it).fd" << std::endl;
                 user.receive(this);
             }
         }
@@ -138,10 +139,10 @@ void Server::accept_new_user()
     int fd = accept(sockfd, (struct sockaddr*)&address, &len);
     if ( fd < 0)
         return;
+    std::cout << fd << "accept user" << std::endl;
     //char *username = getenv("LOGNAME");
     //std:: cout << username << std::endl;
     User newuser(fd, address);
-    
     std::map<int, User>::iterator it;
     it = users.begin();
     users.insert(it, std::make_pair(fd, newuser));
@@ -150,30 +151,42 @@ void Server::accept_new_user()
     fds.back().fd = fd;
     fds.back().events = POLLIN;
 
-    std::cout << fds.back().events << std::endl;
-
-    //do_handshake(fd);
+    //do_handshake(fd, newuser);
 
 //     :dianita!diane@localhost 001 dianita :Welcome to the Internet Relay Network dianita!diane@localhost
 // <== :dianita!diane@localhost 002 dianita :Your host is localhost, running version 1.69
 // <== :dianita!diane@localhost 003 dianita :This server was created Fri Dec  2 19:54:52 2022
 }
 
-void Server::do_handshake(int fd)
+void Server::do_handshake(int fd, User user)
 {
-    std::string buffer = ": NICK :dianita\r\n";
-
+    std::string buffer = RPL_WELCOME(user);
     if (send(fd, buffer.c_str(), buffer.length(), 0) == -1)
-			std::cout << "error" << std::endl;
-    buffer = ":dianita!diane@localhost 001 dianita\r\n";
+        std::cout << "error" << std::endl;
 
+    buffer = RPL_YOURHOST(user);
     if (send(fd, buffer.c_str(), buffer.length(), 0) == -1)
-			std::cout << "error" << std::endl;
-    buffer = ":dianita!diane@localhost 002 dianita\r\n";
+        std::cout << "error" << std::endl;
+        
+    buffer = RPL_CREATED(user, this->getCreationTime());
+    if (send(fd, buffer.c_str(), buffer.length(), 0) == -1)
+        std::cout << "error" << std::endl;
+        
+    // std::string buffer = ": NICK :" + user.getNickname() + "\r\n";
 
-    if (send(fd, buffer.c_str(), buffer.length(), 0) == -1)
-			std::cout << "error" << std::endl;
-    buffer = ":dianita!diane@localhost 003 dianita\r\n";
+    // if (send(fd, buffer.c_str(), buffer.length(), 0) == -1)
+	// 		std::cout << "error" << std::endl;
+    
+    //buffer = ":" + user.getUsername() + "!" + user.getUsername() + "@" + user.getHostname()
+    //buffer = ":diane!diane@localhost 001 diane\r\n";
+
+    // if (send(fd, buffer.c_str(), buffer.length(), 0) == -1)
+	// 		std::cout << "error" << std::endl;
+    // buffer = ":dianita!diane@localhost 002 dianita\r\n";
+
+    // if (send(fd, buffer.c_str(), buffer.length(), 0) == -1)
+	// 		std::cout << "error" << std::endl;
+    // buffer = ":dianita!diane@localhost 003 dianita\r\n";
 }
 
 User Server::get_user_by_fd(int user_fd)
@@ -181,8 +194,12 @@ User Server::get_user_by_fd(int user_fd)
     std::map<int, User>::iterator it;
     for (it = users.begin(); it != users.end(); it++)
     {
-        if((*it).first == user_fd)
+        if((*it).first == user_fd) 
+        {    
+            std::cout << (*it).first << "break first" << std::endl;
+            std::cout << (*it).second.fd << "break second" << std::endl;
             break;
+        }
     }
     return ((*it).second);
 }

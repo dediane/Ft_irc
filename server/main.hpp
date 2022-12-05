@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:03:02 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/02 16:00:51 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/05 14:41:51 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #define MAIN_HPP
 
 #define END "\r\n"
-#define BUFFER_SIZE 1024
+#define BUFFER_SIZE 4086
 #include <vector>
 #include <map>
 #include <iostream>
@@ -28,7 +28,17 @@
 #include <fcntl.h>
 #include <netinet/in.h>
 #include <poll.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <time.h>
+#include <netdb.h>
+#include <sstream>
+
 #include "channel/channel.hpp"
 #include "user/user.hpp"
+#include "reply.hpp"
+
+
+
 
 #endif

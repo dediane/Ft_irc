@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:45:40 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/03 00:05:15 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/05 15:48:46 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ class User
     friend class Server;
     public:
         User();
-        User(int fd, sockaddr_in address);
+        User(int newfd, sockaddr_in address);
         User(const User &lhs);
         ~User();
         User &operator=(const User &lhs);
@@ -33,13 +33,13 @@ class User
         void setHostAddr(std::string hostaddr);
         void setLastPing(time_t last_ping);
 
+        std::string getPrefix();
         std::string getNickname();
         std::string getUsername();
         std::string getRealname();
         std::string getHostname();
         std::string getHostAddr();
         time_t      getLastPing();
-        
 
         bool isRegistered();
         bool isOnline();
@@ -47,7 +47,6 @@ class User
         bool isPassword();
 
         void receive(Server *server);
-
 
 
     private:
@@ -59,9 +58,7 @@ class User
         std::string     _realname;
         std::string     _hostname;
         std::string     _hostaddr;
-        std::string     _mode;
- 
-        
+        std::string     _mode;    
         
         bool _registered;
         bool _online;

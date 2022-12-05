@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:20 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/02 21:58:22 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/05 13:55:13 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
             
             time_t last_ping;
             time_t heartbeat;
+            time_t creation;
             
             int _port;
             int sockfd;
@@ -48,8 +49,16 @@
             void init();
             void execute();
             void accept_new_user();
-            void do_handshake(int fd );
+            void do_handshake(int fd, User user);
             User get_user_by_fd(int user_fd);
+
+            std::string getCreationTime()
+            {
+                std::stringstream t;
+                t << creation;
+                std::string ts = t.str();
+                return ts;
+            };
     };
 
 #endif
