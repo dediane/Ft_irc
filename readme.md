@@ -97,7 +97,7 @@ by the file descriptor sockfd
 fcntl() performs one of the operations described below on the
 open file descriptor fd.  The operation is determined by cmd.
 
-##User registration
+## User registration
 
 https://modern.ircdocs.horse/#connection-registration
 
