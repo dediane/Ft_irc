@@ -97,6 +97,13 @@ by the file descriptor sockfd
 fcntl() performs one of the operations described below on the
 open file descriptor fd.  The operation is determined by cmd.
 
+## User registration
+
+https://modern.ircdocs.horse/#connection-registration
+
+When user connect for the first time, client will send commands: PASS, NICK and USER. We need to split the received buffer and parse it to make first registration. We need to make sure the Nickname is available and the password correct. Then we can set up our user as registered and reply to the client with: RPL_WELCOME, RPL_YOURHOST, RPL_CREATED, RPL_MYINFO.
+
+
 
 ### Connect to irssi
 
