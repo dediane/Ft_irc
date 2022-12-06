@@ -6,17 +6,18 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:45:40 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/06 17:17:04 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/07 00:16:13 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef User_HPP
 #define User_HPP
 
-#include "server.hpp"
+#include "main.hpp"
 
 class Server;
 class Message;
+class Command;
 class User
 {
     friend class Server;
@@ -72,7 +73,9 @@ class User
         std::string user_buffer;
         std::vector<std::string> _messages;
         std::vector<std::string> _commands;
-        Message *_message;
+        //void *(exec_command)(User user, std::string str);
+        //Message *_message;
+        Command *_cmd;
         int _numberCmd;
 
 };

@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:58:37 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/06 17:22:23 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/07 00:20:28 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 User::User()
 {
-    _commands.push_back("PASS");
-    _commands.push_back("NICK");
-    _commands.push_back("USER");
+    
 }
 
 User::User(int newfd, sockaddr_in address)
@@ -28,11 +26,7 @@ User::User(int newfd, sockaddr_in address)
     if (getnameinfo((sockaddr *)&address, sizeof(address), buffer, NI_MAXHOST, NULL, 0, NI_NUMERICSERV) == -1)
         std::cout << "error getnameinfo" << std::endl;
     _hostname = buffer;
-    _commands.push_back("PASS");
-    _commands.push_back("NICK");
-    _commands.push_back("USER");
-   
-
+    _cmd = new Command();
 }
 
 User::User(const User &lhs)
@@ -41,6 +35,7 @@ User::User(const User &lhs)
     this->_nickname = lhs._nickname;
     this->_hostname = lhs._hostname;
     this->_commands = lhs._commands;
+    this->_cmd = lhs._cmd;
 }
 
 User::~User()
@@ -114,12 +109,15 @@ void User::parse_commands(std::string str)
         if (it == commands.begin())
         {
             std::vector<std::string>::iterator it2;
-            for (it2 = _commands.begin(); it2 != _commands.end(); it2++)
+            for (it2 = _cmd->_commandlist.begin(); it2 != _cmd->_commandlist.end(); it2++)
             {
                 if (*it == *it2)
-                std::cout << "command = " << *it2 << std::endl;
+                {
+                    std::cout << "command = " << *it2 << std::endl;
+                    //execute_cmd(*it)(commands, *(this));
+                    
+                }
             }
-            
         }
         else
             std::cout << *it << std::endl; 

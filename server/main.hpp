@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:03:02 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/05 14:41:51 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/06 23:58:35 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 #include "channel/channel.hpp"
 #include "user/user.hpp"
 #include "reply.hpp"
+#include "command/command.hpp"
 
 
 

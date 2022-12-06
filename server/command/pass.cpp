@@ -6,11 +6,13 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 15:58:09 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/06 16:05:12 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/06 23:37:02 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "main.hpp"
+
 void PASS()
 {
-    if ()
+    std::cout << "I am pass function" << std::endl;
 }

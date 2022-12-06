@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:15:15 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/11/23 15:16:05 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/06 23:36:07 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,3 +21,4 @@
 // example:  /join #irchelp trout
 
 // This will make you join the #irchelp channel using "trout" as the password.
+

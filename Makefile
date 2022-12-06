@@ -6,7 +6,7 @@
 #    By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/24 13:01:02 by ddecourt          #+#    #+#              #
-#    Updated: 2022/12/06 15:54:23 by ddecourt         ###   ########.fr        #
+#    Updated: 2022/12/07 00:08:43 by ddecourt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,8 @@ SRCS =	server/main.cpp \
 		server/channel/channel.cpp \
 		server/user/user.cpp \
 		server/reply.cpp \
+		server/command/pass.cpp \
+		server/command/command.cpp \
 
 
 CC	=	c++

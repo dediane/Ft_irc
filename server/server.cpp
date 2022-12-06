@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:12 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/06 17:12:22 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/06 23:58:11 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ Server::~Server()
 //https://www.geeksforgeeks.org/socket-programming-cc/
 void Server::init()
 {
+    Command commands();
     int opt = 1;
     int PORT = 1050;
 
@@ -151,10 +152,6 @@ void Server::accept_new_user()
 
 
     //do_handshake(fd, newuser);
-
-//     :dianita!diane@localhost 001 dianita :Welcome to the Internet Relay Network dianita!diane@localhost
-// <== :dianita!diane@localhost 002 dianita :Your host is localhost, running version 1.69
-// <== :dianita!diane@localhost 003 dianita :This server was created Fri Dec  2 19:54:52 2022
 }
 
 void Server::do_handshake(int fd, User user)

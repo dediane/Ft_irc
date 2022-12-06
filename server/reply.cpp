@@ -6,12 +6,13 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 13:15:20 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/06 15:52:17 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/07 00:13:17 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "main.hpp"
+#include "server.hpp"
 
 std::string RPL_WELCOME(User user)
 {
