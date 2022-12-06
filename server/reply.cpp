@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 13:15:20 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/05 14:34:59 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/06 15:52:17 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,29 @@ std::string RPL_CREATED(User user, std::string time)
 {
     std::string buffer = user.getPrefix() +  " 003 " + user.getNickname() + " :This server was created " + time + END;
     return buffer;
-} 
+}
+
+std::string RPL_MYINFO(User user)
+{
+    std::string buffer = user.getPrefix() + "004" + user.getNickname() + " :";
+    return buffer;
+}
+
+
+
+std::string reply(User user, Server server, int num)
+{
+    switch(num)
+    {
+        case 001:
+            return(RPL_WELCOME(user));
+        case 002:
+            return(RPL_YOURHOST(user));
+        case 003:
+            return(RPL_CREATED(user, server.getCreationTime()));
+        case 004:
+            return(RPL_MYINFO(user));
+        default:
+            return NULL;
+    }
+}

@@ -1,35 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   message.hpp                                        :+:      :+:    :+:   */
+/*   command.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/24 13:02:39 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/06 13:49:22 by ddecourt         ###   ########.fr       */
+/*   Created: 2022/12/06 15:03:22 by ddecourt          #+#    #+#             */
+/*   Updated: 2022/12/06 17:07:33 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MESSAGE_HPP
-#define MESSAGE_HPP
+#include "command.hpp"
 
-#include "main.hpp"
-
-class Message
+Command::Command()
 {
-    class Server;
-    class User;
-    public:
-        Message();
-        Message(Message &lhs);
-        ~Message();
-    private:
-       User *_user;
-       Server *_server;
+    
+    return;
+}
 
-       bool cmd;
-       std::string command;
-       std::vector<std::string> message;
-};
-
-#endif
+Command::~Command()
+{
+    return;
+}

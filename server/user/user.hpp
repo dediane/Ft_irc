@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:45:40 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/05 23:22:27 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/06 17:17:04 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "server.hpp"
 
 class Server;
+class Message;
 class User
 {
     friend class Server;
@@ -49,6 +50,7 @@ class User
         void receive();
         void split_buffer(std::string str);
         void exec_command();
+        void parse_commands(std::string str);
 
 
     private:
@@ -69,6 +71,8 @@ class User
 
         std::string user_buffer;
         std::vector<std::string> _messages;
+        std::vector<std::string> _commands;
+        Message *_message;
         int _numberCmd;
 
 };

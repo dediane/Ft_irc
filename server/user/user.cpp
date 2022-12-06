@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:58:37 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/05 23:24:20 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/06 17:22:23 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 User::User()
 {
+    _commands.push_back("PASS");
+    _commands.push_back("NICK");
+    _commands.push_back("USER");
 }
 
 User::User(int newfd, sockaddr_in address)
@@ -25,6 +28,11 @@ User::User(int newfd, sockaddr_in address)
     if (getnameinfo((sockaddr *)&address, sizeof(address), buffer, NI_MAXHOST, NULL, 0, NI_NUMERICSERV) == -1)
         std::cout << "error getnameinfo" << std::endl;
     _hostname = buffer;
+    _commands.push_back("PASS");
+    _commands.push_back("NICK");
+    _commands.push_back("USER");
+   
+
 }
 
 User::User(const User &lhs)
@@ -32,7 +40,7 @@ User::User(const User &lhs)
     this->fd = lhs.fd;
     this->_nickname = lhs._nickname;
     this->_hostname = lhs._hostname;
-
+    this->_commands = lhs._commands;
 }
 
 User::~User()
@@ -63,7 +71,9 @@ void User::receive()
     user_buffer = user_buffer + buffer;
     //std::cout << user_buffer << std::endl;
     split_buffer(user_buffer);
-    //exec_command();
+    std::vector<std::string>::iterator it;
+    for (it = _messages.begin(); it != _messages.end(); it++)
+        parse_commands(*it);
 }
 
 void User::split_buffer(std::string str)
@@ -75,7 +85,6 @@ void User::split_buffer(std::string str)
         std::string tmp;
         for(int i = 0; i < index; i++)
             tmp.push_back(str[i]);
-        tmp.append(tofind);
         _messages.push_back(tmp);
         tmp.clear();
         index += tofind.length();
@@ -83,12 +92,39 @@ void User::split_buffer(std::string str)
         index = 0;
         _numberCmd++;
     }
-    return;
-    // std::vector<std::string>::iterator it;
+    std::vector<std::string>::iterator it;
     // for (it = _messages.begin(); it != _messages.end(); it++)
     //     std::cout << *it; 
+    return;
 }
 
+void User::parse_commands(std::string str)
+{
+    int index = 0;
+    std::vector<std::string> commands;
+    while((index = str.find(" ", index)) != (int)std::string::npos)
+    {
+        commands.push_back(str.substr(0, index));
+        str.erase(0, index + 1);
+    }
+    commands.push_back(str);
+    std::vector<std::string>::iterator it;
+    for (it = commands.begin(); it != commands.end(); it++)
+    {
+        if (it == commands.begin())
+        {
+            std::vector<std::string>::iterator it2;
+            for (it2 = _commands.begin(); it2 != _commands.end(); it2++)
+            {
+                if (*it == *it2)
+                std::cout << "command = " << *it2 << std::endl;
+            }
+            
+        }
+        else
+            std::cout << *it << std::endl; 
+    }
+}
 /***********/
 /*Accessors*/
 /***********/
