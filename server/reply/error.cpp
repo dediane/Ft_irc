@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:55:26 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/11/29 15:31:03 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/08 18:19:34 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,11 @@ std::string ERR_NEEDMOREPARAMS(std::string command) {return(command + " :Not eno
 std::string ERR_ALREADYREGISTRED() {return(" :You may not reregister\r\n");}
 
 //463
+std::string ERR_NOPERMFORHOST() {return(" :Your host isn't among the privileged\r\n");}
 //464
+std::string ERR_PASSWDMISMATCH() {return(" :Password incorrect\r\n");}
 //465
+std::string ERR_YOUREBANNEDCREEP() {return(" :You are banned from this server\r\n");}
 //467
 //471
 //472
@@ -82,11 +85,3 @@ std::string ERR_ALREADYREGISTRED() {return(" :You may not reregister\r\n");}
 //491
 //501
 //502
-std::string ERR_TOOMANYTARGETS(std::string target) {return(target + " Duplicate recipients. No message delivered\r\n");}
-std::string ERR_TOOMANYTARGETS(std::string target) {return(target + " Duplicate recipients. No message delivered\r\n");}
-std::string ERR_TOOMANYTARGETS(std::string target) {return(target + " Duplicate recipients. No message delivered\r\n");}
-std::string ERR_TOOMANYTARGETS(std::string target) {return(target + " Duplicate recipients. No message delivered\r\n");}
-std::string ERR_TOOMANYTARGETS(std::string target) {return(target + " Duplicate recipients. No message delivered\r\n");}
-std::string ERR_TOOMANYTARGETS(std::string target) {return(target + " Duplicate recipients. No message delivered\r\n");}
-std::string ERR_TOOMANYTARGETS(std::string target) {return(target + " Duplicate recipients. No message delivered\r\n");}
-std::string ERR_TOOMANYTARGETS(std::string target) {return(target + " Duplicate recipients. No message delivered\r\n");}

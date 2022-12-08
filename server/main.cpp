@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:03:05 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/11/30 22:02:06 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/08 18:46:02 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include <csignal>
 #include "server.hpp"
 
-#define PASSWORD "123pass"
 bool stop = false;
 
 void handler(int sig)

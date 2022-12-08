@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:58:37 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/08 18:11:45 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/08 19:20:53 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,10 @@ void User::setRealname(std::string realname) {_realname = realname; return;}
 void User::setHostname(std::string hostname) {_hostname = hostname; return;}
 void User::setHostAddr(std::string hostaddr) {_hostaddr = hostaddr; return;}
 void User::setLastPing(time_t last_ping) {_last_ping = last_ping; return;}
+void User::setisRegistered(bool status) {_registered = status; return;};
+void User::setisOnline(bool status) {_online = status; return;};
+void User::setisDeleted(bool status) {_deleted = status; return;};
+void User::setisPassword(bool status) {_password = status; return;};
 
 std::string User::getNickname() {return (_nickname);}
 std::string User::getUsername() {return (_username);}
@@ -141,6 +145,7 @@ std::string User::getRealname() {return (_realname);}
 std::string User::getHostname() {return (_hostname);}
 std::string User::getHostAddr() {return (_hostaddr);}
 std::string User::getPrefix() {return (":" + _nickname + "!" + _username + "@" + _hostname);}
+int User::getFd() {return (fd);}
 
 bool User::isRegistered() {return (_registered);}
 bool User::isOnline() {return (_online);}

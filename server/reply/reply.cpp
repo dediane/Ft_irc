@@ -6,10 +6,9 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 13:15:20 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/07 00:13:17 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/08 18:29:06 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "main.hpp"
 #include "server.hpp"
@@ -39,7 +38,11 @@ std::string RPL_MYINFO(User user)
     return buffer;
 }
 
-
+void send_reply(int fd, std::string rpl)
+{
+    if (send(fd, rpl.c_str(), rpl.length(), 0) == -1)
+    std::cout << "error" << std::endl;
+}
 
 std::string reply(User user, Server server, int num)
 {
