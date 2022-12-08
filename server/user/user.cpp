@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:58:37 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/07 00:20:28 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/08 18:11:45 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ void User::parse_commands(std::string str)
     }
     commands.push_back(str);
     std::vector<std::string>::iterator it;
+    index = 0;
     for (it = commands.begin(); it != commands.end(); it++)
     {
         if (it == commands.begin())
@@ -114,9 +115,9 @@ void User::parse_commands(std::string str)
                 if (*it == *it2)
                 {
                     std::cout << "command = " << *it2 << std::endl;
-                    //execute_cmd(*it)(commands, *(this));
-                    
+                    _cmd->execute(*it, *this, commands, index);  
                 }
+                index++;
             }
         }
         else
