@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 15:03:16 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/08 20:17:31 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/08 20:34:00 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ class Command
         void user(User user, std::vector<std::string> message);
 
     private:
+        //User *user;
+        //Server *server;
 };
 
 typedef void (Command::*command_ptr)(User user, std::vector<std::string> message);

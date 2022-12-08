@@ -1,14 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   kick.cpp                                           :+:      :+:    :+:   */
+/*   quit.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/23 15:16:10 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/11/23 15:16:39 by ddecourt         ###   ########.fr       */
+/*   Created: 2022/12/08 20:36:21 by ddecourt          #+#    #+#             */
+/*   Updated: 2022/12/08 20:36:25 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// COMMANDE: /kick #channel nickname
-// Kicks a nickname off a channel that you are on.
+// /quit [message]
+//Disconnects from current server with optional leaving message.
