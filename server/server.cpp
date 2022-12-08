@@ -6,12 +6,11 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:12 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/06 23:58:11 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/08 20:15:48 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "server.hpp"
-#include "user/user.hpp"
+#include "main.hpp"
 
 Server::Server()
 {
@@ -29,7 +28,6 @@ Server::~Server()
 //https://www.geeksforgeeks.org/socket-programming-cc/
 void Server::init()
 {
-    Command commands();
     int opt = 1;
     int PORT = 1050;
 
