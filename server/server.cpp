@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:12 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/08 20:15:48 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/08 23:16:59 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,7 @@ void Server::execute()
         //for
             //if(this->fds[it].revents == POLLIN)
             //    receive (UDF)
-        std::vector<pollfd>::iterator it;
-        for (it = fds.begin() ; it != fds.end(); it++)
-        {
-            if((*it).revents == POLLIN)
+        std::vector<pollfd>::iterator it; 
             {
                 User user = get_user_by_fd((*it).fd);
                 user.receive();
@@ -131,14 +128,12 @@ void Server::accept_new_user()
     //std::cout << "need to accept a user in the channel" << std::endl;
     sockaddr_in address;
     socklen_t len = sizeof(address);
-    std::string infos;
+    //std::string infos;
 
     //int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
     int fd = accept(sockfd, (struct sockaddr*)&address, &len);
     if ( fd < 0)
         return;
-    //char *username = getenv("LOGNAME");
-    //std:: cout << username << std::endl;
     User newuser(fd, address);
     std::map<int, User>::iterator it;
     it = users.begin();
@@ -147,41 +142,25 @@ void Server::accept_new_user()
     fds.push_back(pollfd());
     fds.back().fd = fd;
     fds.back().events = POLLIN;
-
-
-    //do_handshake(fd, newuser);
 }
 
-void Server::do_handshake(int fd, User user)
-{
-    std::string buffer = RPL_WELCOME(user);
-    if (send(fd, buffer.c_str(), buffer.length(), 0) == -1)
-        std::cout << "error" << std::endl;
+// void Server::do_handshake(int fd, User user)
+// {
+//     if (user.isRegistered())
+//     {
+//         std::string buffer = RPL_WELCOME(user);
+//         if (send(fd, buffer.c_str(), buffer.length(), 0) == -1)
+//             std::cout << "error" << std::endl;
 
-    buffer = RPL_YOURHOST(user);
-    if (send(fd, buffer.c_str(), buffer.length(), 0) == -1)
-        std::cout << "error" << std::endl;
-        
-    buffer = RPL_CREATED(user, this->getCreationTime());
-    if (send(fd, buffer.c_str(), buffer.length(), 0) == -1)
-        std::cout << "error" << std::endl;
-        
-    // std::string buffer = ": NICK :" + user.getNickname() + "\r\n";
-
-    // if (send(fd, buffer.c_str(), buffer.length(), 0) == -1)
-	// 		std::cout << "error" << std::endl;
-    
-    //buffer = ":" + user.getUsername() + "!" + user.getUsername() + "@" + user.getHostname()
-    //buffer = ":diane!diane@localhost 001 diane\r\n";
-
-    // if (send(fd, buffer.c_str(), buffer.length(), 0) == -1)
-	// 		std::cout << "error" << std::endl;
-    // buffer = ":dianita!diane@localhost 002 dianita\r\n";
-
-    // if (send(fd, buffer.c_str(), buffer.length(), 0) == -1)
-	// 		std::cout << "error" << std::endl;
-    // buffer = ":dianita!diane@localhost 003 dianita\r\n";
-}
+//         buffer = RPL_YOURHOST(user);
+//         if (send(fd, buffer.c_str(), buffer.length(), 0) == -1)
+//             std::cout << "error" << std::endl;
+            
+//         buffer = RPL_CREATED(user, this->getCreationTime());
+//         if (send(fd, buffer.c_str(), buffer.length(), 0) == -1)
+//             std::cout << "error" << std::endl;
+//     }
+// }
 
 User Server::get_user_by_fd(int user_fd)
 {
