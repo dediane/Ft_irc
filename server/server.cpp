@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:12 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/09 11:43:09 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/09 13:34:31 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,9 @@ void Server::execute()
             if((*it).revents == POLLIN)
             {
                 User user = get_user_by_fd((*it).fd);
-                user.receive();
+                Message message(&user, this);
+                message.receive_msg();
+                //user.receive();
             }
         }
         //std::cout << "need to find back the users of POLLIN" << std::endl;

@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 15:58:06 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/09 12:38:19 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/09 13:57:50 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@
 // +v
 // User has voice on the current channel (prefix +).
 
-void Command::user(User *user, std::vector<std::string> message)
+void Command::user(Message *msg, std::vector<std::string> message)
 {
-    // (void)user;
+    User *user = msg->getuser();
     // (void)message;
     // std::cout << "I am user function" << std::endl;
     if (message.size() != 5)

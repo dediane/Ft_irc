@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:45:40 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/09 12:25:51 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/09 13:42:40 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ class User
         void parse_commands(std::string str);
 
 
+        Command *_cmd;
     private:
         int             fd;
         time_t          _last_ping;
@@ -81,8 +82,7 @@ class User
         std::vector<std::string> _messages;
         //std::vector<std::string> _commands;
         //void *(exec_command)(User user, std::string str);
-        //Message *_message;
-        Command *_cmd;
+        Message *_message;
         int _numberCmd;
 
 };

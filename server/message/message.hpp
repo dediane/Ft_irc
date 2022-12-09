@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:02:39 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/09 12:54:57 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/09 13:50:03 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,23 @@ class Message
     friend class User;
     public:
         Message();
+        Message(User *user, Server *server);
         Message(Message &lhs);
         ~Message();
+
+        void receive_msg();
+        void split_buffer(std::string str);
+        void parse_commands(std::string str);
+        User    *getuser();
+        Server  *getserver();
     private:
        User *_user;
        Server *_server;
 
-       bool cmd;
-       std::string command;
-       std::vector<std::string> _messages;
+        std::string msg_buffer;
+        bool cmd;
+        std::string command;
+        std::vector<std::string> _messages;
 };
 
 #endif
