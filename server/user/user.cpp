@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:58:37 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/09 15:55:41 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/09 16:50:40 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,16 @@ User &User::operator=(const User &lhs)
     return (*this);
 }
 
-void User::do_handshake()
-{
-    send_reply(fd, RPL_WELCOME(*this));
-    send_reply(fd, RPL_YOURHOST(*this));
-            
-        // buffer = RPL_CREATED(user, this->getCreationTime());
-        // if (send(fd, buffer.c_str(), buffer.length(), 0) == -1)
-        //     std::cout << "error" << std::endl;
-    //}
-}
+// void User::do_handshake()
+// {
+//     send_reply(fd, RPL_WELCOME(*this));
+//     send_reply(fd, RPL_YOURHOST(*this));
+//     send_reply(fd, RPL_CREATED(*this));
+//         // buffer = RPL_CREATED(user, this->getCreationTime());
+//         // if (send(fd, buffer.c_str(), buffer.length(), 0) == -1)
+//         //     std::cout << "error" << std::endl;
+//     //}
+// }
 
 // void User::receive()
 // {

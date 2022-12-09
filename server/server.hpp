@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:20 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/09 14:17:31 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/09 16:54:53 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,7 @@
             User get_user_by_fd(int user_fd);
             std::vector<std::string> get_all_nicknames();
 
-            std::string getCreationTime()
-            {
-                std::stringstream t;
-                t << creation;
-                std::string ts = t.str();
-                return ts;
-            };
+            std::string getCreationTime();
     };
 
 #endif

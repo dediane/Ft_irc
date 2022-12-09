@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:12 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/09 16:32:34 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/09 17:02:48 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,3 +188,10 @@ User Server::get_user_by_fd(int user_fd)
     }
     return ((*it).second);
 }
+
+std::string Server::getCreationTime()
+{
+    std::string ts = ctime(&creation);
+    std::cout << ts << std::endl;
+    return ts;
+};

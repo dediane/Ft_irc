@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 15:58:06 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/09 16:35:43 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/09 17:00:56 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ void Command::user(Message *msg, std::vector<std::string> message)
     if (!user->isRegistered())
     {
         user->setisRegistered(true);
-        user->do_handshake();
+        msg->do_handshake();
     }
 }

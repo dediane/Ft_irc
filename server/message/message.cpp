@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:02:31 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/09 16:11:43 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/09 17:04:02 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,4 +114,14 @@ void Message::parse_commands(std::string str)
         else
             std::cout << *it << std::endl; 
     }
+}
+
+
+void Message::do_handshake()
+{
+    User *usr = getuser();
+    Server *server = getserver();
+    send_reply(usr->getFd(), RPL_WELCOME(*usr));
+    send_reply(usr->getFd(), RPL_YOURHOST(*usr));
+    send_reply(usr->getFd(), RPL_CREATED(*usr, server->getCreationTime()));
 }
