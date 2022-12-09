@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:12 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/09 13:34:31 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/09 16:32:34 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,15 @@ void Server::accept_new_user()
     fds.push_back(pollfd());
     fds.back().fd = fd;
     fds.back().events = POLLIN;
+}
+
+std::vector<std::string> Server::get_all_nicknames()
+{
+    std::vector<std::string> ret;
+    std::map<int, User>::iterator it;
+    for (it = users.begin(); it != users.end(); it++)
+        ret.push_back((*it).second.getNickname());
+    return ret;
 }
 
 // void Server::do_handshake(int fd, User user)

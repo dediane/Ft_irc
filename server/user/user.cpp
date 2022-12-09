@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:58:37 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/09 14:01:44 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/09 15:55:41 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ User::User(const User &lhs)
     this->fd = lhs.fd;
     this->_nickname = lhs._nickname;
     this->_hostname = lhs._hostname;
+    this->_username = lhs._username;
     //this->_commands = lhs._commands;
     this->_cmd = lhs._cmd;
 }
@@ -48,9 +49,21 @@ User &User::operator=(const User &lhs)
     this->fd = lhs.fd;
     this->_nickname = lhs._nickname;
     this->_hostname = lhs._hostname;
+    this->_username = lhs._username;
     //this->_commands = lhs._commands;
     this->_cmd = lhs._cmd;
     return (*this);
+}
+
+void User::do_handshake()
+{
+    send_reply(fd, RPL_WELCOME(*this));
+    send_reply(fd, RPL_YOURHOST(*this));
+            
+        // buffer = RPL_CREATED(user, this->getCreationTime());
+        // if (send(fd, buffer.c_str(), buffer.length(), 0) == -1)
+        //     std::cout << "error" << std::endl;
+    //}
 }
 
 // void User::receive()
@@ -135,16 +148,7 @@ User &User::operator=(const User &lhs)
 //     }
 // }
 
-void User::do_handshake()
-{
-    send_reply(fd, RPL_WELCOME(*this));
-    send_reply(fd, RPL_YOURHOST(*this));
-            
-        // buffer = RPL_CREATED(user, this->getCreationTime());
-        // if (send(fd, buffer.c_str(), buffer.length(), 0) == -1)
-        //     std::cout << "error" << std::endl;
-    //}
-}
+
 
 /***********/
 /*Accessors*/

@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:16:46 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/09 13:55:46 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/09 16:30:32 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void Command::nick(Message *msg, std::vector<std::string> message)
 {
     User *usr = msg->getuser();
     Server *server = msg->getserver();
+    std::vector<std::string> nicknames = server->get_all_nicknames();
     (void) server;
     (void)message;
     if (message.size() == 1)
@@ -23,5 +24,12 @@ void Command::nick(Message *msg, std::vector<std::string> message)
     std::string nickname = message[1];
     if (nickname.length() > 9)
         return(send_reply(usr->getFd(), ERR_ERRONEUSNICKNAME(nickname)));
+    std::vector<std::string>::iterator it;
+    for (it = nicknames.begin(); it != nicknames.end(); it++)
+    {
+        if ((*it) == nickname)
+            return(send_reply(usr->getFd(), ERR_NICKNAMEINUSE(nickname)));
+    }
     usr->setNickname(nickname);
+    //send_reply(usr->getFd(), "NICK: " + usr->getNickname());
 } 

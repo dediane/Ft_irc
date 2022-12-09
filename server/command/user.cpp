@@ -6,24 +6,11 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 15:58:06 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/09 13:57:50 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/09 16:35:43 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.hpp"
-
-
-//User modes
-// +q
-// User is owner of the current channel (prefix ~ on UnrealIRCd, usually @ elsewhere)
-// +a
-// User is an admin (SOP) on the current channel (prefix & on UnrealIRCd, usually @ elsewhere).
-// +o
-// User is an operator (AOP) on the current channel (prefix @).
-// +h
-// User is a half-op on the current channel (prefix %).
-// +v
-// User has voice on the current channel (prefix +).
 
 void Command::user(Message *msg, std::vector<std::string> message)
 {
@@ -35,5 +22,9 @@ void Command::user(Message *msg, std::vector<std::string> message)
     user->setUsername(message[1]);
     user->setHostname(message[3]);
     user->setRealname(message[4]);
-    user->setisRegistered(true);
+    if (!user->isRegistered())
+    {
+        user->setisRegistered(true);
+        user->do_handshake();
+    }
 }

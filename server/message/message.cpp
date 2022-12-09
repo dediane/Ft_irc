@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:02:31 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/09 13:52:57 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/09 16:11:43 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,14 +99,14 @@ void Message::parse_commands(std::string str)
                 {
                     //std::cout << "command = " << *it2 << std::endl;
                     _user->_cmd->execute(*it, this, commands, index);
-                    if (_user->isRegistered())
-                    {
-                        std::cout << "Nickname = " << _user->getNickname() << std::endl;
-                        std::cout << "Username = " << _user->getUsername() << std::endl;
-                        std::cout << "Realname = " << _user->getRealname() << std::endl;
-                        std::cout << "Hostname = " << _user->getHostname() << std::endl;
-                        _user->do_handshake();
-                    }
+                    // if (_user->isRegistered())
+                    // {
+                    //     std::cout << "Nickname = " << _user->getNickname() << std::endl;
+                    //     std::cout << "Username = " << _user->getUsername() << std::endl;
+                    //     std::cout << "Realname = " << _user->getRealname() << std::endl;
+                    //     std::cout << "Hostname = " << _user->getHostname() << std::endl;
+                        
+                    // }
                 }
                 index++;
             }
