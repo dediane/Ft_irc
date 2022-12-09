@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 15:03:22 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/08 20:17:02 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/09 12:39:30 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ Command::~Command()
     return;
 }
 
-void Command::execute(std::string cmd, User user, std::vector<std::string> message, int nb)
+void Command::execute(std::string cmd, User *user, std::vector<std::string> message, int nb)
 {
     (void)user;
     command_ptr commands[3] = {&Command::pass, &Command::nick, &Command::user};

@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 15:58:06 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/08 22:18:10 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/09 12:38:19 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,15 @@
 // +v
 // User has voice on the current channel (prefix +).
 
-void Command::user(User user, std::vector<std::string> message)
+void Command::user(User *user, std::vector<std::string> message)
 {
     // (void)user;
     // (void)message;
     // std::cout << "I am user function" << std::endl;
     if (message.size() != 5)
-        return(send_reply(user.getFd(), ERR_NEEDMOREPARAMS(message[0])));
-    user.setUsername(message[1]);
-    user.setHostname(message[2]);
-    user.setRealname(message[4]);
-    user.setisRegistered(true);
+        return(send_reply(user->getFd(), ERR_NEEDMOREPARAMS(message[0])));
+    user->setUsername(message[1]);
+    user->setHostname(message[3]);
+    user->setRealname(message[4]);
+    user->setisRegistered(true);
 }

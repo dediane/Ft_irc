@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:45:40 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/08 22:37:01 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/09 12:25:51 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ class User
 
         std::string user_buffer;
         std::vector<std::string> _messages;
-        std::vector<std::string> _commands;
+        //std::vector<std::string> _commands;
         //void *(exec_command)(User user, std::string str);
         //Message *_message;
         Command *_cmd;

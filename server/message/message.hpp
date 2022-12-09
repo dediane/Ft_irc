@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:02:39 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/06 13:49:22 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/09 12:54:57 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 
 class Message
 {
-    class Server;
-    class User;
+    friend class Server;
+    friend class User;
     public:
         Message();
         Message(Message &lhs);
@@ -29,7 +29,7 @@ class Message
 
        bool cmd;
        std::string command;
-       std::vector<std::string> message;
+       std::vector<std::string> _messages;
 };
 
 #endif

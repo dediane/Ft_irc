@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:12 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/08 23:16:59 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/09 11:43:09 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,9 @@ void Server::execute()
             //if(this->fds[it].revents == POLLIN)
             //    receive (UDF)
         std::vector<pollfd>::iterator it; 
+         for (it = fds.begin() ; it != fds.end(); it++)
+        {
+            if((*it).revents == POLLIN)
             {
                 User user = get_user_by_fd((*it).fd);
                 user.receive();
