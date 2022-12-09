@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:02:31 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/09 17:04:02 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/09 19:48:17 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,16 +87,17 @@ void Message::parse_commands(std::string str)
     }
     commands.push_back(str);
     std::vector<std::string>::iterator it;
-    index = 0;
     for (it = commands.begin(); it != commands.end(); it++)
     {
         if (it == commands.begin())
         {
+            index = 0;
             std::vector<std::string>::iterator it2;
             for (it2 = _user->_cmd->_commandlist.begin(); it2 != _user->_cmd->_commandlist.end(); it2++)
             {
                 if (*it == *it2)
                 {
+                    std::cout << index << std::endl;
                     //std::cout << "command = " << *it2 << std::endl;
                     _user->_cmd->execute(*it, this, commands, index);
                     // if (_user->isRegistered())
