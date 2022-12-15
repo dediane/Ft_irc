@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:12 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/15 17:54:41 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/15 23:53:43 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,15 +169,28 @@ User *Server::get_user_by_fd(int user_fd)
     {
         if((*it).first == user_fd) 
         {    
-            break;
+            return (&(it)->second);
         }
     }
-    return (&(it)->second);
+    return NULL;
+}
+
+User *Server::get_user_by_nickname(std::string nickname)
+{
+    std::map<int, User>::iterator it;
+    for (it = users.begin(); it != users.end(); it++)
+    {
+        if((*it).second.getNickname() == nickname)
+        {
+            return (&(it)->second);
+        }
+    }
+    return NULL;
 }
 
 std::string Server::getCreationTime()
 {
     std::string ts = ctime(&creation);
-    std::cout << ts << std::endl;
+    ts = ts.substr(0, ts.length() - 1);
     return ts;
 };

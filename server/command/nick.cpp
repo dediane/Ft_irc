@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:16:46 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/15 18:01:28 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/16 00:02:02 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ void Command::nick(Message *msg, std::vector<std::string> message)
     {
         // std::cout << "FD = " << usr->getFd() << std::endl;
         std::cout << "Je passe dans la commande NICK" << std::endl;
-        send_reply(usr->getFd(),":" + oldnick + "!" + usr->getUsername() + "@" + usr->getHostname() + " NICK :" + usr->getNickname());
+        send_reply(usr->getFd(),":" + oldnick + "!" + usr->getUsername() + "@" + usr->getHostname() + " NICK :" + usr->getNickname() + END);
     }
 } 

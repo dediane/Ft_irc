@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:58:37 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/15 17:51:41 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/15 22:42:14 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void User::setUsername(std::string username) {_username = username; return;}
 void User::setRealname(std::string realname) {_realname = realname; return;}
 void User::setHostname(std::string hostname) {_hostname = hostname; return;}
 void User::setHostAddr(std::string hostaddr) {_hostaddr = hostaddr; return;}
+void User::setMode(std::string mode) {_mode = mode; return;}
 void User::setLastPing(time_t last_ping) {_last_ping = last_ping; return;}
 void User::setisRegistered(bool status) {_registered = status; return;};
 void User::setisOnline(bool status) {_online = status; return;};
@@ -84,6 +85,7 @@ std::string User::getUsername() {return (_username);}
 std::string User::getRealname() {return (_realname);}
 std::string User::getHostname() {return (_hostname);}
 std::string User::getHostAddr() {return (_hostaddr);}
+std::string User::getMode() {return (_mode);}
 std::string User::getPrefix() {return (":" + _nickname + "!" + _username + "@" + _hostname);}
 int User::getFd() {return (fd);}
 

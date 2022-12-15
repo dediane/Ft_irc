@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 13:15:20 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/15 18:09:07 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/15 23:59:34 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,20 @@ std::string RPL_CREATED(User user, std::string time)
 
 std::string RPL_MYINFO(User user)
 {
-    std::string buffer = user.getPrefix() + "004" + user.getNickname() + " :";
+    std::string buffer = user.getPrefix() + "004" + user.getNickname() + " :" + END;
+    return buffer;
+}
+
+std::string RPL_UMODEIS(User user)
+{
+    std::cout << user.getMode() << std::endl;
+    std::string buffer = user.getPrefix() + " 221" + " +" + user.getMode() + END;
     return buffer;
 }
 
 void send_reply(int fd, std::string rpl)
-{
+{ 
+    std::cout << "SEND reply = " << rpl << std::endl;
     if (send(fd, rpl.c_str(), rpl.length(), 0) == -1)
         std::cout << "error" << std::endl;
 }

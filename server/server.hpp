@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:20 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/15 17:29:24 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/15 22:48:18 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@
             void accept_new_user();
             void do_handshake(int fd, User user);
             User *get_user_by_fd(int user_fd);
+            User *get_user_by_nickname(std::string nickname);
             std::vector<std::string> get_all_nicknames();
-
             std::string getCreationTime();
     };
 

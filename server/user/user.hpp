@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:45:40 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/09 17:00:15 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/15 22:40:59 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ class User
         void setRealname(std::string realname);
         void setHostname(std::string hostname);
         void setHostAddr(std::string hostaddr);
+        void setMode(std::string mode);
         void setLastPing(time_t last_ping);
         void setisRegistered(bool status);
         void setisOnline(bool status);
@@ -46,6 +47,7 @@ class User
         std::string getRealname();
         std::string getHostname();
         std::string getHostAddr();
+        std::string getMode();
         time_t      getLastPing();
         int         getFd();
 
