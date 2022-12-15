@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:02:39 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/09 16:51:48 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/15 17:03:43 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ class Message
         void do_handshake();
         User    *getuser();
         Server  *getserver();
+        void setuser(User *user);
     private:
        User *_user;
        Server *_server;

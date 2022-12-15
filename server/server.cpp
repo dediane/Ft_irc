@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:12 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/09 17:02:48 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/15 17:54:41 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ Server::~Server()
 void Server::init()
 {
     int opt = 1;
-    int PORT = 1050;
+    int PORT = 1054;
 
     if (( sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
     {
@@ -105,7 +105,10 @@ void Server::execute()
     // }
     
     if(this->fds[0].revents == POLLIN)
+    {
         accept_new_user();
+        std::cout << "New user accepted" << std::endl;   
+    }
     else
     {
         //How do I access each element?  
@@ -118,10 +121,10 @@ void Server::execute()
         {
             if((*it).revents == POLLIN)
             {
-                User user = get_user_by_fd((*it).fd);
-                Message message(&user, this);
-                message.receive_msg();
-                //user.receive();
+                User *user;
+                user = get_user_by_fd((*it).fd);
+                Message message(user, this);
+                message.receive_msg();         
             }
         }
         //std::cout << "need to find back the users of POLLIN" << std::endl;
@@ -140,6 +143,7 @@ void Server::accept_new_user()
     if ( fd < 0)
         return;
     User newuser(fd, address);
+    std::cout << "new user -> is register = " << newuser.isRegistered() << std::endl; 
     std::map<int, User>::iterator it;
     it = users.begin();
     users.insert(it, std::make_pair(fd, newuser));
@@ -158,25 +162,7 @@ std::vector<std::string> Server::get_all_nicknames()
     return ret;
 }
 
-// void Server::do_handshake(int fd, User user)
-// {
-//     if (user.isRegistered())
-//     {
-//         std::string buffer = RPL_WELCOME(user);
-//         if (send(fd, buffer.c_str(), buffer.length(), 0) == -1)
-//             std::cout << "error" << std::endl;
-
-//         buffer = RPL_YOURHOST(user);
-//         if (send(fd, buffer.c_str(), buffer.length(), 0) == -1)
-//             std::cout << "error" << std::endl;
-            
-//         buffer = RPL_CREATED(user, this->getCreationTime());
-//         if (send(fd, buffer.c_str(), buffer.length(), 0) == -1)
-//             std::cout << "error" << std::endl;
-//     }
-// }
-
-User Server::get_user_by_fd(int user_fd)
+User *Server::get_user_by_fd(int user_fd)
 {
     std::map<int, User>::iterator it;
     for (it = users.begin(); it != users.end(); it++)
@@ -186,7 +172,7 @@ User Server::get_user_by_fd(int user_fd)
             break;
         }
     }
-    return ((*it).second);
+    return (&(it)->second);
 }
 
 std::string Server::getCreationTime()

@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:16:46 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/09 16:30:32 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/15 18:01:28 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void Command::nick(Message *msg, std::vector<std::string> message)
 {
     User *usr = msg->getuser();
     Server *server = msg->getserver();
+    std::string oldnick;
     std::vector<std::string> nicknames = server->get_all_nicknames();
     (void) server;
     (void)message;
@@ -30,6 +31,12 @@ void Command::nick(Message *msg, std::vector<std::string> message)
         if ((*it) == nickname)
             return(send_reply(usr->getFd(), ERR_NICKNAMEINUSE(nickname)));
     }
+    oldnick = usr->getNickname();
     usr->setNickname(nickname);
-    //send_reply(usr->getFd(), "NICK: " + usr->getNickname());
+    if (usr->isRegistered())
+    {
+        // std::cout << "FD = " << usr->getFd() << std::endl;
+        std::cout << "Je passe dans la commande NICK" << std::endl;
+        send_reply(usr->getFd(),":" + oldnick + "!" + usr->getUsername() + "@" + usr->getHostname() + " NICK :" + usr->getNickname());
+    }
 } 

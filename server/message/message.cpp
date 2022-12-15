@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:02:31 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/09 19:48:17 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/15 17:47:32 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,10 +102,10 @@ void Message::parse_commands(std::string str)
                     _user->_cmd->execute(*it, this, commands, index);
                     // if (_user->isRegistered())
                     // {
-                    //     std::cout << "Nickname = " << _user->getNickname() << std::endl;
-                    //     std::cout << "Username = " << _user->getUsername() << std::endl;
-                    //     std::cout << "Realname = " << _user->getRealname() << std::endl;
-                    //     std::cout << "Hostname = " << _user->getHostname() << std::endl;
+                        std::cout << "[message.cpp] Nickname = " << _user->getNickname() << std::endl;
+                        std::cout << "[message.cpp] Username = " << _user->getUsername() << std::endl;
+                        std::cout << "[message.cpp] Realname = " << _user->getRealname() << std::endl;
+                        std::cout << "[message.cpp] Hostname = " << _user->getHostname() << std::endl;
                         
                     // }
                 }
@@ -125,4 +125,9 @@ void Message::do_handshake()
     send_reply(usr->getFd(), RPL_WELCOME(*usr));
     send_reply(usr->getFd(), RPL_YOURHOST(*usr));
     send_reply(usr->getFd(), RPL_CREATED(*usr, server->getCreationTime()));
+}
+
+void Message::setuser(User *user)
+{
+    _user = user;
 }

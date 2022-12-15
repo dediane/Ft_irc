@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 13:15:20 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/09 15:54:34 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/15 18:09:07 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,12 @@
 std::string RPL_WELCOME(User user)
 {
     std::string buffer = user.getPrefix() +  " 001 " + user.getNickname() + " :Welcome to the Internet Relay Network " + user.getNickname() + "!" + user.getUsername() + "@" + user.getHostname() + END;
-    std::cout << buffer << std::endl;
+    //std::cout << buffer << std::endl;
     return buffer;
 }
 
 std::string RPL_YOURHOST(User user)
 {   
-    std::cout << "H: " << user.getHostname() << std::endl;
     std::string buffer = user.getPrefix() +  " 002 " + user.getNickname() + " :Your host is " + user.getHostname() + ", running version 1.0" + END;
     return buffer;
 }
@@ -42,7 +41,7 @@ std::string RPL_MYINFO(User user)
 void send_reply(int fd, std::string rpl)
 {
     if (send(fd, rpl.c_str(), rpl.length(), 0) == -1)
-    std::cout << "error" << std::endl;
+        std::cout << "error" << std::endl;
 }
 
 std::string reply(User user, Server server, int num)

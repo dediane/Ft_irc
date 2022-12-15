@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 15:58:09 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/09 13:57:02 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/15 17:08:45 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,5 @@ void Command::pass(Message *msg, std::vector<std::string> message)
         return(send_reply(user->getFd(), ERR_PASSWDMISMATCH()));
     if (message[1] == PASSWORD)
         user->setisPassword(true);
+    std::cout << "Je passe dans la commande PASS" << std::endl;
 }
