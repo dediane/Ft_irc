@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:35:32 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/15 23:59:59 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/16 11:58:44 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,18 @@ void Command::mode_user(Message *msg, std::vector<std::string> message)
     if (message.size() == 0)
         return;
     User *user = msg->getuser();
-    std::string str = message[2];
-    std::cout << "message[2]" << str << std::endl;
+    std::string mode = message[2];
     //need to check if user is in the server. by doing something like:
     //Server *server = server;    
     if (user->getMode().empty())
     {
-        if (str.find("+") == 0)
+        if (mode.find("+") == 0)
         {
-            str = str.substr(1);
+            std::string str = "w";
+            str += mode.substr(1);
             user->setMode(str);
             std::cout << "user mode = " << user->getMode() << std::endl;
-            send_reply(user->getFd(),RPL_UMODEIS(*user));
+            send_reply(user->getFd(),RPL_UMODEIS(user));
         }
         else
         {

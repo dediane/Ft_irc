@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:15:15 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/06 23:36:07 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/16 12:25:09 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,3 +22,9 @@
 
 // This will make you join the #irchelp channel using "trout" as the password.
 
+#include "main.hpp"
+
+void Command::join(Message *msg, std::vector<std::string> message)
+{
+    
+}
