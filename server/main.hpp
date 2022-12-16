@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:03:02 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/09 13:18:13 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/16 17:29:13 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@
 #include <netdb.h>
 #include <sstream>
 
-#include "channel/channel.hpp"
 #include "server.hpp"
 #include "user/user.hpp"
+#include "channel/channel.hpp"
 #include "reply/reply.hpp"
 #include "command/command.hpp"
 #include "reply/error.hpp"

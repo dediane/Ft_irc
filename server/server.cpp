@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:12 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/15 23:53:43 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/16 18:59:44 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@ Server::Server()
     heartbeat = time(0);
     creation = time(0);
     std::cout << "Create new server" << std::endl;
+}
+
+Server::Server(Server &lhs)
+{
+    last_ping = lhs.last_ping;
+    heartbeat = lhs.heartbeat;
 }
 
 Server::~Server()
@@ -162,6 +168,21 @@ std::vector<std::string> Server::get_all_nicknames()
     return ret;
 }
 
+std::vector<Channel> *Server::get_all_channels()
+{
+    return (&channels);
+}
+
+std::vector<std::string> Server::get_all_channels_names()
+{
+    std::vector<std::string> ret;
+    std::vector<Channel>::iterator it;
+    for (it = channels.begin(); it != channels.end(); it++)
+        ret.push_back((*it).getName());
+    return ret;
+}
+
+
 User *Server::get_user_by_fd(int user_fd)
 {
     std::map<int, User>::iterator it;
@@ -186,6 +207,26 @@ User *Server::get_user_by_nickname(std::string nickname)
         }
     }
     return NULL;
+}
+
+Channel *Server::get_channel_by_name(std::string str)
+{
+    std::vector<Channel>::iterator it;
+    for (it = channels.begin(); it != channels.end(); it++)
+    {
+        if ((*it).getName() == str)
+        {
+            return (&(*it));
+        }
+    }
+    return NULL;
+}
+
+void Server::addChannel(Channel *channel)
+{
+    (void)channel;
+    //channels.insert(channels.end(),new Channel());
+    return;
 }
 
 std::string Server::getCreationTime()

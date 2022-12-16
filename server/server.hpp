@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:20 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/15 22:48:18 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/16 18:47:56 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,27 @@
     class Server
     {
         friend class User;
+        friend class Channel;
+
+        public:
+            Server();
+            Server(Server &lhs);
+            ~Server();
+        
+
+            void init();
+            void execute();
+            void accept_new_user();
+            void do_handshake(int fd, User user);
+            User *get_user_by_fd(int user_fd);
+            User *get_user_by_nickname(std::string nickname);
+            std::vector<std::string> get_all_nicknames();
+            std::vector<Channel> *get_all_channels();
+            std::vector<std::string> get_all_channels_names();
+            std::string getCreationTime();
+            Channel *get_channel_by_name(std::string str);
+            void addChannel(Channel *channel);
+            
         private:
             //We don't need it cause it is in <poll.h>
             // struct pollfd 
@@ -39,21 +60,6 @@
             std::vector<pollfd> fds;
             std::vector<Channel> channels; //contains all channels
             std::map<int, User> users; //contains all users as pair of: fd of the user and the user 
-
-        public:
-            Server();
-            Server(Server &lhs);
-            ~Server();
-        
-
-            void init();
-            void execute();
-            void accept_new_user();
-            void do_handshake(int fd, User user);
-            User *get_user_by_fd(int user_fd);
-            User *get_user_by_nickname(std::string nickname);
-            std::vector<std::string> get_all_nicknames();
-            std::string getCreationTime();
     };
 
 #endif
