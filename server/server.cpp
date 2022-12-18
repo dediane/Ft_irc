@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:12 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/16 18:59:44 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/18 21:45:31 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ Server::Server()
     std::cout << "Create new server" << std::endl;
 }
 
-Server::Server(Server &lhs)
+Server::Server(const Server &lhs)
 {
     last_ping = lhs.last_ping;
     heartbeat = lhs.heartbeat;
@@ -224,8 +224,8 @@ Channel *Server::get_channel_by_name(std::string str)
 
 void Server::addChannel(Channel *channel)
 {
-    (void)channel;
-    //channels.insert(channels.end(),new Channel());
+    //(void) channel;
+    channels.push_back(*channel);
     return;
 }
 

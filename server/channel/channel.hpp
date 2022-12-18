@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:46:55 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/16 18:41:00 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/18 22:02:10 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,11 @@ class Channel
     public:
         Channel();
         Channel(std::string name, User user);
-        Channel(Channel &lhs);
+        Channel(const Channel &lhs);
+        Channel(User user);
         ~Channel();
         
+         void broadcast(std::string rpl);
         //getter
         std::string getName();
         std::string getTopic();
@@ -37,6 +39,7 @@ class Channel
         void setTopic(std::string topic);         
         void setMode(std::string mode);
         void setKey(std::string key);
+
 
         //helper
         bool isUserinChannel(User user);

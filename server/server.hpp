@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:20 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/16 18:47:56 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/18 21:17:28 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
         public:
             Server();
-            Server(Server &lhs);
+            Server(const Server &lhs);
             ~Server();
         
 

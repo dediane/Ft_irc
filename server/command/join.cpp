@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:15:15 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/16 18:59:46 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/18 21:55:11 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void Command::join(Message *msg, std::vector<std::string> message)
     Server *server = msg->getserver();
     std::vector<std::string>::iterator it;
     Channel *channel;
-    Channel new_channel;
     int nb_of_channel;
     if (message.size() == 1)
     {
@@ -57,6 +56,12 @@ void Command::join(Message *msg, std::vector<std::string> message)
     std::cout << "JOIN 56: Je passe là" << std::endl;
     if (nb_of_channel == 1)
     {
+        std::vector<std::string> names = server->get_all_channels_names();
+        std::vector<std::string>::iterator it;
+        for (it = names.begin(); it != names.end(); it++)
+        {
+            std::cout << (*it) << std::endl;
+        }
         if ((channel = server->get_channel_by_name(message[1])) != NULL)
         {
             std::cout << "JOIN 60: Je ne passe bien pas là" << std::endl;
@@ -67,10 +72,22 @@ void Command::join(Message *msg, std::vector<std::string> message)
         {
             std::cout << "JOIN 67: Je passe là" << std::endl;
             std::string name = message[1];
+            Channel new_channel(*user);
             new_channel.setName(name);
-            new_channel.addUser(*user);
-            //std::cout << 
             server->addChannel(&new_channel);
+            send_reply(user->getFd(), RPL_NAMREPLY(user, &new_channel));
+            
+            
+            //std::cout << 
+
+            // ==> JOIN #toto
+            // <== :diane!diane@localhost 353 diane = #toto :@diane
+            // <== :diane!diane@localhost 366 diane #toto :End of /NAMES list
+            // <== :diane!diane@localhost JOIN :#toto
+            // ==> MODE #toto
+            // <== :diane!diane@localhost 324 diane #toto +n
+            // ==> WHO #toto
+            // <== :diane!diane@localhost 315 diane diane :End of /WHO list
         }
     }
 }

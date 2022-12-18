@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:55:27 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/16 18:38:57 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/18 22:01:45 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,13 @@ Channel::Channel(std::string name, User user)
     _users.push_back(user);
 }
 
-Channel::Channel(Channel &lhs)
+Channel::Channel(User user)
+{
+    _users.push_back(user);
+}
+
+
+Channel::Channel(const Channel &lhs)
 {
     _name = lhs._name;
     _topic = lhs._topic;
@@ -53,6 +59,16 @@ bool Channel::isUserinChannel(User user)
  {
     _users.push_back(user);
     return;
+ }
+
+ void Channel::broadcast(std::string rpl)
+ {
+    std::vector<User>::iterator it;
+    for (it = _users.begin(); it != _users.end(); it++)
+    {
+        if (send((*it).getFd(), rpl.c_str(), rpl.length(), 0) == -1)
+        std::cout << "error" << std::endl;
+    }
  }
 
 std::string Channel::getName() {return _name;}
