@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 15:03:16 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/18 21:17:23 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/20 00:15:45 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,13 @@ class Command
         void ping(Message *msg, std::vector<std::string> message);
         void pong(Message *msg, std::vector<std::string> message);
         void join(Message *msg, std::vector<std::string> message);
+        void quit(Message *msg, std::vector<std::string> message);
+        void whois(Message *msg, std::vector<std::string> message);
+        void privmsg(Message *msg, std::vector<std::string> message);
+        void list(Message *msg, std::vector<std::string> message);
+        void part(Message *msg, std::vector<std::string> message);
+        void notice(Message *msg, std::vector<std::string> message);
+        void leave(Message *msg, std::vector<std::string> message);
         void mode_channel(Message *msg, std::vector<std::string> message);
         void mode_user(Message *msg, std::vector<std::string> message);
 

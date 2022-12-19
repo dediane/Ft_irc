@@ -6,7 +6,7 @@
 #    By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/24 13:01:02 by ddecourt          #+#    #+#              #
-#    Updated: 2022/12/16 15:58:13 by ddecourt         ###   ########.fr        #
+#    Updated: 2022/12/20 00:31:29 by ddecourt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,13 @@ SRCS =	server/main.cpp \
 		server/command/ping.cpp \
 		server/command/pong.cpp \
 		server/command/join.cpp \
+		server/command/quit.cpp \
+		server/command/whois.cpp \
+		server/command/privmsg.cpp \
+		server/command/list.cpp \
+		server/command/part.cpp \
+		server/command/notice.cpp \
+		server/command/leave.cpp \
 		server/command/command.cpp \
 		server/message/message.cpp \
 
