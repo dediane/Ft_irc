@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:12 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/18 21:45:31 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/20 02:07:50 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 Server::Server()
 {
-    last_ping = time(0);
+    last_ping = 0;
     heartbeat = time(0);
     creation = time(0);
     std::cout << "Create new server" << std::endl;
@@ -24,6 +24,12 @@ Server::Server(const Server &lhs)
 {
     last_ping = lhs.last_ping;
     heartbeat = lhs.heartbeat;
+}
+
+void Server::setLastping(time_t time)
+{
+    last_ping = time;
+    return;
 }
 
 Server::~Server()
@@ -40,7 +46,7 @@ void Server::init()
     if (( sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
     {
         perror("socket creation failed");
-        exit(EXIT_FAILURE);
+        // exit(EXIT_FAILURE);
     }
     else
         std::cout << "Socket succesfully created" << std::endl;
@@ -48,13 +54,13 @@ void Server::init()
     if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt, sizeof(opt)))
     {
         perror("setsockopt");
-        exit(EXIT_FAILURE);
+        // exit(EXIT_FAILURE);
     }
     
     if (fcntl(sockfd, F_SETFL, O_NONBLOCK) < 0)
     {
         perror("fcntl failed");
-        exit(EXIT_FAILURE);
+        // exit(EXIT_FAILURE);
     }
 
     struct sockaddr_in address;
@@ -67,13 +73,13 @@ void Server::init()
     if (bind(sockfd, (struct sockaddr*)&address, sizeof(address)) < 0)
     {
         perror("bind failed");
-        exit(EXIT_FAILURE);
+        // exit(EXIT_FAILURE);
     }
 
     if (listen(sockfd, address.sin_port) < 0) 
     {
         perror("listen");
-        exit(EXIT_FAILURE);
+        // exit(EXIT_FAILURE);
     }
 
     //memset(&this->fds[0], 0 , sizeof(fds));
@@ -87,8 +93,19 @@ void Server::execute()
 {
     //https://www.ibm.com/docs/en/i/7.2?topic=designs-using-poll-instead-select
     
-    int ping = 5000;
-    // int timeout = (3 * 60 * 1000);
+    int ping = 2 * 1000;
+    int timeout = (10 * 1000);
+    int now = time(0);
+
+
+    if (now - last_ping >= 3) 
+    {
+        // std::cout << "NOW time = " << now << std::endl;
+        // std::cout << "result = " << (now - last_ping >= ping) << std::endl;
+        // std::cout << "Ping time = " << ping << std::endl;
+        // std::cout << "Last Ping time = " << last_ping << std::endl;
+        heartbeat_management(timeout, now);
+    }
     
     //std::cout << "Start executing" << std::endl;
     
@@ -157,6 +174,31 @@ void Server::accept_new_user()
     fds.push_back(pollfd());
     fds.back().fd = fd;
     fds.back().events = POLLIN;
+}
+
+void Server::heartbeat_management(int timeout, int now)
+{
+    std::map<int, User>::iterator it;
+    for (it = users.begin(); it != users.end(); it++)
+    {
+        std::cout << "CURRENT USER " << (*it).second.getNickname() << "   " << (now - (*it).second.getLastPing()) << std::endl;
+        if (now - (*it).second.getLastPing() >= timeout)
+        {
+            std::cout << "need to delete user, user timeout" << std::endl;
+
+            
+        }
+        else if (now - (*it).second.getLastPing() >= 10)
+        {
+            std::cout << "Je passe par 191 SERVER" << std::endl;
+            send_reply((*it).second.getFd(), "PING :" + (*it).second.getNickname() + END);
+            // (*it).second.setLastPing(time(0));
+        }
+        else {
+            return;
+        }
+    }
+    last_ping = time(0);
 }
 
 std::vector<std::string> Server::get_all_nicknames()

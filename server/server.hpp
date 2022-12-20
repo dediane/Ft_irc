@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:20 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/18 21:17:28 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/20 01:27:09 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
             void execute();
             void accept_new_user();
             void do_handshake(int fd, User user);
+            void heartbeat_management(int timeout, int now);
             User *get_user_by_fd(int user_fd);
             User *get_user_by_nickname(std::string nickname);
             std::vector<std::string> get_all_nicknames();
@@ -40,6 +41,7 @@
             std::string getCreationTime();
             Channel *get_channel_by_name(std::string str);
             void addChannel(Channel *channel);
+            void setLastping(time_t time);
             
         private:
             //We don't need it cause it is in <poll.h>

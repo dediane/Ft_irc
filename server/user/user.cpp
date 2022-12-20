@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:58:37 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/15 22:42:14 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/20 01:53:55 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 User::User()
 {
-    
+    _last_ping = time(0);
 }
 
 User::User(int newfd, sockaddr_in address)
 {
     fd = newfd;
+    _last_ping = time(0);
     _registered = false;
     _online = false;
     _hostaddr = inet_ntoa(address.sin_addr); //convert host addr in a string
@@ -41,6 +42,7 @@ User::User(const User &lhs)
     this->_cmd = lhs._cmd;
     this->_registered = lhs._registered;
     this->_online = lhs._online;
+    this->_last_ping = lhs._last_ping;
 
 }
 
@@ -59,6 +61,8 @@ User &User::operator=(const User &lhs)
     this->_cmd = lhs._cmd;
     this->_registered = lhs._registered;
     this->_online = lhs._online;
+    this->_last_ping = lhs._last_ping;
+
     return (*this);
 }
 
@@ -87,6 +91,7 @@ std::string User::getHostname() {return (_hostname);}
 std::string User::getHostAddr() {return (_hostaddr);}
 std::string User::getMode() {return (_mode);}
 std::string User::getPrefix() {return (":" + _nickname + "!" + _username + "@" + _hostname);}
+time_t      User::getLastPing() {return (_last_ping);};
 int User::getFd() {return (fd);}
 
 bool User::isRegistered() {return (_registered);}
