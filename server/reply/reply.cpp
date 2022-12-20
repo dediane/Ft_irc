@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 13:15:20 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/18 21:27:43 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/20 14:40:05 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,10 @@ std::string RPL_UMODEIS(User *user)
 
 std::string RPL_NAMREPLY(User *user, Channel *channel)
 {
-    std::string buffer = user->getPrefix() + " 353 " + user->getNickname() + " = " + channel->getName() + END;
+    std::string buffer = user->getPrefix() + " 353 " + user->getNickname() + " = " + channel->getName() + " :@" + user->getNickname() + END;
     return buffer;
 }
+
 
 void send_reply(int fd, std::string rpl)
 { 

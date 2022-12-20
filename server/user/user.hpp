@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:45:40 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/15 22:40:59 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/20 14:15:34 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ class User
         bool _deleted;
         bool _password;
 
-        std::string user_buffer;
-        std::vector<std::string> _messages;
+        // std::string user_buffer;
+        // std::vector<std::string> _messages;
         //std::vector<std::string> _commands;
         //void *(exec_command)(User user, std::string str);
         Message *_message;

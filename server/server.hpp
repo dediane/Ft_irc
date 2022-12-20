@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:20 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/20 01:27:09 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/20 12:32:14 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
             ~Server();
         
 
-            void init();
+            void init(int port);
             void execute();
             void accept_new_user();
             void do_handshake(int fd, User user);

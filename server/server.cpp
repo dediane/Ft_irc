@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:12 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/20 02:07:50 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/20 14:31:08 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ Server::~Server()
 }
 
 //https://www.geeksforgeeks.org/socket-programming-cc/
-void Server::init()
+void Server::init(int port)
 {
     int opt = 1;
-    int PORT = 1054;
+    //int PORT = 1054;
 
     if (( sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
     {
@@ -66,7 +66,7 @@ void Server::init()
     struct sockaddr_in address;
     address.sin_family = AF_INET;
     address.sin_addr.s_addr = INADDR_ANY;
-    address.sin_port = htons(PORT);
+    address.sin_port = htons(port);
     //The htons() function converts the unsigned short integer 
     //hostshort from host byte order to network byte order.
 
@@ -94,11 +94,11 @@ void Server::execute()
     //https://www.ibm.com/docs/en/i/7.2?topic=designs-using-poll-instead-select
     
     int ping = 2 * 1000;
-    int timeout = (10 * 1000);
+    int timeout = (15 * 1000);
     int now = time(0);
 
 
-    if (now - last_ping >= 3) 
+    if (now - last_ping >= (timeout / 1000)) 
     {
         // std::cout << "NOW time = " << now << std::endl;
         // std::cout << "result = " << (now - last_ping >= ping) << std::endl;
@@ -181,19 +181,13 @@ void Server::heartbeat_management(int timeout, int now)
     std::map<int, User>::iterator it;
     for (it = users.begin(); it != users.end(); it++)
     {
-        std::cout << "CURRENT USER " << (*it).second.getNickname() << "   " << (now - (*it).second.getLastPing()) << std::endl;
+        //std::cout << "CURRENT USER " << (*it).second.getNickname() << "   " << (now - (*it).second.getLastPing()) << std::endl;
         if (now - (*it).second.getLastPing() >= timeout)
         {
             std::cout << "need to delete user, user timeout" << std::endl;
-
-            
         }
-        else if (now - (*it).second.getLastPing() >= 10)
-        {
-            std::cout << "Je passe par 191 SERVER" << std::endl;
+        else if (now - (*it).second.getLastPing() >= (timeout / 1000))
             send_reply((*it).second.getFd(), "PING :" + (*it).second.getNickname() + END);
-            // (*it).second.setLastPing(time(0));
-        }
         else {
             return;
         }

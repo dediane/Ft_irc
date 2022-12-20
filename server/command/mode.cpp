@@ -6,23 +6,39 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:35:32 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/16 11:58:44 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/20 12:16:21 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.hpp"
 
 //User modes
-// +q
-// User is owner of the current channel (prefix ~ on UnrealIRCd, usually @ elsewhere)
-// +a
-// User is an admin (SOP) on the current channel (prefix & on UnrealIRCd, usually @ elsewhere).
-// +o
-// User is an operator (AOP) on the current channel (prefix @).
-// +h
-// User is a half-op on the current channel (prefix %).
-// +v
-// User has voice on the current channel (prefix +).
+// - [o] - User is an operator (prefix @).
+// - [w] - User receives wallops;
+// - [r] - restricted user connection.
+
+
+//Channel modes
+// [O] - give "channel creator" status;
+// [o] - give/take channel operator privilege;
+// [v] - give/take the voice privilege;
+
+// [a] - toggle the anonymous channel flag;
+// [i] - toggle the invite-only channel flag;
+// [m] - toggle the moderated channel;
+// [n] - toggle the no messages to channel from clients on the outside;
+// [q] - toggle the quiet channel flag;
+// [p] - toggle the private channel flag;
+// [s] - toggle the secret channel flag;
+// [r] - toggle the server reop channel flag;
+// [t] - toggle the topic settable by channel operator only flag;
+
+// [k] - set/remove the channel key (password);
+// [l] - set/remove the user limit to channel;
+
+// [b] - set/remove ban mask to keep users out;
+// [e] - set/remove an exception mask to override a ban mask;
+// [I] - set/remove an invitation mask to automatically override the invite-only flag;
 
 void Command::mode_channel(Message *msg, std::vector<std::string> message)
 {

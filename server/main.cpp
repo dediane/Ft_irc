@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:03:05 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/15 18:21:52 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/20 12:33:59 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,22 @@ void handler(int sig)
     exit(1);
 }
 
-bool check_port(std::string port)
-{
-    for (unsigned long i = 0; i < port.size(); i++)
-    {
-        if (port[i] < '0' || port[i] > '9')
-            return false;
-    }
-    return true;
-}
+// bool check_port(std::string port)
+// {
+//     for (unsigned long i = 0; i < port.size(); i++)
+//     {
+//         if (port[i] < '0' || port[i] > '9')
+//             return false;
+//     }
+//     return true;
+// }
 
-bool check_password(std::string password)
-{
-    if(PASSWORD != password)
-        return false;
-    return true;
-}
+// bool check_password(std::string password)
+// {
+//     if(PASSWORD != password)
+//         return false;
+//     return true;
+// }
 
 int main(int argc, char**argv)
 {
@@ -51,23 +51,24 @@ int main(int argc, char**argv)
         return 1;
     }
     
-    if (check_port(argv[1]) == false)
-    {
-        std::cerr << "Wrong input, not a port" << std::endl;
-        exit(1);
-    }
+    // if (check_port(argv[1]) == false)
+    // {
+    //     std::cerr << "Wrong input, not a port" << std::endl;
+    //     exit(1);
+    // }
 
-    if (check_password(argv[2]) == false)
-    {
-        std::cerr << "Wrong Password" << std::endl;
-        exit(1);
-    }
+    // if (check_password(argv[2]) == false)
+    // {
+    //     std::cerr << "Wrong Password" << std::endl;
+    //     exit(1);
+    // }
+    int port = atoi(argv[1]);
     
     std::signal(SIGINT, handler);
     std::cout << "OK" << std::endl;
 
     Server server;
-    server.init();
+    server.init(port);
 
     while (!stop)
         server.execute();
