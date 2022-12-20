@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:02:31 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/15 23:48:59 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/20 16:42:50 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void Message::split_buffer(std::string str)
     }
     std::vector<std::string>::iterator it;
     // for (it = _messages.begin(); it != _messages.end(); it++)
-    //     std::cout << *it; 
+    //     std::cout << "message = " << *it; 
     return;
 }
 
@@ -89,6 +89,7 @@ void Message::parse_commands(std::string str)
     std::vector<std::string>::iterator it;
     for (it = commands.begin(); it != commands.end(); it++)
     {
+        //std::cout << "Command message -> " << (*it) << std::endl;
         if (it == commands.begin())
         {
             index = 0;
@@ -97,8 +98,8 @@ void Message::parse_commands(std::string str)
             {
                 if (*it == *it2)
                 {
-                    std::cout << index << std::endl;
-                    std::cout << "command = " << *it2 << std::endl;
+                    //std::cout << index << std::endl;
+                    //std::cout << "command = " << *it2 << std::endl;
                     _user->_cmd->execute(*it, this, commands, index);
                     // if (_user->isRegistered())
                     // {

@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:15:15 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/20 14:46:23 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/20 15:58:19 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void Command::join(Message *msg, std::vector<std::string> message)
             {
                 channel->addUser(*user);
                 channel->broadcast(user->getPrefix() + " JOIN " + ":" + channel->getName() + END);
+                 send_reply(user->getFd(), RPL_NAMREPLY(user, channel));
+                 send_reply(user->getFd(), RPL_ENDOFNAMES(user, channel));
                 //send_reply(user->getFd(), user->getPrefix() + " JOIN " + ":" + channel->getName() + END);
             }
         }
@@ -80,6 +82,7 @@ void Command::join(Message *msg, std::vector<std::string> message)
             new_channel.setName(name);
             server->addChannel(&new_channel);
             send_reply(user->getFd(), RPL_NAMREPLY(user, &new_channel));
+            send_reply(user->getFd(), RPL_ENDOFNAMES(user, &new_channel));
             send_reply(user->getFd(), user->getPrefix() + " JOIN " + ":" + new_channel.getName() + END);
             
             //std::cout << 

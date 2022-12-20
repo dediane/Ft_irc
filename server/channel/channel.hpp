@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:46:55 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/18 22:02:10 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/20 19:23:49 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,18 @@ class Channel
         Channel();
         Channel(std::string name, User user);
         Channel(const Channel &lhs);
+        Channel &operator=(const Channel &lhs);
         Channel(User user);
         ~Channel();
         
-         void broadcast(std::string rpl);
+        void broadcast(std::string rpl);
+        void broadcast_msg(std::string rpl, User *user);
         //getter
         std::string getName();
         std::string getTopic();
         std::string getMode();
         std::string getKey();
+        std::vector<User> getUsers();
 
         //setter
         void setName(std::string name);         

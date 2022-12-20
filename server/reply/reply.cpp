@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 13:15:20 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/20 14:40:05 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/20 15:58:55 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,30 @@ std::string RPL_MYINFO(User user)
 std::string RPL_UMODEIS(User *user)
 {
     std::cout << user->getMode() << std::endl;
-    std::string buffer = user->getPrefix() + " 221 " + user->getNickname() +" +" + user->getMode() + END;
+    std::string buffer = user->getPrefix() + " 221 " + user->getNickname() + " +" + user->getMode() + END;
     return buffer;
 }
 
 std::string RPL_NAMREPLY(User *user, Channel *channel)
 {
-    std::string buffer = user->getPrefix() + " 353 " + user->getNickname() + " = " + channel->getName() + " :@" + user->getNickname() + END;
+    std::vector<User> users;
+    std::vector<User>::iterator it;
+    users = channel->getUsers();
+    std::string buffer = user->getPrefix() + " 353 " + user->getNickname() + " = " + channel->getName();
+    
+    for (it = users.begin(); it != users.end(); it++)
+    {
+        buffer += (" :" + (*it).getNickname());
+    }
+    buffer += END;
     return buffer;
 }
 
+std::string RPL_ENDOFNAMES(User *user, Channel *channel)
+{
+    std::string buffer = user->getPrefix() + "366" + user->getNickname() + " " + channel->getName() + " :End of /NAMES list" + END;
+    return (buffer);
+}
 
 void send_reply(int fd, std::string rpl)
 { 
