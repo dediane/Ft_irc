@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:02:31 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/20 16:42:50 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/20 23:21:00 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void Message::parse_commands(std::string str)
 {
     int index = 0;
     std::vector<std::string> commands;
-    while((index = str.find(" ", index)) != (int)std::string::npos)
+    while((index = str.find(" ")) != (int)std::string::npos)
     {
         commands.push_back(str.substr(0, index));
         str.erase(0, index + 1);

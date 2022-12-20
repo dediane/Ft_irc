@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:35:32 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/20 12:16:21 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/20 23:13:10 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ void Command::mode_user(Message *msg, std::vector<std::string> message)
     User *user = msg->getuser();
     std::string mode = message[2];
     //need to check if user is in the server. by doing something like:
-    //Server *server = server;    
+    //Server *server = server;
+    std::cout << "MODE de l'user = " << user->getMode() << std::endl;    
     if (user->getMode().empty())
     {
         if (mode.find("+") == 0)
@@ -81,6 +82,8 @@ void Command::mode_user(Message *msg, std::vector<std::string> message)
 
 void Command::mode(Message *msg, std::vector<std::string> message)
 {
+    std::cout << "Je suis dans MODE" << std::endl;
+    std::cout << "message[1] = " << message[1] << std::endl;
     User    *usr = msg->getuser();
     Server  *server = msg->getserver();
     (void)server;

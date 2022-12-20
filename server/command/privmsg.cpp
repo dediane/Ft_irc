@@ -6,11 +6,13 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:27:00 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/20 19:33:25 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/20 23:24:19 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.hpp"
+
+//NEED TO FINISH PRIVMSG BY DOING PROPER PARSING cf RFC doc
 
 void Command::privmsg(Message *msg, std::vector<std::string> message)
 {
@@ -42,9 +44,10 @@ void Command::privmsg(Message *msg, std::vector<std::string> message)
                 //:diane!diane@localhost PRIVMSG #lolo :Bonjour
             }
         }
-        buffer += (*it) + " ";
+        if (it != message.begin())
+            buffer += (*it) + " ";
     }
-    buffer.erase(0, 9);
+    buffer.erase(0, 2);
     channel->broadcast_msg(user->getPrefix() + " PRIVMSG " + channel_name + " " + buffer + END, user);
 
     // if (*tmp.begin() == '#')
