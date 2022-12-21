@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 13:15:20 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/20 15:58:55 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/21 16:57:28 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ std::string RPL_NAMREPLY(User *user, Channel *channel)
     
     for (it = users.begin(); it != users.end(); it++)
     {
-        buffer += (" :" + (*it).getNickname());
+        if ((*it).getNickname() != user->getNickname())
+            buffer += (" :" + (*it).getNickname());
     }
     buffer += END;
     return buffer;
@@ -62,7 +63,7 @@ std::string RPL_NAMREPLY(User *user, Channel *channel)
 
 std::string RPL_ENDOFNAMES(User *user, Channel *channel)
 {
-    std::string buffer = user->getPrefix() + "366" + user->getNickname() + " " + channel->getName() + " :End of /NAMES list" + END;
+    std::string buffer = user->getPrefix() + " 366 " + user->getNickname() + " " + channel->getName() + " :End of /NAMES list" + END;
     return (buffer);
 }
 
