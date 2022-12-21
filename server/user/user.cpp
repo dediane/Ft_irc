@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:58:37 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/20 01:53:55 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/21 23:37:53 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ User::User(int newfd, sockaddr_in address)
     fd = newfd;
     _last_ping = time(0);
     _registered = false;
-    _online = false;
+    _online = true;
     _hostaddr = inet_ntoa(address.sin_addr); //convert host addr in a string
     fcntl(fd, F_SETFL, O_NONBLOCK);
     char buffer[NI_MAXHOST];
@@ -48,7 +48,7 @@ User::User(const User &lhs)
 
 User::~User()
 {
-    
+    return;
 }
 
 User &User::operator=(const User &lhs)

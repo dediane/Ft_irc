@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:15:15 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/21 15:06:44 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/21 17:48:08 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void Command::join(Message *msg, std::vector<std::string> message)
     {
         if ((*it).find(",") != std::string::npos)
         {
-            //function to join many channels
+            //function to join many channels parsing here
             // -> check number of channel
             // -> check if channel are valid
             // -> check if channel already exist then -> check password and join success OR wrongpassword

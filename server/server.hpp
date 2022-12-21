@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:20 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/20 12:32:14 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/21 23:11:55 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@
             Channel *get_channel_by_name(std::string str);
             void addChannel(Channel *channel);
             void setLastping(time_t time);
+            void remove_user(User *user);
+            void remove_pollfd(User *user);
             
         private:
             //We don't need it cause it is in <poll.h>

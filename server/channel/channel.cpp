@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:55:27 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/20 19:24:01 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/21 18:00:36 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,18 @@ bool Channel::isUserinChannel(User user)
  void Channel::addUser(User user)
  {
     _users.push_back(user);
+    return;
+ }
+
+ void Channel::deleteUser(User user)
+ {
+    std::vector<User>::iterator it;
+    for (it = _users.begin(); it != _users.end(); it++)
+    {
+        if ((*it).getNickname() == user.getNickname())
+            break;
+    }
+    _users.erase(it);
     return;
  }
 

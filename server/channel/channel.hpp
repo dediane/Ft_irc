@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:46:55 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/20 19:23:49 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/21 17:58:16 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ class Channel
         //helper
         bool isUserinChannel(User user);
         void addUser(User user);
+        void deleteUser(User user);
 
     private:
         std::string _name;

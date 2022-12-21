@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:12 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/20 14:31:08 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/21 23:40:22 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,10 +147,20 @@ void Server::execute()
                 User *user;
                 user = get_user_by_fd((*it).fd);
                 Message message(user, this);
-                message.receive_msg();         
+                message.receive_msg();
             }
         }
         //std::cout << "need to find back the users of POLLIN" << std::endl;
+    }
+    std::map<int, User>::iterator it;
+    for (it = users.begin(); it != users.end(); it++)
+    {
+        if ((*it).second.isOnline() == false)
+        {
+            //remove user from channel list.
+            delete ((*it).second)._cmd;
+            remove_user(&(*it).second);
+        }
     }
 }
 
@@ -271,3 +281,26 @@ std::string Server::getCreationTime()
     ts = ts.substr(0, ts.length() - 1);
     return ts;
 };
+
+void Server::remove_user(User *user)
+{
+    std::map<int, User>::iterator it;
+    it = users.find(user->getFd());
+    if (it != users.end())
+    {
+        //delete user->_cmd;
+        close(user->getFd());
+        users.erase(it);
+    }
+}
+
+void Server::remove_pollfd(User *user)
+{
+    int fd = user->getFd();
+    std::vector<pollfd>::iterator it;
+    for (it = fds.begin(); it != fds.end(); it++)
+    {
+        if ((*it).fd == fd)
+            fds.erase((it));
+    } 
+}
