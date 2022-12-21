@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:45:40 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/20 14:15:34 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/21 15:14:50 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ class User
         bool isDeleted();
         bool isPassword();
 
-        void receive();
-        void split_buffer(std::string str);
-        void exec_command();
+        //void receive();
+        //void split_buffer(std::string str);
+        //void exec_command();
         //void do_handshake();
-        void parse_commands(std::string str);
+        //void parse_commands(std::string str);
 
 
         Command *_cmd;

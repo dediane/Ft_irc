@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:15:15 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/20 15:58:19 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/21 15:06:44 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void Command::join(Message *msg, std::vector<std::string> message)
     int nb_of_channel;
     if (message.size() == 1)
     {
-        send_reply(user->getFd(), ERR_NEEDMOREPARAMS("PASS"));
+        send_reply(user->getFd(), ERR_NEEDMOREPARAMS("JOIN"));
         return;
     }
     for (it = message.begin(); it != message.end(); it++)

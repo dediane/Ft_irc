@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 15:03:22 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/20 00:26:47 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/21 15:33:09 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void Command::execute(std::string cmd, Message *msg, std::vector<std::string> me
     &Command::mode, &Command::ping, &Command::pong, \
     &Command::join, &Command::quit, &Command::whois, \
     &Command::privmsg, &Command::list, &Command::part, \
-    &Command::leave, &Command::leave};
+    &Command::notice, &Command::leave};
 
     std::vector<std::string>::iterator it;
     for (it = message.begin(); it < message.end(); it++)

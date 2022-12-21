@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:27:00 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/20 23:24:19 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/21 15:34:24 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,13 @@ void Command::privmsg(Message *msg, std::vector<std::string> message)
     Channel *channel;
     User *user = msg->getuser();
     Server *server = msg->getserver();
+    
     std::vector<std::string>::iterator it;
     std::vector<std::string>::iterator it2;
     std::vector<std::string> channels_names = server->get_all_channels_names();
     std::string channel_name;
     std::string buffer;
-    //unsigned int pos = 0;
+
     for (it = message.begin(); it != message.end(); it++)
     {
         for(it2 = channels_names.begin(); it2 != channels_names.end(); it2++)
