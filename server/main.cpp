@@ -25,15 +25,15 @@ void handler(int sig)
     exit(1);
 }
 
-// bool check_port(std::string port)
-// {
-//     for (unsigned long i = 0; i < port.size(); i++)
-//     {
-//         if (port[i] < '0' || port[i] > '9')
-//             return false;
-//     }
-//     return true;
-// }
+bool check_port(std::string port)
+{
+    for (unsigned long i = 0; i < port.size(); i++)
+    {
+        if (port[i] < '0' || port[i] > '9')
+            return false;
+    }
+    return true;
+}
 
 // bool check_password(std::string password)
 // {
@@ -51,23 +51,31 @@ int main(int argc, char**argv)
         return 1;
     }
     
-    // if (check_port(argv[1]) == false)
-    // {
-    //     std::cerr << "Wrong input, not a port" << std::endl;
-    //     exit(1);
-    // }
+    if (check_port(argv[1]) == false)
+    {
+        std::cerr << "Wrong input, not a port" << std::endl;
+        exit(1);
+    }
 
-    // if (check_password(argv[2]) == false)
+    int port = atoi(argv[1]);
+
+    if (port  <= 0 || port > 65535)
+     {
+        std::cerr << "Port number must be between 0 and 65335" << std::endl;
+        exit(1);
+    }
+
+ // if (check_password(argv[2]) == false)
     // {
     //     std::cerr << "Wrong Password" << std::endl;
     //     exit(1);
     // }
-    int port = atoi(argv[1]);
     
     std::signal(SIGINT, handler);
     std::cout << "OK" << std::endl;
 
     Server server;
+    server.setPassword(std::string(argv[2]));
     server.init(port);
 
     while (!stop)

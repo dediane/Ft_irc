@@ -44,6 +44,9 @@
             void setLastping(time_t time);
             void remove_user(User *user);
             void remove_pollfd(User *user);
+            
+            std::string const getPassword()const{return _password;}
+            void    setPassword(std::string const  & password){_password = password;}
         
             
         private:
@@ -61,6 +64,7 @@
             
             int _port;
             int sockfd;
+            std::string _password;
             
             std::vector<pollfd> fds;
             std::vector<Channel> channels; //contains all channels
