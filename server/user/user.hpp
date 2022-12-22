@@ -62,8 +62,12 @@ class User
         //void do_handshake();
         //void parse_commands(std::string str);
 
+        //void    RemoveUserFromChans(User user);
+
+
 
         Command *_cmd;
+        
     private:
         int             fd;
         time_t          _last_ping;

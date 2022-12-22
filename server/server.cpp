@@ -153,11 +153,15 @@ void Server::execute()
         //std::cout << "need to find back the users of POLLIN" << std::endl;
     }
     std::map<int, User>::iterator it;
+    std::vector<Channel> *channel = get_all_channels();
     for (it = users.begin(); it != users.end(); it++)
     {
         if ((*it).second.isOnline() == false)
         {
             //remove user from channel list.
+            std::vector<Channel>::iterator it2; 
+            for(it2 = channel->begin(); it2 != channel->end(); it2++)
+                (*it2).RemoveUserFromChan((*it).second);
             delete ((*it).second)._cmd;
             remove_user(&(*it).second);
         }

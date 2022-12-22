@@ -119,3 +119,23 @@ void Channel::setName(std::string name) {_name = name; return;}
 void Channel::setTopic(std::string topic) {_topic = topic; return;}
 void Channel::setMode(std::string mode) {_mode = mode; return;}
 void Channel::setKey(std::string key) {_key = key; return;}
+
+void    Channel::RemoveUserFromChan(User user)
+{
+    if (isUserinChannel(user) == true)
+        deleteUser(user);
+
+    // Server server;
+    // Channel channels = server.get_all_channels();
+    // std::vector<Channel> *channel = server.get_all_channels();
+    // std::vector<Channel>::iterator it; 
+    // for(it = channel->begin(); it != channel->end(); it++)
+    // {
+    //     if ((*it).isUserinChannel(user) == true)
+    //     {
+    //         std::cout << "User name = " << user.getNickname() << std::endl;
+    //         (*it).deleteUser(user);
+
+    //     }
+    // }
+}

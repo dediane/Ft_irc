@@ -48,6 +48,7 @@ class Channel
         bool isUserinChannel(User user);
         void addUser(User user);
         void deleteUser(User user);
+        void RemoveUserFromChan(User user);
 
     private:
         std::string _name;

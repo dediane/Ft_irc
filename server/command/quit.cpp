@@ -19,7 +19,10 @@ void Command::quit(Message *msg, std::vector<std::string> message)
     (void)msg;
     (void)message;
     User *user = msg->getuser();
+
     user->setisOnline(false);
+    // user->RemoveUserFromChans(*user);
+
     //manager si il y a un message
     std::cout << "Je passe dans la commande QUIT" << std::endl;
 }

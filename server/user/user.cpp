@@ -97,3 +97,5 @@ int User::getFd() {return (fd);}
 bool User::isRegistered() {return (_registered);}
 bool User::isOnline() {return (_online);}
 bool User::isDeleted() { return (_deleted);}
+
+

@@ -37,13 +37,14 @@
             User *get_user_by_nickname(std::string nickname);
             std::vector<std::string> get_all_nicknames();
             std::vector<Channel> *get_all_channels();
-            std::vector<std::string> get_all_channels_names();
+            std::vector<std::string> get_all_channels_names(); //ICI
             std::string getCreationTime();
             Channel *get_channel_by_name(std::string str);
             void addChannel(Channel *channel);
             void setLastping(time_t time);
             void remove_user(User *user);
             void remove_pollfd(User *user);
+        
             
         private:
             //We don't need it cause it is in <poll.h>
