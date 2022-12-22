@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:55:27 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/21 18:00:36 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/22 20:17:09 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ Channel::Channel(const Channel &lhs)
     _topic = lhs._topic;
     _mode = lhs._mode;
     _users = lhs._users;
+    _key = lhs._key;
     return;
 }
 

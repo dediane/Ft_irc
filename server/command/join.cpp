@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   join.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:15:15 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/22 19:30:27 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2022/12/22 19:50:15 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,11 @@ void join_channel(Message *msg, std::string message, std::string key)
     }
     if ((channel = server->get_channel_by_name(message)) != NULL)
     {
+        std::cout << "90" << std::endl;
         if (!channel->isUserinChannel(*user))
         {
             std::cout << "92" << std::endl;
+            std::cout << "KEY = " << key << " | CHANNEL_KEY= " << channel->getKey() << std::endl;
             if (key == channel->getKey())
             {
                 std::cout << "95" << std::endl;
@@ -140,8 +142,6 @@ void Command::join(Message *msg, std::vector<std::string> message)
     std::vector<std::string> channels_list;
     std::vector<std::string> keys_list;
     int nb_of_channel = 0;
-    std::cout << "141" << std::endl;
-    std::cout << "la " << message[1] << std::endl;
     if (message.size() == 1)
     {
         send_reply(user->getFd(), ERR_NEEDMOREPARAMS("JOIN"));
@@ -149,7 +149,6 @@ void Command::join(Message *msg, std::vector<std::string> message)
     }
     if (message[1].find(',') != std::string::npos)
     {
-        std::cout << "kede" << std::endl; 
         for (it = message.begin(); it != message.end(); it++)
         {
             if (((it) == message.begin() + 1) && ((*it).find(",") != std::string::npos))

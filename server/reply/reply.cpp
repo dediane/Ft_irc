@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 13:15:20 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/22 15:46:21 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/22 19:39:07 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ std::string RPL_TOPIC(User *user, Channel *channel)
 {
     std::string buffer = user->getPrefix() + " 332 " + user->getNickname() + " " +
     channel->getName() + " :" + channel->getTopic() + END;
+    return (buffer);
 }
 
 void send_reply(int fd, std::string rpl)
