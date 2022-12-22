@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:20 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/22 19:35:45 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/22 20:22:17 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@
             void setLastping(time_t time);
             void remove_user(User *user);
             void remove_pollfd(User *user);
+            std::string const getPassword()const{return _password;};
+            void    setPassword(std::string const  & password){_password = password;};
+        
             
         private:
             //We don't need it cause it is in <poll.h>
@@ -60,6 +63,7 @@
             
             int _port;
             int sockfd;
+            std::string _password;
             
             std::vector<pollfd> fds;
             std::vector<Channel> channels; //contains all channels
