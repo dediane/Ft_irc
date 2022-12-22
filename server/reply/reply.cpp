@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 13:15:20 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/21 16:57:28 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/22 15:46:21 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,18 @@ std::string RPL_ENDOFNAMES(User *user, Channel *channel)
 {
     std::string buffer = user->getPrefix() + " 366 " + user->getNickname() + " " + channel->getName() + " :End of /NAMES list" + END;
     return (buffer);
+}
+
+std::string RPL_NOTOPIC(User *user, Channel *channel)
+{
+    std::string buffer = user->getPrefix() + " 331 " + user->getNickname() + " " + channel->getName() + " :No topic is set" + END;
+    return (buffer);
+}
+
+std::string RPL_TOPIC(User *user, Channel *channel)
+{
+    std::string buffer = user->getPrefix() + " 332 " + user->getNickname() + " " +
+    channel->getName() + " :" + channel->getTopic() + END;
 }
 
 void send_reply(int fd, std::string rpl)

@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 15:03:22 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/21 18:48:24 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/22 14:26:03 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ Command::Command()
     _commandlist.push_back("LIST");
     _commandlist.push_back("PART");
     _commandlist.push_back("NOTICE");
+    _commandlist.push_back("TOPIC");
 
     
     return;
@@ -39,12 +40,12 @@ Command::~Command()
 
 void Command::execute(std::string cmd, Message *msg, std::vector<std::string> message, int nb)
 {
-    command_ptr commands[13] = 
+    command_ptr commands[14] = 
     {&Command::pass, &Command::nick, &Command::user, \
     &Command::mode, &Command::ping, &Command::pong, \
     &Command::join, &Command::quit, &Command::whois, \
     &Command::privmsg, &Command::list, &Command::part, \
-    &Command::notice};
+    &Command::notice, &Command::topic};
 
     std::vector<std::string>::iterator it;
     for (it = message.begin(); it < message.end(); it++)

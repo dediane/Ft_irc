@@ -6,7 +6,7 @@
 #    By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/24 13:01:02 by ddecourt          #+#    #+#              #
-#    Updated: 2022/12/21 18:48:54 by ddecourt         ###   ########.fr        #
+#    Updated: 2022/12/22 14:34:33 by ddecourt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ SRCS =	server/main.cpp \
 		server/command/list.cpp \
 		server/command/part.cpp \
 		server/command/notice.cpp \
+		server/command/operator_cmds/topic.cpp \
 		server/command/command.cpp \
 		server/message/message.cpp \
 

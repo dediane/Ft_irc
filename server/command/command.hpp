@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 15:03:16 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/21 18:48:12 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/22 14:25:14 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ class Command
         void list(Message *msg, std::vector<std::string> message);
         void part(Message *msg, std::vector<std::string> message);
         void notice(Message *msg, std::vector<std::string> message);
+        void topic(Message *msg, std::vector<std::string> message);
         void mode_channel(Message *msg, std::vector<std::string> message);
         void mode_user(Message *msg, std::vector<std::string> message);
 
