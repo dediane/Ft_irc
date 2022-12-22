@@ -37,7 +37,7 @@
             User *get_user_by_nickname(std::string nickname);
             std::vector<std::string> get_all_nicknames();
             std::vector<Channel> *get_all_channels();
-            std::vector<std::string> get_all_channels_names(); //ICI
+            std::vector<std::string> get_all_channels_names();
             std::string getCreationTime();
             Channel *get_channel_by_name(std::string str);
             void addChannel(Channel *channel);
