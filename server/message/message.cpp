@@ -121,37 +121,9 @@ void Message::receive_msg()
         parse_commands(*it);
 }
 
-// void Message::split_buffer(std::string str)
-// {
-//     std::string tofind = "\r\n";
-//     int index = 0;
-//     while ((index = str.find(tofind, index)) != (int)(std::string::npos)) 
-//     {
-//         std::string tmp;
-//         for(int i = 0; i < index; i++)
-//             tmp.push_back(str[i]);
-//         _messages.push_back(tmp);
-//         tmp.clear();
-//         index += tofind.length();
-//         str.erase(0, index);
-//         index = 0;
-//     }
-//     std::vector<std::string>::iterator it;
-//     // for (it = _messages.begin(); it != _messages.end(); it++)
-//     //     std::cout << "message = " << *it; 
-//     return;
-// }
-
 void Message::parse_commands(std::string str)
 {
     int index = 0;
-    // std::vector<std::string> commands;
-    // while((index = str.find(" ")) != (int)std::string::npos)
-    // {
-    //     commands.push_back(str.substr(0, index));
-    //     str.erase(0, index + 1);
-    // }
-    // commands.push_back(str);
     std::vector<std::string> commands = getTokens(str);
     std::vector<std::string>::iterator it;
     for (it = commands.begin(); it != commands.end(); it++)
