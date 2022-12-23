@@ -51,7 +51,7 @@ void Command::list(Message *msg, std::vector<std::string> message)
         std::cout << "message vaut " << (*it) << std::endl;
     }
     std::cout << message.size() << " -> notre size" << std::endl;
-    if ((message.size() == 1)|| ((message.size() == 2)  && ((message[1]) == "") )) // a remettre en reglant le probleme doing this is not a good idea                       // || (message.size() == 2  && ((message[1]) == "-YES")   a enlever quand doing this is not a good idea disparaitra. je sais pas dou vient cette obligation -YES. fonction fonctionnait avant ce msg d'erreur
+    if ((message.size() == 1))
     {
         std::vector<Channel>::iterator it;
         for (it = channels->begin(); it != channels->end(); it++)
@@ -69,24 +69,24 @@ void Command::list(Message *msg, std::vector<std::string> message)
             //RPL LIST END difference ? 
         }
         }
-    if (!(message[1]).empty()) //pour tester il faut d'abord regler le pb de doing this is not a good idea car sinon pas le bon nombre de params et ne peut entrer ici
-    {
-        //If the <channel> parameter is used, only the status of that channel is displayed.
-        std::vector<std::string>all_channels_asked = ft_split(message[1], ",");
-        std::vector<std::string>::iterator it3;
-        for(it3 = all_channels_asked.begin(); it3 != all_channels_asked.end(); it3++)  //itere sur chaque channel
-        {
-            std::vector<std::string> channel_names =  server->get_all_channels_names();
-            // std::vector<std::string>::iterator it2 = channel_names.find(it3); //it3 correspond a mon channel
-            std::vector<std::string>::iterator it2 = std::find(channel_names.begin(), channel_names.end(),  *it3); //it3 correspond a mon channel
-            if (it2 != channel_names.end())
-                send_reply(user->getFd(), user->getPrefix() + " LIST " + /*    (*it).getStatus()    */ + END); 
-        }
+    // if ((message[1]).empty()) //pour tester il faut d'abord regler le pb de doing this is not a good idea car sinon pas le bon nombre de params et ne peut entrer ici
+    // {
+    //     //If the <channel> parameter is used, only the status of that channel is displayed.
+    //     std::vector<std::string>all_channels_asked = ft_split(message[1], ",");
+    //     std::vector<std::string>::iterator it3;
+    //     for(it3 = all_channels_asked.begin(); it3 != all_channels_asked.end(); it3++)  //itere sur chaque channel
+    //     {
+    //         std::vector<std::string> channel_names =  server->get_all_channels_names();
+    //         // std::vector<std::string>::iterator it2 = channel_names.find(it3); //it3 correspond a mon channel
+    //         std::vector<std::string>::iterator it2 = std::find(channel_names.begin(), channel_names.end(),  *it3); //it3 correspond a mon channel
+    //         if (it2 != channel_names.end())
+    //             send_reply(user->getFd(), user->getPrefix() + " LIST " + /*    (*it).getStatus()    */ + END); 
+    //     }
 
 
-        //  If the <target> parameter is specified, the request is forwarded to that server which will generate the reply.    Wildcards are allowed in the <target> parameter. on ne doit pas gerer les multiserveurs sauf erreur
+    //     //  If the <target> parameter is specified, the request is forwarded to that server which will generate the reply.    Wildcards are allowed in the <target> parameter. on ne doit pas gerer les multiserveurs sauf erreur
 
-    }
+    // }
   
 }
 
