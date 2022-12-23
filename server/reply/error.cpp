@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:55:26 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/08 18:19:34 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/23 13:46:02 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ std::string ERR_YOUREBANNEDCREEP() {return(" :You are banned from this server\r\
 //475
 //481
 //482
+std::string ERR_CHANOPRIVNEEDED(std::string channel) {return(channel + " :You're not channel operator\r\n");}
 //483
 //491
 //501
