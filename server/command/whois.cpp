@@ -26,9 +26,27 @@ void Command::whois(Message *msg, std::vector<std::string> message)
             std::cout << " ==== " << *it << std::endl;
 (void)server;
    
-        std::cout << "REAL NAME IS " <<  user->getUsername() << std::endl;
-        send_reply(user->getFd(),   user->getNickname() + " " + user->getUsername() + " " + user->getHostname() + " " + "*" + " :" + user->getRealname()  + END); //311,
+        // std::cout << "REAL NAME IS " <<  user->getUsername() << std::endl;
+        // std::vector<std::string>::iterator it = std::find(users.begin(), users.end(),  message[2]);
+        // if (it != users.end())
+        //     send_reply(user->getFd(),   user->getNickname() + " " + user->getUsername() + " " + user->getHostname() + " " + "*" + " :" + user->getRealname()  + END); //311,
 
+
+    std::cout << "REAL NAME IS " <<  user->getUsername() << std::endl;
+    std::vector<std::string> users = server->get_all_nicknames();
+    std::cout << "SEARCHING FOR " << message[1] << std::endl;
+        std::vector<std::string>::iterator it2 = std::find(users.begin(), users.end(),  message[1]);
+        if (it2 != users.end())
+        {
+            std::cout << "J AI TROUVE " << std::endl;
+            User * user2 = server->get_user_by_nickname(message[1]);
+            // send_reply(user->getFd(),   user->getNickname() + " " + user->getUsername() + " " + user->getHostname() + " " + "*" + " :" + user->getRealname()  + END); //311,
+            if (user2)
+                send_reply(user->getFd(),   user2->getNickname() + " " + user2->getUsername() + " " + user2->getHostname() + " " + "*" + " :" +  user2->getRealname()  + END); //311,
+
+        } // "<nick> <user> <host> * :<real name>"
+
+            // send_reply(user->getFd(),   (*it).getNickname() + " " + (*it).getUsername() + " " + (*it).getHostname() + " " + "*" + " :" + (*it).getRealname()  + END); //311,
 //     RPL_WHOISUSER::RPL_WHOISUSER(Peer &peer, const Peer &target, bool include_prefix) : Message(peer, std::string())
 
     // else if ((message.size() == 2))
