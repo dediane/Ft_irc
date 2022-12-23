@@ -13,6 +13,8 @@
 #include "main.hpp"
 #include "server.hpp"
 
+
+
 std::string RPL_WELCOME(User user)
 {
     std::string buffer = user.getPrefix() +  " 001 " + user.getNickname() + " :Welcome to the Internet Relay Network " + user.getNickname() + "!" + user.getUsername() + "@" + user.getHostname() + END;
@@ -93,6 +95,30 @@ void send_reply(int fd, std::string rpl)
         std::cout << "error" << std::endl;
 }
 
+/**
+ * WHO IS
+ * */ 
+std::string RPL_WHOISUSER(User *user) //311  RPL_WHOISUSER // "<nick> <user> <host> * :<real name>"
+{
+    std::string buffer =  user->getNickname() + " " + user->getUsername() + " " + user->getHostname() + " " + "*" + " :" +  user->getRealname()  + END;
+    return buffer;
+}
+
+std::string RPL_WHOISSERVER(User *user)
+{
+    Server server;
+    std::string buffer = user->getNickname() + " " + server.getCreationTime() + END;// 312    RPL_WHOISSERVER // "<nick> <server> :<server info>" //autres infos du serveur a mettre en avant ?
+    return buffer;
+}
+
+std::string RPL_WHOISOPERATOR(User *user) //313  RPL_WHOISOPERATOR // "<nick> <user> <host> * :<real name>"
+{
+    std::string buffer =  user->getNickname() + " :is an IRC operator" + END;
+    return buffer;
+}
+/*-------*/
+
+
 std::string reply(User user, Server server, int num)
 {
     switch(num)
@@ -105,6 +131,12 @@ std::string reply(User user, Server server, int num)
             return(RPL_CREATED(user, server.getCreationTime()));
         case 004:
             return(RPL_MYINFO(user));
+        // case 311:
+        //     return(RPL_WHOISUSER(user)); //311
+        // case 312:
+        //     return(RPL_WHOISSERVER(user));
+        // case 313:
+        //     return(RPL_WHOISOPERATOR(user));
         default:
             return NULL;
     }

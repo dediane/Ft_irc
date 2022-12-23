@@ -27,8 +27,10 @@
     std::string RPL_TOPIC(User *user, Channel *channel);
     std::string RPL_NOTOPIC(User *user, Channel *channel);
     std::string RPL_INVITING(User *user, Channel *channel, std::string nick);
-    
+    std::string RPL_WHOISUSER(User *user); //311  RPL_WHOISUSER // "<nick> <user> <host> * :<real name>"
+    std::string RPL_WHOISSERVER(User *user);
+    std::string RPL_WHOISOPERATOR(User *user);
+
     std::string reply(User user, Server server, int num);
     void send_reply(int fd, std::string rpl);
-        
 #endif
