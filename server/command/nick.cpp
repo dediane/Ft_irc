@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   nick.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:16:46 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/16 00:02:02 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/23 17:49:53 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ void Command::nick(Message *msg, std::vector<std::string> message)
     for (it = nicknames.begin(); it != nicknames.end(); it++)
     {
         if ((*it) == nickname)
+        {
+            usr->setNickname(nickname + "_");
             return(send_reply(usr->getFd(), ERR_NICKNAMEINUSE(nickname)));
+        }
     }
     oldnick = usr->getNickname();
     usr->setNickname(nickname);
