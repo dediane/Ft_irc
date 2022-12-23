@@ -117,7 +117,21 @@ std::string RPL_WHOISOPERATOR(User *user) //313  RPL_WHOISOPERATOR // "<nick> <u
     return buffer;
 }
 /*-------*/
+/*
+LIST
+*/
 
+std::string RPL_LIST(Channel chan, std::string clientcount)  //  RPL_LIST (322) //   "<client> <channel> <client count> :<topic>" || 322    RPL_LIST "<channel> <# visible> :<topic>"
+{
+    std::string buffer =  chan.getName() + " " + clientcount +  " :" + chan.getTopic()  + END; 
+    return buffer;
+}
+
+std::string  RPL_LISTEND() //323    RPL_LISTEND  ":End of LIST"  /* If there are no channels available to return, only the end reply MUST be sent.*/
+{
+  std::string buffer =   ":End of LIST\r\n"; 
+  return buffer;
+}
 
 std::string reply(User user, Server server, int num)
 {
@@ -131,12 +145,6 @@ std::string reply(User user, Server server, int num)
             return(RPL_CREATED(user, server.getCreationTime()));
         case 004:
             return(RPL_MYINFO(user));
-        // case 311:
-        //     return(RPL_WHOISUSER(user)); //311
-        // case 312:
-        //     return(RPL_WHOISSERVER(user));
-        // case 313:
-        //     return(RPL_WHOISOPERATOR(user));
         default:
             return NULL;
     }

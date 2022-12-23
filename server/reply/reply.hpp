@@ -31,6 +31,9 @@
     std::string RPL_WHOISSERVER(User *user);
     std::string RPL_WHOISOPERATOR(User *user);
 
+    std::string RPL_LIST(Channel chan, std::string clientcount);
+    std::string  RPL_LISTEND();
+
     std::string reply(User user, Server server, int num);
     void send_reply(int fd, std::string rpl);
 #endif
