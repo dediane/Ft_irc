@@ -46,8 +46,13 @@ void Command::list(Message *msg, std::vector<std::string> message)
 
     std::vector<Channel> * channels = server->get_all_channels();
 
-    // if (message.size() == 1 ) // a remettre en reglant le probleme doing this is not a good idea                       // || (message.size() == 2  && ((message[1]) == "-YES")   a enlever quand doing this is not a good idea disparaitra. je sais pas dou vient cette obligation -YES. fonction fonctionnait avant ce msg d'erreur
-    // {
+    for(std::vector<std::string>::iterator it = message.begin(); it != message.end(); it++)
+    {
+        std::cout << "message vaut " << (*it) << std::endl;
+    }
+    std::cout << message.size() << " -> notre size" << std::endl;
+    if ((message.size() == 1)|| ((message.size() == 2)  && ((message[1]) == "") )) // a remettre en reglant le probleme doing this is not a good idea                       // || (message.size() == 2  && ((message[1]) == "-YES")   a enlever quand doing this is not a good idea disparaitra. je sais pas dou vient cette obligation -YES. fonction fonctionnait avant ce msg d'erreur
+    {
         std::vector<Channel>::iterator it;
         for (it = channels->begin(); it != channels->end(); it++)
         {
@@ -63,7 +68,7 @@ void Command::list(Message *msg, std::vector<std::string> message)
            
             //RPL LIST END difference ? 
         }
-        //}
+        }
     if (!(message[1]).empty()) //pour tester il faut d'abord regler le pb de doing this is not a good idea car sinon pas le bon nombre de params et ne peut entrer ici
     {
         //If the <channel> parameter is used, only the status of that channel is displayed.
