@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:15:15 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/23 23:12:01 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/24 00:18:10 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,8 @@ void join_channel(Message *msg, std::string message, std::string key)
                 user->addLastChannel(channel->getName());
             }
             else
-                std::cout << "ERROR" << std::endl;
+                return (send_reply(user->getFd(), user->getPrefix() + " 464 " + user->getNickname() + " " + channel->getName() + ERR_PASSWDMISMATCH()));
+                //std::cout << "ERROR" << std::endl;
         }
     }
     else
