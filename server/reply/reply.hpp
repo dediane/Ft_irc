@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 14:07:20 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/23 15:22:48 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/23 17:23:18 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
     std::string RPL_ENDOFNAMES(User *user, Channel *channel);
     std::string RPL_TOPIC(User *user, Channel *channel);
     std::string RPL_NOTOPIC(User *user, Channel *channel);
+    std::string RPL_INVITING(User *user, Channel *channel, std::string nick);
     
     std::string reply(User user, Server server, int num);
     void send_reply(int fd, std::string rpl);
