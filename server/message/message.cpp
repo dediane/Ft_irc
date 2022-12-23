@@ -38,15 +38,14 @@ User    *Message::getuser() { return _user; }
 
 
 
-
-void make_uppercase(std::string &token)
+void Message::make_uppercase(std::string &token)
 {
 //	std::cout << "making command uppercase " << std::endl;
 	for(size_t i = 0; i < token.length(); i++)
 		token[i] = std::toupper(token[i]);
 }
 
-void print_tokens(std::vector<std::string>  tokens)
+void Message::print_tokens(std::vector<std::string>  tokens)
 {
 	if (tokens.empty())
 	{
@@ -57,7 +56,7 @@ void print_tokens(std::vector<std::string>  tokens)
 		std::cout <<"\""<< tokens[i]<< "\""<< std::endl;
 }
 
-void replacerbyn(std::string &input)
+void Message::replacerbyn(std::string &input)
 {
 	for(size_t i = 0; i < input.size() ; i++){
 		if(input[i] == '\r')
@@ -65,7 +64,7 @@ void replacerbyn(std::string &input)
 	}
 }
 
-std::vector<std::string> get_split(std::string input, std::string separater) {
+std::vector<std::string> Message::get_split(std::string input, std::string separater) {
 
 	std::vector<std::string> tokens;
 	size_t prev = 0;
@@ -94,7 +93,7 @@ void Message::split_buffer(std::string recvline)
 	// print_tokens(cmds);
 }
 
-std::vector<std::string> getTokens(std::string cmd)
+std::vector<std::string> Message::getTokens(std::string cmd)
 {
     std::vector<std::string> tokens = get_split(cmd, " ");
 	make_uppercase(tokens[0]);

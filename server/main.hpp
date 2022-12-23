@@ -43,6 +43,7 @@
 #include "reply/error.hpp"
 #include "message/message.hpp"
 
+#include <algorithm>
 
 
 

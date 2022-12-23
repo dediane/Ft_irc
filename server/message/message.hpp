@@ -32,6 +32,13 @@ class Message
         User    *getuser();
         Server  *getserver();
         void setuser(User *user);
+
+        std::vector<std::string> get_split(std::string input, std::string separater);
+        std::vector<std::string> getTokens(std::string cmd);
+        void make_uppercase(std::string &token);
+        void print_tokens(std::vector<std::string>  tokens);
+        void replacerbyn(std::string &input);
+
     private:
        User *_user;
        Server *_server;
