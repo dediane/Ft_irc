@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 00:13:06 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/23 23:47:19 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/23 23:49:33 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,12 @@ void Command::notice(Message *msg, std::vector<std::string> message)
             receiver = server->get_user_by_nickname(message[1]);
         else
             return;
-        std::cout << "receiver = " << receiver->getNickname() << std::endl;
         buffer = user->getPrefix() + " NOTICE " + receiver->getNickname() + " :";
         for (it = message.begin() + 2; it != message.end(); it++)
         {
             buffer += (*it) + " ";
         }
-        std::cout << "BUFFER = " << buffer << std::endl;
         send_reply(receiver->getFd(), buffer + END);
     }
-        
-        std::cout << "Je passe dans la commande NOTICE" << std::endl;
-
     return;
 }
