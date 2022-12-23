@@ -6,7 +6,7 @@
 /*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:15:15 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/23 16:00:09 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2022/12/23 17:18:56 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,6 @@ std::vector<std::string>   parse_element(std::string str)
         str.erase(0, index + 1);
     }
     channels.push_back(str);
-    // this is the print of our chan
-    for (std::vector<std::string>::iterator it = channels.begin(); it != channels.end(); it++)
-        std::cout << "list chan: " << *(it) << std::endl;
     return (channels);
 }
 
@@ -88,7 +85,6 @@ void join_channel(Message *msg, std::string message, std::string key)
     {
         if (!channel->isUserinChannel(*user))
         {
-            std::cout << "KEY = " << key << " | CHANNEL_KEY= " << channel->getKey() << std::endl;
             if (key == channel->getKey())
             {
                 channel->addUser(*user);
