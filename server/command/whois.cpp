@@ -28,28 +28,8 @@ void Command::whois(Message *msg, std::vector<std::string> message)
         User * user2 = server->get_user_by_nickname(message[1]);
         if (user2)
             send_reply(user->getFd(), RPL_WHOISUSER(user2));
-        send_reply(user->getFd(), RPL_WHOISSERVER(user));
+        send_reply(user->getFd(), RPL_YOURHOST(*user) + RPL_WHOISSERVER(user));
         if (user2->getMode() == "+o") //a verifier apres qu'on s'occupe des operators
             send_reply(user->getFd(), RPL_WHOISSERVER(user2));
     }
-    // reply(User user, Server server, int num)
 }
-
-// std::string RPL_WHOISUSER(User user) //311  RPL_WHOISUSER // "<nick> <user> <host> * :<real name>"
-// {
-//     std::string buffer =  user.getNickname() + " " + user.getUsername() + " " + user.getHostname() + " " + "*" + " :" +  user.getRealname()  + END;
-//     return buffer;
-// }
-
-// std::string RPL_WHOISSERVER(User user)
-// {
-//     Server server;
-//     std::string buffer = user.getNickname() + " " + server.getCreationTime() + END;// 312    RPL_WHOISSERVER // "<nick> <server> :<server info>" //autres infos du serveur a mettre en avant ?
-//     return buffer;
-// }
-
-// std::string RPL_WHOISOPERATOR(User user) //313  RPL_WHOISOPERATOR // "<nick> <user> <host> * :<real name>"
-// {
-//     std::string buffer =  user.getNickname() + " :is an IRC operator" + END;
-//     return buffer;
-// }
