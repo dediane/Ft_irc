@@ -32,6 +32,6 @@ void Command::user(Message *msg, std::vector<std::string> message)
     {
         user->setisRegistered(true);
         msg->do_handshake();
-       // user->setisOnline(true);
+    //    user->setisOnline(true);
     }
 }

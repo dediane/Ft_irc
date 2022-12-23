@@ -47,6 +47,7 @@
             std::string const getPassword()const{return _password;};
             void    setPassword(std::string const  & password){_password = password;};
         
+            // std::map<int, User> getUsers() {return users;}
             
         private:
             //We don't need it cause it is in <poll.h>
