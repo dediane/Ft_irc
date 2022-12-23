@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   join.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:15:15 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/22 19:50:15 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/23 16:00:09 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ std::vector<std::string>   parse_element(std::string str)
         str.erase(0, index + 1);
     }
     channels.push_back(str);
+    // this is the print of our chan
     for (std::vector<std::string>::iterator it = channels.begin(); it != channels.end(); it++)
         std::cout << "list chan: " << *(it) << std::endl;
     return (channels);
@@ -79,22 +80,17 @@ void join_channel(Message *msg, std::string message, std::string key)
 
     std::vector<std::string> names = server->get_all_channels_names();
     std::vector<std::string>::iterator it;
-    std::cout << "82" << std::endl;
-    
     for (it = names.begin(); it != names.end(); it++)
     {
         std::cout << (*it) << std::endl;
     }
     if ((channel = server->get_channel_by_name(message)) != NULL)
     {
-        std::cout << "90" << std::endl;
         if (!channel->isUserinChannel(*user))
         {
-            std::cout << "92" << std::endl;
             std::cout << "KEY = " << key << " | CHANNEL_KEY= " << channel->getKey() << std::endl;
             if (key == channel->getKey())
             {
-                std::cout << "95" << std::endl;
                 channel->addUser(*user);
                 channel->broadcast(user->getPrefix() + " JOIN " + ":" + channel->getName() + END);
                 send_reply(user->getFd(), RPL_NAMREPLY(user, channel));
@@ -106,8 +102,6 @@ void join_channel(Message *msg, std::string message, std::string key)
     }
     else
     {
-        std::cout << "103" << std::endl;
-
         std::string name = message;
         Channel new_channel(*user);
         new_channel.setName(name);
@@ -170,8 +164,10 @@ void Command::join(Message *msg, std::vector<std::string> message)
     else
     {
         nb_of_channel = 1;
-        std::cout << "166" << std::endl;
-        join_channel(msg, message[1], "x");
+        if (!message[2].empty())
+            join_channel(msg, message[1], message[2]);
+        else
+            join_channel(msg, message[1], "x");
     }
     // donc pour rejoindre des chan -> chan,chan,chan
     // separer par des , et des qu'il a un ' ' c'est les keys
