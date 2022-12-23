@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 13:15:20 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/22 19:39:07 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/23 16:41:46 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ std::string RPL_NOTOPIC(User *user, Channel *channel)
 
 std::string RPL_TOPIC(User *user, Channel *channel)
 {
-    std::string buffer = user->getPrefix() + " 332 " + user->getNickname() + " " +
-    channel->getName() + " :" + channel->getTopic() + END;
+    std::string buffer = user->getPrefix() + " TOPIC " +
+    channel->getName() + " " + channel->getTopic() + END;
     return (buffer);
 }
 
