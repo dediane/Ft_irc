@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:55:27 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/22 20:17:09 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/24 00:43:23 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,16 @@ Channel::Channel()
 Channel::Channel(std::string name, User user)
 {
     _name = name;
+    user.setNickname("@" + user.getNickname());
     _users.push_back(user);
+    _users_mode.insert(std::pair<int, std::string>(user.getFd(), "o"));
 }
 
 Channel::Channel(User user)
 {
+    user.setNickname("@" + user.getNickname());
     _users.push_back(user);
+    _users_mode.insert(std::pair<int, std::string>(user.getFd(), "o"));
 }
 
 
@@ -37,6 +41,7 @@ Channel::Channel(const Channel &lhs)
     _mode = lhs._mode;
     _users = lhs._users;
     _key = lhs._key;
+    _users_mode = lhs._users_mode;
     return;
 }
 
@@ -47,9 +52,9 @@ Channel &Channel::operator=(const Channel &lhs)
     this->_topic = lhs._topic;
     this->_users = lhs._users;
     this->_key = lhs._key;
+    this->_users_mode = lhs._users_mode;
     return (*this);
 }
-
 
 Channel::~Channel()
 {
@@ -84,6 +89,17 @@ bool Channel::isUserinChannel(User user)
     _users.erase(it);
     return;
  }
+
+void Channel::addUserMode(int fd, std::string mode)
+{
+    _users_mode.insert(std::pair<int, std::string>(fd, mode));
+}
+
+void Channel::removeUserMode(int fd)
+{
+    _users_mode.erase(_users_mode.find(fd));
+}
+
 
  void Channel::broadcast(std::string rpl)
  {
