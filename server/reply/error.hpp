@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 18:15:54 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/08 18:45:21 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/24 01:49:08 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,3 +35,7 @@ std::string ERR_ALREADYREGISTRED();
 std::string ERR_NOPERMFORHOST();
 std::string ERR_PASSWDMISMATCH();
 std::string ERR_YOUREBANNEDCREEP();
+std::string ERR_UNKNOWNMODE(char c);
+std::string ERR_INVITEONLYCHAN(std::string channel);
+std::string ERR_BADCHANNELKEY(std::string channel);
+std::string ERR_CHANOPRIVNEEDED(std::string channel);

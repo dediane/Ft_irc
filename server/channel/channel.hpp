@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:46:55 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/23 22:49:43 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/24 00:41:55 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ class Channel
         //helper
         bool isUserinChannel(User user);
         void addUser(User user);
+        void addUserMode(int fd, std::string mode);
+        void removeUserMode(int fd);
         void deleteUser(User user);
         void RemoveUserFromChan(User user);
 

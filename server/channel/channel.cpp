@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:55:27 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/23 23:05:26 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/24 00:43:23 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,17 @@ bool Channel::isUserinChannel(User user)
     _users.erase(it);
     return;
  }
+
+void Channel::addUserMode(int fd, std::string mode)
+{
+    _users_mode.insert(std::pair<int, std::string>(fd, mode));
+}
+
+void Channel::removeUserMode(int fd)
+{
+    _users_mode.erase(_users_mode.find(fd));
+}
+
 
  void Channel::broadcast(std::string rpl)
  {
