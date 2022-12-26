@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:55:27 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/24 00:43:23 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/26 13:41:29 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,13 @@ bool Channel::isUserinChannel(User user)
         if (user.getNickname() == (*it).getNickname())
             return true;
     }
+    for (it = _users.begin(); it != _users.end(); it++)
+    {
+        if ("@" + user.getNickname() == (*it).getNickname())
+            return true;
+    }
+    
+    
     return false;
 }
 

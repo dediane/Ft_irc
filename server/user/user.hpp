@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:45:40 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/23 15:01:02 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/26 13:45:09 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,6 @@ class User
         void setisDeleted(bool status);
         void setisPassword(bool status);
         
-        void addLastChannel(std::string channel);
-        void removeLastChannel();
-
         std::string getPrefix();
         std::string getNickname();
         std::string getUsername();
@@ -81,8 +78,6 @@ class User
         std::string     _hostname;
         std::string     _hostaddr;
         std::string     _mode;    
-        
-        std::vector<std::string>     _lastchannel;
         
         bool _registered;
         bool _online;

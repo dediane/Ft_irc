@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:58:37 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/23 15:05:46 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/26 13:45:23 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ User::User(int newfd, sockaddr_in address)
     if (getnameinfo((sockaddr *)&address, sizeof(address), buffer, NI_MAXHOST, NULL, 0, NI_NUMERICSERV) == -1)
         std::cout << "error getnameinfo" << std::endl;
     _hostname = buffer;
-    _lastchannel.push_back("server");
     _cmd = new Command();
 }
 
@@ -39,7 +38,6 @@ User::User(const User &lhs)
     this->_nickname = lhs._nickname;
     this->_hostname = lhs._hostname;
     this->_username = lhs._username;
-    this->_lastchannel = lhs._lastchannel;
     //this->_commands = lhs._commands;
     this->_cmd = lhs._cmd;
     this->_registered = lhs._registered;
@@ -59,7 +57,6 @@ User &User::operator=(const User &lhs)
     this->_nickname = lhs._nickname;
     this->_hostname = lhs._hostname;
     this->_username = lhs._username;
-    this->_lastchannel = lhs._lastchannel;
     //this->_commands = lhs._commands;
     this->_cmd = lhs._cmd;
     this->_registered = lhs._registered;
@@ -87,15 +84,12 @@ void User::setisOnline(bool status) {_online = status; return;};
 void User::setisDeleted(bool status) {_deleted = status; return;};
 void User::setisPassword(bool status) {_password = status; return;};
 
-void User::addLastChannel(std::string channel) {_lastchannel.push_back(channel); return;}
-void User::removeLastChannel() {_lastchannel.pop_back(); return;}
 
 std::string User::getNickname() {return (_nickname);}
 std::string User::getUsername() {return (_username);}
 std::string User::getRealname() {return (_realname);}
 std::string User::getHostname() {return (_hostname);}
 std::string User::getHostAddr() {return (_hostaddr);}
-std::string User::getLastChannel() {return (_lastchannel.back());}
 std::string User::getMode() {return (_mode);}
 std::string User::getPrefix() {return (":" + _nickname + "!" + _username + "@" + _hostname);}
 time_t      User::getLastPing() {return (_last_ping);};

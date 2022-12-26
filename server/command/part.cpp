@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:30:10 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/24 00:44:05 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/26 13:44:29 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ void Command::part(Message *msg, std::vector<std::string> message)
         {
             send_reply(user->getFd(), user->getPrefix() + " PART " + channel->getName() + END);
             channel->broadcast_msg(user->getPrefix() + " PART " + channel->getName() + END, user);
-            user->removeLastChannel();
-            channel->removeUserMode(user->getFd());
+            //channel->removeUserMode(user->getFd());
             channel->deleteUser(*user);
         }
     }
