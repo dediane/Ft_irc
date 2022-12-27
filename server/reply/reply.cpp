@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 13:15:20 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/27 13:12:17 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/28 00:18:35 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,20 @@ std::string RPL_NAMREPLY(User *user, Channel *channel)
     std::vector<User> users;
     std::vector<User>::iterator it;
     users = channel->getUsers();
-    std::string buffer = user->getPrefix() + " 353 " + user->getNickname() + " = " + channel->getName();
+    std::string buffer = user->getPrefix() + " 353 " + user->getNickname() + " = " + channel->getName() + " :";
     
     for (it = users.begin(); it != users.end(); it++)
     {
         if ((*it).getNickname() != user->getNickname())
-            buffer += (" :" + (*it).getNickname());
+        {
+            if (channel->getUserMode((*it).getFd()).find("o"))
+            {
+                std::cout << "usermode = " << channel->getUserMode((*it).getFd()) << std::endl;
+                buffer += (" @" + (*it).getNickname());
+            }
+            else
+                buffer += (" " + (*it).getNickname());
+        }
     }
     buffer += END;
     return buffer;
@@ -88,10 +96,11 @@ std::string RPL_INVITING(User *user, Channel *channel, std::string nick)
     return (buffer);  
 }
 
-std::string RPL_CHANNELMODEIS(User *user, Channel *channel)
+std::string RPL_CHANNELMODEIS(User *user, Channel *channel, std::string mode)
 {
-    std::string buffer = user->getPrefix() + " 324 " + user->getNickname() + " " + channel->getName() + " " + channel->getMode() + END;
-    return(buffer);
+        (void)channel;
+        std::string buffer = user->getPrefix() + " 324 " + mode + END;
+        return(buffer);
 }
 
 void send_reply(int fd, std::string rpl)

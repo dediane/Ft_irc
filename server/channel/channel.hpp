@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:46:55 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/24 00:41:55 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/27 18:02:52 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ class Channel
         std::string getMode();
         std::string getKey();
         std::vector<User> getUsers();
+        std::string getUserMode(int fd);
 
         //setter
         void setName(std::string name);         
@@ -51,6 +52,7 @@ class Channel
         void removeUserMode(int fd);
         void deleteUser(User user);
         void RemoveUserFromChan(User user);
+        User *get_user(User *user);
 
     private:
         std::string _name;

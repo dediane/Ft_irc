@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:35:32 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/27 13:55:10 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/27 23:57:59 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,20 @@
 //Channel modes
 // [O] - give "channel creator" status;
 // [o] - give/take channel operator privilege;
-// [v] - give/take the voice privilege;
 
 // [a] - toggle the anonymous channel flag;
-// [i] - toggle the invite-only channel flag;
-// [m] - toggle the moderated channel;
-// [n] - toggle the no messages to channel from clients on the outside;
 // [q] - toggle the quiet channel flag;
 // [p] - toggle the private channel flag;
 // [s] - toggle the secret channel flag;
-// [r] - toggle the server reop channel flag;
-// [t] - toggle the topic settable by channel operator only flag;
-
-// [k] - set/remove the channel key (password);
 // [l] - set/remove the user limit to channel;
+// [r] - toggle the server reop channel flag;
+
+// [t] - toggle the topic settable by channel operator only flag;
+// [i] - toggle the invite-only channel flag;
+// [k] - set/remove the channel key (password);
+// [n] - toggle the no messages to channel from clients on the outside;
+// [m] - toggle the moderated channel;
+// [v] - give/take the ability to speak on a moderated channel;
 
 // [b] - set/remove ban mask to keep users out;
 // [e] - set/remove an exception mask to override a ban mask;
@@ -98,22 +98,55 @@ std::string deletemode(std::string mode, std::string oldmode)
     return (copy);
 }
 
-void Command::mode_channel(Message *msg, std::vector<std::string> message)
+void mode_channel(Message *msg, std::vector<std::string> message)
 {
+    std::cout << "je suis dans mode_channel" << std::endl;
     Server *server = msg->getserver();
     Channel *channel;
     User *user = msg->getuser();
     User *target;
+    User *channel_user;
     std::string mode;
 
     if(!(channel = server->get_channel_by_name(message[1])))
         return (send_reply(user->getFd(), user->getPrefix() + " 403 " + ERR_NOSUCHCHANNEL(message[2])));
+    std::cout << "message size = " << message.size() << std::endl;
     if (message.size() == 4)
     {
+        std::cout << "Je suis la" << std::endl;
+        mode = message[2];
         if (!(target = server->get_user_by_nickname(message[3])))
             return (send_reply(user->getFd(), user->getPrefix() + " 401 " + ERR_NOSUCHNICK(message[3])));
         if (!channel->isUserinChannel(*target))
             return (send_reply(user->getFd(), user->getPrefix() + " 442 " + ERR_NOTONCHANNEL(message[3])));
+        channel_user = channel->get_user(target);
+        if (isvalid_mode(mode, "o") == true)
+        {
+            std::cout << "Je suis la" << std::endl;
+            std::string new_mode;
+            if (!channel->getUserMode(channel_user->getFd()).empty() && *mode.begin() == '+')
+                new_mode =  addmode(mode, channel->getUserMode(channel_user->getFd()));
+            else if  (!channel->getUserMode(channel_user->getFd()).empty() && *mode.begin() == '-')
+                new_mode = deletemode(mode, channel->getUserMode(channel_user->getFd()));
+            channel->removeUserMode(channel_user->getFd());
+            channel->addUserMode(channel_user->getFd(), new_mode);
+            std::string tmp = mode;
+            mode = user->getNickname() + " " + channel->getName() + " " + tmp + " " + target->getNickname(); 
+            send_reply(user->getFd(), RPL_CHANNELMODEIS(user, channel, mode));
+            //send_reply(user->getFd(), RPL_CHANNELMODEIS(user, channel, user->getNickname() + " " + channel->getName() + " " + channel->getMode()));
+            //:diana!diane@localhost 324 diana #la +n
+            if (new_mode.find("o"))
+            {
+                if (*(channel_user->getNickname()).begin() != '@')
+                {
+                    std::string oldnick = channel_user->getNickname();
+                    channel_user->setNickname("@" + oldnick);
+                }
+            }
+             //:diana!diane@localhost 324 diana #lala +o dianita
+            return;
+        }
+        
         //change mode for the user in the channel only with map <int, string> (fd[fd de l'user], mode[+o]);
     }
     if (message.size() == 3)
@@ -121,17 +154,19 @@ void Command::mode_channel(Message *msg, std::vector<std::string> message)
         mode = message[2];
         if (isvalid_mode(mode, "tiknmv") == true)
         {
+            std::cout << "Je suis ici" << std::endl;
+            
             if (!channel->getMode().empty() && *mode.begin() == '+')
                 channel->setMode(addmode(mode, channel->getMode()));
             else if (!channel->getMode().empty() && *mode.begin() == '-')
                 channel->setMode(deletemode(mode, channel->getMode()));
         }
     }
-    send_reply(user->getFd(), RPL_CHANNELMODEIS(user, channel));
+    send_reply(user->getFd(), RPL_CHANNELMODEIS(user, channel, user->getNickname() + " " + channel->getName() + " " + channel->getMode()));
     return;
 }
 
-void Command::mode_user(Message *msg, std::vector<std::string> message)
+void mode_user(Message *msg, std::vector<std::string> message)
 {
     std::cout << "je suis dans mode_user" << std::endl;
     Server *server = msg->getserver();
@@ -140,17 +175,9 @@ void Command::mode_user(Message *msg, std::vector<std::string> message)
     std::string mode = message[2];
 
     if(!(target = server->get_user_by_nickname(message[1])))
-        return (send_reply(user->getFd(), user->getPrefix() + " 403 " + ERR_NOSUCHCHANNEL(message[2])));
+        return (send_reply(user->getFd(), user->getPrefix() + " 401 " + ERR_NOSUCHNICK(message[2])));
     if (target->getNickname() != user->getNickname())
         return (send_reply(user->getFd(), user->getPrefix() + " 502 " + ERR_USERSDONTMATCH()));
-    // if (message.size() == 4)
-    // {
-        // if (!(target = server->get_user_by_nickname(message[3])))
-        //     return (send_reply(user->getFd(), user->getPrefix() + " 401 " + ERR_NOSUCHNICK(message[3])));
-        // if (!channel->isUserinChannel(*target))
-        //     return (send_reply(user->getFd(), user->getPrefix() + " 442 " + ERR_NOTONCHANNEL(message[3])));
-        //change mode for the user in the channel only with map <int, string> (fd[fd de l'user], mode[+o]);
-    // }
     if (message.size() == 3)
     {
         mode = message[2];
@@ -161,8 +188,7 @@ void Command::mode_user(Message *msg, std::vector<std::string> message)
                 user->setMode(addmode(mode, user->getMode()));
                 if (mode.find('o'))
                     user->setMode(deletemode("o", user->getMode()));
-            }
-                
+            } 
             else if (!user->getMode().empty() && *mode.begin() == '-')
                 user->setMode(deletemode(mode, user->getMode()));
         }

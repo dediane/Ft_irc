@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:55:27 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/27 12:21:24 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/28 00:24:08 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ Channel::Channel(std::string name, User user)
     user.setNickname("@" + user.getNickname());
     _users.push_back(user);
     _mode = "+n";
-    _users_mode.insert(std::pair<int, std::string>(user.getFd(), "o"));
+    _users_mode.insert(std::pair<int, std::string>(user.getFd(), "+o"));
 }
 
 Channel::Channel(User user)
@@ -32,7 +32,7 @@ Channel::Channel(User user)
     user.setNickname("@" + user.getNickname());
     _users.push_back(user);
     _mode = "+n";
-    _users_mode.insert(std::pair<int, std::string>(user.getFd(), "o"));
+    _users_mode.insert(std::pair<int, std::string>(user.getFd(), "+o"));
 }
 
 
@@ -109,6 +109,18 @@ void Channel::removeUserMode(int fd)
     _users_mode.erase(_users_mode.find(fd));
 }
 
+User *Channel::get_user(User *user)
+{
+    std::vector<User>::iterator it;
+    for (it = _users.begin(); it != _users.end(); it++)
+    {
+        if((*it).getFd() == user->getFd()) 
+        {    
+            return &(*(it));
+        }
+    }
+    return NULL;
+}
 
  void Channel::broadcast(std::string rpl)
  {
@@ -140,6 +152,7 @@ std::string Channel::getTopic() {return _topic;}
 std::string Channel::getMode() {return _mode;}
 std::string Channel::getKey() {return _key;}
 std::vector<User> Channel::getUsers() {return _users;}
+std::string Channel::getUserMode(int fd) {return  (_users_mode.find(fd))->second;}
 
 void Channel::setName(std::string name) {_name = name; return;}
 void Channel::setTopic(std::string topic) {_topic = topic; return;}
