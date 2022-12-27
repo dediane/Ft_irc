@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 13:15:20 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/24 13:47:18 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/27 13:12:17 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ std::string RPL_MYINFO(User user)
 std::string RPL_UMODEIS(User *user)
 {
     std::cout << user->getMode() << std::endl;
-    std::string buffer = user->getPrefix() + " 221 " + user->getNickname() + " +" + user->getMode() + END;
+    std::string buffer = user->getPrefix() + " 221 " + user->getNickname() + " " + user->getMode() + END;
     return buffer;
 }
 

@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:55:26 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/24 01:48:14 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/27 13:02:10 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,3 +89,4 @@ std::string ERR_CHANOPRIVNEEDED(std::string channel) {return(channel + " :You're
 //491
 //501
 //502
+std::string ERR_USERSDONTMATCH() {return(" :Cant change mode for other users\r\n");}

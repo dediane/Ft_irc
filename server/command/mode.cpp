@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:35:32 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/27 12:06:59 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/27 13:12:45 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,16 @@ std::string addmode(std::string mode, std::string oldmode)
     std::string::iterator it;
     std::string::iterator it2;
     mode.erase(0,1);
+    std::string copy = mode;
     for (it = mode.begin(); it != mode.end(); it++)
     {
         for (it2 = oldmode.begin() + 1; it2 != oldmode.end(); it2++)
         {
             if (*it == *it2)
-                mode.erase(it);
+                copy.erase(copy.find(*it), 1);
         }
     }
-    oldmode.append(mode);
+    oldmode.append(copy);
     return (oldmode);
 }
 
@@ -99,7 +100,6 @@ std::string deletemode(std::string mode, std::string oldmode)
 
 void Command::mode_channel(Message *msg, std::vector<std::string> message)
 {
-    std::cout << "je suis dans mode_channel" << std::endl;
     Server *server = msg->getserver();
     Channel *channel;
     User *user = msg->getuser();
@@ -121,55 +121,48 @@ void Command::mode_channel(Message *msg, std::vector<std::string> message)
         mode = message[2];
         if (isvalid_mode(mode, "tiknmv") == true)
         {
-            if (channel->getMode().empty() && *mode.begin() == '+')
-            {
-                channel->setMode(mode);
-                std::cout << "MODE 1= " << channel->getMode() << std::endl;
-            }
-            else if (!channel->getMode().empty() && *mode.begin() == '+')
-            {
+            if (!channel->getMode().empty() && *mode.begin() == '+')
                 channel->setMode(addmode(mode, channel->getMode()));
-                std::cout << "MODE 2= " << channel->getMode() << std::endl;
-            }   
-            else if (!channel->getKey().empty() && *mode.begin() == '-')
-             {
+            else if (!channel->getMode().empty() && *mode.begin() == '-')
                 channel->setMode(deletemode(mode, channel->getMode()));
-                std::cout << "MODE 3= " << channel->getMode() << std::endl;
-             } 
-                
         }
     }
-           
+    send_reply(user->getFd(), RPL_CHANNELMODEIS(user, channel));
+    return;
 }
 
 void Command::mode_user(Message *msg, std::vector<std::string> message)
 {
     std::cout << "je suis dans mode_user" << std::endl;
+    Server *server = msg->getserver();
     User *user = msg->getuser();
+    User *target;
     std::string mode = message[2];
-    //need to check if user is in the server. by doing something like:
-    //Server *server = server;
-    //std::cout << "MODE de l'user = " << user->getMode() << std::endl;    
-    if (user->getMode().empty())
+
+    if(!(target = server->get_user_by_nickname(message[1])))
+        return (send_reply(user->getFd(), user->getPrefix() + " 403 " + ERR_NOSUCHCHANNEL(message[2])));
+    if (target->getNickname() != user->getNickname())
+        return (send_reply(user->getFd(), user->getPrefix() + " 502 " + ERR_USERSDONTMATCH()));
+    // if (message.size() == 4)
+    // {
+        // if (!(target = server->get_user_by_nickname(message[3])))
+        //     return (send_reply(user->getFd(), user->getPrefix() + " 401 " + ERR_NOSUCHNICK(message[3])));
+        // if (!channel->isUserinChannel(*target))
+        //     return (send_reply(user->getFd(), user->getPrefix() + " 442 " + ERR_NOTONCHANNEL(message[3])));
+        //change mode for the user in the channel only with map <int, string> (fd[fd de l'user], mode[+o]);
+    // }
+    if (message.size() == 3)
     {
-        if (mode.find("+") == 0)
+        mode = message[2];
+        if (isvalid_mode(mode, "oiw") == true)
         {
-            std::string str = "w";
-            str += mode.substr(1);
-            user->setMode(str);
-            std::cout << "user mode = " << user->getMode() << std::endl;
-            send_reply(user->getFd(),RPL_UMODEIS(user));
-        }
-        else
-        {
-            //need to set reply
-            return;
+            if (!user->getMode().empty() && *mode.begin() == '+')
+                user->setMode(addmode(mode, user->getMode()));
+            else if (!user->getMode().empty() && *mode.begin() == '-')
+                user->setMode(deletemode(mode, user->getMode()));
         }
     }
-    else
-    {
-        return;
-    }
+    send_reply(user->getFd(),RPL_UMODEIS(user));
     return;
 }
 

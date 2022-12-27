@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:58:37 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/26 13:45:23 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/27 13:12:25 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ User::User(int newfd, sockaddr_in address)
     if (getnameinfo((sockaddr *)&address, sizeof(address), buffer, NI_MAXHOST, NULL, 0, NI_NUMERICSERV) == -1)
         std::cout << "error getnameinfo" << std::endl;
     _hostname = buffer;
+    _mode = "+w";
     _cmd = new Command();
 }
 
@@ -38,6 +39,7 @@ User::User(const User &lhs)
     this->_nickname = lhs._nickname;
     this->_hostname = lhs._hostname;
     this->_username = lhs._username;
+    this->_mode = lhs._mode;
     //this->_commands = lhs._commands;
     this->_cmd = lhs._cmd;
     this->_registered = lhs._registered;
@@ -57,6 +59,7 @@ User &User::operator=(const User &lhs)
     this->_nickname = lhs._nickname;
     this->_hostname = lhs._hostname;
     this->_username = lhs._username;
+    this->_mode = lhs._mode;
     //this->_commands = lhs._commands;
     this->_cmd = lhs._cmd;
     this->_registered = lhs._registered;

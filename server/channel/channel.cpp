@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:55:27 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/26 13:41:29 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/27 12:21:24 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ Channel::Channel(std::string name, User user)
     _name = name;
     user.setNickname("@" + user.getNickname());
     _users.push_back(user);
+    _mode = "+n";
     _users_mode.insert(std::pair<int, std::string>(user.getFd(), "o"));
 }
 
@@ -30,6 +31,7 @@ Channel::Channel(User user)
 {
     user.setNickname("@" + user.getNickname());
     _users.push_back(user);
+    _mode = "+n";
     _users_mode.insert(std::pair<int, std::string>(user.getFd(), "o"));
 }
 
