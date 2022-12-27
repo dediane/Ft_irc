@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:35:32 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/27 13:12:45 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/27 13:55:10 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,12 @@ void Command::mode_user(Message *msg, std::vector<std::string> message)
         if (isvalid_mode(mode, "oiw") == true)
         {
             if (!user->getMode().empty() && *mode.begin() == '+')
+            {
                 user->setMode(addmode(mode, user->getMode()));
+                if (mode.find('o'))
+                    user->setMode(deletemode("o", user->getMode()));
+            }
+                
             else if (!user->getMode().empty() && *mode.begin() == '-')
                 user->setMode(deletemode(mode, user->getMode()));
         }
