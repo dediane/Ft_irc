@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:35:32 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/24 12:08:25 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/27 12:06:59 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,13 @@
 // [e] - set/remove an exception mask to override a ban mask;
 // [I] - set/remove an invitation mask to automatically override the invite-only flag;
 
-bool isvalid_mode_channel(std::string mode)
+bool isvalid_mode(std::string mode, std::string validmodes)
 {
-    //mode valid : [t][i][k][n][m][v]
+    //mode valid for channel : [t][i][k][n][m][v]
+    //mode valid for user: [o][i][w]
     if (mode.size() > 1)
     {
-        std::string modes = "tiknmv";
+        std::string modes = validmodes;
         std::string::iterator it;
         std::string::iterator it2;
         if (!(*mode.begin() == '+' || *mode.begin() == '-'))
@@ -60,6 +61,40 @@ bool isvalid_mode_channel(std::string mode)
         return (true);
     }
     return (false);
+}
+
+std::string addmode(std::string mode, std::string oldmode)
+{
+    std::string::iterator it;
+    std::string::iterator it2;
+    mode.erase(0,1);
+    for (it = mode.begin(); it != mode.end(); it++)
+    {
+        for (it2 = oldmode.begin() + 1; it2 != oldmode.end(); it2++)
+        {
+            if (*it == *it2)
+                mode.erase(it);
+        }
+    }
+    oldmode.append(mode);
+    return (oldmode);
+}
+
+std::string deletemode(std::string mode, std::string oldmode)
+{
+    std::string::iterator it;
+    std::string::iterator it2;
+    std::string copy = oldmode;
+    mode.erase(0,1);
+    for (it = mode.begin(); it != mode.end(); it++)
+    {
+        for (it2 = oldmode.begin() + 1; it2 != oldmode.end(); it2++)
+        {
+            if (*it == *it2)
+               copy.erase(copy.find(*it), 1);
+        }
+    }
+    return (copy);
 }
 
 void Command::mode_channel(Message *msg, std::vector<std::string> message)
@@ -84,13 +119,24 @@ void Command::mode_channel(Message *msg, std::vector<std::string> message)
     if (message.size() == 3)
     {
         mode = message[2];
-        if (isvalid_mode_channel(mode) == true)
+        if (isvalid_mode(mode, "tiknmv") == true)
         {
             if (channel->getMode().empty() && *mode.begin() == '+')
             {
                 channel->setMode(mode);
-                std::cout << "MODE = " << channel->getMode() << std::endl;
+                std::cout << "MODE 1= " << channel->getMode() << std::endl;
             }
+            else if (!channel->getMode().empty() && *mode.begin() == '+')
+            {
+                channel->setMode(addmode(mode, channel->getMode()));
+                std::cout << "MODE 2= " << channel->getMode() << std::endl;
+            }   
+            else if (!channel->getKey().empty() && *mode.begin() == '-')
+             {
+                channel->setMode(deletemode(mode, channel->getMode()));
+                std::cout << "MODE 3= " << channel->getMode() << std::endl;
+             } 
+                
         }
     }
            
