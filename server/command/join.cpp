@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:15:15 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/26 13:45:51 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/27 11:18:20 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void join_channel(Message *msg, std::string message, std::string key)
                 channel->broadcast(user->getPrefix() + " JOIN " + ":" + channel->getName() + END);
             }
             else
-                return (send_reply(user->getFd(), user->getPrefix() + " 464 " + user->getNickname() + " " + channel->getName() + ERR_PASSWDMISMATCH()));
+                return (send_reply(user->getFd(), user->getPrefix() + " 475 " + user->getNickname() + " " +  ERR_BADCHANNELKEY(channel->getName())));
                 // then need to be change with this error:         475     ERR_BADCHANNELKEY
                 //std::cout << "ERROR" << std::endl;
         }
