@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:45:40 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/26 13:45:09 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/28 15:41:29 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,8 @@ class User
         bool isDeleted();
         bool isPassword();
 
-        //void receive();
-        //void split_buffer(std::string str);
-        //void exec_command();
-        //void do_handshake();
-        //void parse_commands(std::string str);
-
-        //void    RemoveUserFromChans(User user);
-
-
-
+        bool is_mode(char x);
+        
         Command *_cmd;
         
     private:
@@ -84,10 +76,6 @@ class User
         bool _deleted;
         bool _password;
 
-        // std::string user_buffer;
-        // std::vector<std::string> _messages;
-        //std::vector<std::string> _commands;
-        //void *(exec_command)(User user, std::string str);
         Message *_message;
         int _numberCmd;
 

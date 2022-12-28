@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:58:37 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/27 13:12:25 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/28 15:39:19 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,13 @@ int User::getFd() {return (fd);}
 bool User::isRegistered() {return (_registered);}
 bool User::isOnline() {return (_online);}
 bool User::isDeleted() { return (_deleted);}
+
+bool User::is_mode(char x)
+{
+    if (this->getMode().find(x) != std::string::npos)
+        return true;
+    return false;
+}
+
 
 

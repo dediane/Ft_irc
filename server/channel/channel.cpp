@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:55:27 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/28 00:24:08 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/28 15:38:23 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,20 @@ std::string Channel::getMode() {return _mode;}
 std::string Channel::getKey() {return _key;}
 std::vector<User> Channel::getUsers() {return _users;}
 std::string Channel::getUserMode(int fd) {return  (_users_mode.find(fd))->second;}
+
+bool Channel::is_mode(char x)
+{
+    if (this->getMode().find(x) != std::string::npos)
+        return true;
+    return false;
+}
+
+bool Channel::is_usermode(int fd, char x)
+{
+    if (this->getUserMode(fd).find(x) != std::string::npos)
+        return true;
+    return false;
+}
 
 void Channel::setName(std::string name) {_name = name; return;}
 void Channel::setTopic(std::string topic) {_topic = topic; return;}

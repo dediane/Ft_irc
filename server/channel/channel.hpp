@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:46:55 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/27 18:02:52 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/28 15:38:14 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ class Channel
         std::string getKey();
         std::vector<User> getUsers();
         std::string getUserMode(int fd);
+
+        bool is_mode(char x);
+        bool is_usermode(int fd, char x);
 
         //setter
         void setName(std::string name);         

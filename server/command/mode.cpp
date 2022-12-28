@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:35:32 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/27 23:57:59 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/28 15:18:31 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ void mode_channel(Message *msg, std::vector<std::string> message)
             std::string tmp = mode;
             mode = user->getNickname() + " " + channel->getName() + " " + tmp + " " + target->getNickname(); 
             send_reply(user->getFd(), RPL_CHANNELMODEIS(user, channel, mode));
+            send_reply(target->getFd(), RPL_CHANNELMODEIS(user, channel, mode));
             //send_reply(user->getFd(), RPL_CHANNELMODEIS(user, channel, user->getNickname() + " " + channel->getName() + " " + channel->getMode()));
             //:diana!diane@localhost 324 diana #la +n
             if (new_mode.find("o"))
