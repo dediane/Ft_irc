@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:12 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/22 16:08:42 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2022/12/28 16:19:46 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,7 +275,6 @@ Channel *Server::get_channel_by_name(std::string str)
 
 void Server::addChannel(Channel *channel)
 {
-    //(void) channel;
     channels.push_back(*channel);
     return;
 }
@@ -293,7 +292,6 @@ void Server::remove_user(User *user)
     it = users.find(user->getFd());
     if (it != users.end())
     {
-        //delete user->_cmd;
         close(user->getFd());
         users.erase(it);
     }
@@ -309,33 +307,3 @@ void Server::remove_pollfd(User *user)
             fds.erase((it));
     } 
 }
-/*
-bool Server::channel_exist(std::string chan_name)
-{
-    std::vector<Channel>::iterator it;
-    for (it = channels.begin(); it != channels.end();it++)
-    {
-        if ((it)->getName() == chan_name)
-            return (true);
-    }
-    return (false);
-}
-*/
-
-// bool Server::is_channel_name_valide(std::string str)
-// {
-//     // il faut envoyer seulement le nom du chan sans ','
-//     for(unsigned int i = 0; i < str.length(); ++i)
-//     {
-//         if (str[0] == '#' || str[0] == '&')
-//             i++;
-//         char c = str[i];
-//         if (std::isalpha((int)c) || c == '_')
-//         {
-//             i++;
-//         }
-//         else
-//             return (false);
-//     }
-//     return (true);
-// }

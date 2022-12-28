@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:55:26 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/27 13:02:10 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/28 15:52:03 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ std::string ERR_ERRONEUSNICKNAME(std::string nickname) {return(nickname + " :Err
 std::string ERR_NICKNAMEINUSE(std::string nickname) {return(nickname + " :Nickname is already in use\r\n");}
 //436
 //441
-std::string ERR_USERNOTINCHANNEL(std::string nickname, std::string channel) {return(nickname + channel + " :is already on channel\r\n");}
+std::string ERR_USERNOTINCHANNEL(std::string nickname, std::string channel) {return(nickname + " " + channel + " :is already on channel\r\n");}
 //442
 std::string ERR_NOTONCHANNEL(std::string channel) {return(channel + " :You're not on that channel\r\n");}
 //443
