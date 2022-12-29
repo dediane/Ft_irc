@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:55:27 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/28 15:38:23 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/29 17:25:08 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,23 +81,40 @@ bool Channel::isUserinChannel(User user)
     return false;
 }
 
- void Channel::addUser(User user)
- {
+bool Channel::isUserinvited(User user)
+{
+    std::vector<User>::iterator it;
+    for (it = _users_invited.begin(); it != _users_invited.end(); it++)
+    {
+        if (user.getNickname() == (*it).getNickname())
+            return true;
+    }
+    return false;
+}
+
+void Channel::addUser(User user)
+{
     _users.push_back(user);
     return;
- }
+}
 
- void Channel::deleteUser(User user)
- {
-    std::vector<User>::iterator it;
-    for (it = _users.begin(); it != _users.end(); it++)
-    {
-        if ((*it).getNickname() == user.getNickname())
-            break;
-    }
-    _users.erase(it);
+void Channel::addUserInvited(User user)
+{
+    _users_invited.push_back(user);
     return;
- }
+}
+
+void Channel::deleteUser(User user)
+{
+std::vector<User>::iterator it;
+for (it = _users.begin(); it != _users.end(); it++)
+{
+    if ((*it).getNickname() == user.getNickname())
+        break;
+}
+_users.erase(it);
+return;
+}
 
 void Channel::addUserMode(int fd, std::string mode)
 {
