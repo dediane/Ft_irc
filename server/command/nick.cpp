@@ -26,10 +26,16 @@ void Command::nick(Message *msg, std::vector<std::string> message)
     if (nickname.length() > 9)
         return(send_reply(usr->getFd(), ERR_ERRONEUSNICKNAME(nickname)));
     std::vector<std::string>::iterator it;
+    std::vector<std::string>::iterator ite;
     for (it = nicknames.begin(); it != nicknames.end(); it++)
     {
         if ((*it) == nickname)
         {
+            for (ite = nicknames.begin(); ite != nicknames.end(); ite++)
+            {
+                if (*ite == nickname + "_")
+                    nickname += "_";
+            }
             usr->setNickname(nickname + "_");
             return(send_reply(usr->getFd(), ERR_NICKNAMEINUSE(nickname)));
         }

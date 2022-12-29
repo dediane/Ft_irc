@@ -83,6 +83,9 @@ void join_channel(Message *msg, std::string message, std::string key)
     }
     if ((channel = server->get_channel_by_name(message)) != NULL)
     {
+        // check if the user is invited 
+        if (channel->is_mode('i') && (!channel->is_usermode(user->getFd(), 'i')))
+            return (send_reply(user->getFd(), ERR_INVITEONLYCHAN(channel->getName())));
         if (!channel->isUserinChannel(*user))
         {
             if (key == channel->getKey())
@@ -122,9 +125,9 @@ void join_many_channels(Message *msg, std::vector<std::string>channels, std::vec
     it2 = keys.begin();
     for (unsigned int i = 0; i < channels.size(); i++)
     {
-            join_channel(msg, (*it), (*it2));
-            it++;
-            it2++;
+        join_channel(msg, (*it), (*it2));
+        it++;
+        it2++;
     }  
 }
 
@@ -135,6 +138,7 @@ void Command::join(Message *msg, std::vector<std::string> message)
     std::vector<std::string> channels_list;
     std::vector<std::string> keys_list;
     int nb_of_channel = 0;
+
     if (message.size() == 1)
     {
         send_reply(user->getFd(), ERR_NEEDMOREPARAMS("JOIN"));
@@ -163,7 +167,7 @@ void Command::join(Message *msg, std::vector<std::string> message)
     else
     {
         nb_of_channel = 1;
-        if (!message[2].empty())
+        if (message.size() == 3)
             join_channel(msg, message[1], message[2]);
         else
             join_channel(msg, message[1], "x");
