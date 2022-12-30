@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:14:48 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/29 17:25:26 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/30 14:53:39 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,18 @@ void Command::invite(Message *msg, std::vector<std::string> message)
 
     
     if (message.size() < 3)
-        return(send_reply(user->getFd(), user->getPrefix() + " 461 " + ERR_NEEDMOREPARAMS("INVITE")));
+        return(send_reply(user->getFd(), user->getPrefix() + " 461 " + user->getNickname() + " " + ERR_NEEDMOREPARAMS("INVITE")));
     nick = message[1];
     if (!(receiver = server->get_user_by_nickname(nick)))
-        return (send_reply(user->getFd(), user->getPrefix() + " 401 " + ERR_NOSUCHNICK(message[1])));
+        return (send_reply(user->getFd(), user->getPrefix() + " 401 " + user->getNickname() + " " + ERR_NOSUCHNICK(message[1])));
     if (*(message[2].begin()) != '#')
         message[2] = "#" + message[2];
     if(!(channel = server->get_channel_by_name(message[2])))
-        return (send_reply(user->getFd(), user->getPrefix() + " 403 " + ERR_NOSUCHCHANNEL(message[2])));
+        return (send_reply(user->getFd(), user->getPrefix() + " 403 " + user->getNickname() + " " + ERR_NOSUCHCHANNEL(message[2])));
     if (channel->isUserinChannel(*receiver) == true)
-        return (send_reply(user->getFd(), user->getPrefix() + " 443 " + ERR_USERONCHANNEL(nick, channel->getName())));
+        return (send_reply(user->getFd(), user->getPrefix() + " 443 " + user->getNickname() + " " + ERR_USERONCHANNEL(nick, channel->getName())));
     if (channel->is_mode('i') && (!channel->is_usermode(user->getFd(), 'o')))
-        return (send_reply(user->getFd(), user->getPrefix() + " 482 " + ERR_CHANOPRIVNEEDED(channel->getName())));
+        return (send_reply(user->getFd(), user->getPrefix() + " 482 " + user->getNickname() + " " + ERR_CHANOPRIVNEEDED(channel->getName())));
     send_reply(user->getFd(), RPL_INVITING(user, channel, receiver->getNickname()));
     send_reply(receiver->getFd(), user->getPrefix() + " INVITE " + receiver->getNickname() + " " + channel->getName() + END);
     channel->addUserInvited(*receiver);

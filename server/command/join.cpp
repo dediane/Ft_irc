@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:15:15 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/28 00:21:14 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/30 14:46:00 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ void join_channel(Message *msg, std::string message, std::string key)
     if ((channel = server->get_channel_by_name(message)) != NULL)
     {
         // check if the user is invited 
-        if (channel->is_mode('i') && (!channel->is_usermode(user->getFd(), 'i')))
-            return (send_reply(user->getFd(), ERR_INVITEONLYCHAN(channel->getName())));
+        if (channel->is_mode('i') && (!channel->isUserinvited(*user)))
+            return (send_reply(user->getFd(), user->getPrefix() + " 473 " + user->getNickname() + " " +  ERR_INVITEONLYCHAN(channel->getName())));
         if (!channel->isUserinChannel(*user))
         {
             if (key == channel->getKey())
@@ -167,7 +167,8 @@ void Command::join(Message *msg, std::vector<std::string> message)
     else
     {
         nb_of_channel = 1;
-        if (message.size() == 3)
+        //if (message.size() == 3)
+        if (!message[2].empty())
             join_channel(msg, message[1], message[2]);
         else
             join_channel(msg, message[1], "x");
