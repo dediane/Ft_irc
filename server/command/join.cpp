@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   join.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:15:15 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/30 14:46:00 by ddecourt         ###   ########.fr       */
+/*   Updated: 2022/12/31 21:45:08 by parallels        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,8 +167,8 @@ void Command::join(Message *msg, std::vector<std::string> message)
     else
     {
         nb_of_channel = 1;
-        //if (message.size() == 3)
-        if (!message[2].empty())
+        //if (!message[2].empty()) -> on peut pas faire pck ca abort quand on fait la commande /join chan_name
+        if (message.size() == 3)
             join_channel(msg, message[1], message[2]);
         else
             join_channel(msg, message[1], "x");
