@@ -167,8 +167,8 @@ void Command::join(Message *msg, std::vector<std::string> message)
     else
     {
         nb_of_channel = 1;
-        //if (message.size() == 3)
-        if (!message[2].empty())
+        //if (!message[2].empty()) laiser la ligne d'en dessous pck sinon ca abort avec la commande ( /join chan )
+        if (message.size() == 3)
             join_channel(msg, message[1], message[2]);
         else
             join_channel(msg, message[1], "x");
