@@ -20,6 +20,7 @@ endif
 
 
 NAME =	ircserv
+BONUS	= bot
 
 CFLAGS	=	-Wall -Wextra -Werror -g -fsanitize=address -std=c++98
 
@@ -47,6 +48,8 @@ SRCS =	server/main.cpp \
 		server/command/command.cpp \
 		server/message/message.cpp \
 
+SRCS_B	= bonus/bot_connect.cpp \
+				bonus/bot.cpp \
 
 CC	=	c++
 RM	=	rm -f
@@ -54,8 +57,10 @@ RM	=	rm -f
 MESSAGE = Compilation ok - ready to test
 
 INCLUDES = -I./server/
+INCLUDES_B = -I./bonus/
 
 OBJS		:=	$(SRCS:.cpp=.o)
+OBJS_B		:=	$(SRCS_B:.cpp=.o)
 
 .PHONY		:	all clean fclean re
 
@@ -68,10 +73,16 @@ $(NAME)	: $(OBJS)
 	$(CC) $(CFLAGS) $(INCLUDES) $^ -o $(NAME)
 	@echo "${GREEN}\nCompilation OK - ready to test\n${RESET}"
 
+bonus: $(BONUS)
+
+$(BONUS)	: $(OBJS_B)
+	$(CC) $(CFLAGS) $(INCLUDES_B) $^ -o $(BONUS)
+	@echo "${GREEN}\nCompilation OK - ready to test\n${RESET}"
+
 fclean		: clean
-	$(RM) $(NAME)
+	$(RM) $(NAME) $(BONUS)
 
 clean		:
-	$(RM) $(OBJS)
+	$(RM) $(OBJS) $(OBJS_B)
 
 re			:	fclean all
