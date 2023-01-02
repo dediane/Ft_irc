@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   join.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:15:15 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/01 23:20:35 by parallels        ###   ########.fr       */
+/*   Updated: 2023/01/02 17:30:32 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,15 @@ void join_channel(Message *msg, std::string message, std::string key)
     Channel *channel;
 
     std::vector<std::string> names = server->get_all_channels_names();
-    std::vector<std::string>::iterator it;
-    for (it = names.begin(); it != names.end(); it++)
-    {
-        std::cout << (*it) << std::endl;
-    }
+    // std::vector<std::string>::iterator it;
+    // for (it = names.begin(); it != names.end(); it++)
+    // {
+    //     //std::cout << (*it) << std::endl;
+    // }
     if ((channel = server->get_channel_by_name(message)) != NULL)
     {
         // check if the user is invited 
+        channel->print_users();
         if (channel->is_mode('i') && (!channel->isUserinvited(*user)))
             return (send_reply(user->getFd(), user->getPrefix() + " 473 " + user->getNickname() + " " +  ERR_INVITEONLYCHAN(channel->getName())));
         if (!channel->isUserinChannel(*user))

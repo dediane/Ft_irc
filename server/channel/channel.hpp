@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:46:55 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/29 17:24:06 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/02 16:05:06 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ class Channel
         void deleteUser(User user);
         void RemoveUserFromChan(User user);
         User *get_user(User *user);
+        void print_users();
 
     private:
         std::string _name;

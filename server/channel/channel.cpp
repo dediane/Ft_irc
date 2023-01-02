@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:55:27 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/29 17:25:08 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/02 16:53:24 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ Channel::Channel()
 Channel::Channel(std::string name, User user)
 {
     _name = name;
-    user.setNickname("@" + user.getNickname());
+    //user.setNickname("@" + user.getNickname());
     _users.push_back(user);
     _mode = "+n";
     _users_mode.insert(std::pair<int, std::string>(user.getFd(), "+o"));
@@ -29,7 +29,7 @@ Channel::Channel(std::string name, User user)
 
 Channel::Channel(User user)
 {
-    user.setNickname("@" + user.getNickname());
+    //user.setNickname("@" + user.getNickname());
     _users.push_back(user);
     _mode = "+n";
     _users_mode.insert(std::pair<int, std::string>(user.getFd(), "+o"));
@@ -144,10 +144,8 @@ User *Channel::get_user(User *user)
     std::vector<User>::iterator it;
     for (it = _users.begin(); it != _users.end(); it++)
     {
-        std::cout << "BROADCAST" << std::endl;
-        std::cout << "USER NAME = "<< (*it).getNickname() << std::endl;
         if (send((*it).getFd(), rpl.c_str(), rpl.length(), 0) == -1)
-        std::cout << "error" << std::endl;
+            std::cout << "error" << std::endl;
     }
  }
 
@@ -163,6 +161,15 @@ User *Channel::get_user(User *user)
         }
     }
  }
+
+void Channel::print_users()
+{
+    std::vector<User>::iterator it;
+    for(it = _users.begin(); it != _users.end(); it++)
+    {
+        std::cout << RED << (*it).getNickname() << DEFAULT << std::endl;
+    }
+}
 
 std::string Channel::getName() {return _name;}
 std::string Channel::getTopic() {return _topic;}

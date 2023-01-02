@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ping.cpp                                           :+:      :+:    :+:   */
+/*   colors.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/15 18:16:12 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/02 17:48:00 by ddecourt         ###   ########.fr       */
+/*   Created: 2022/11/23 14:33:09 by ddecourt          #+#    #+#             */
+/*   Updated: 2022/11/23 14:36:18 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.hpp"
+#ifndef COLORS_HPP
+#define COLORS_HPP
 
-void Command::ping(Message *msg, std::vector<std::string> message)
-{
-    //std::cout << "Je suis dans ping" << std::endl;
-    //std::cout << message.size() <<std::endl;
-    User *user = msg->getuser();
-    user->setLastPing(time(0));
-    if (message.size() == 1)
-        return;
-    send_reply(user->getFd(), "PONG :" + message[1] + END);
-}
+# define DEFAULT "\033[0m"
+# define RED "\033[31m"
+# define GREEN "\033[32m"
+# define YELLOW "\033[33m"
+# define BLUE "\033[34m"
+# define PURPLE "\033[35m"
+# define CYAN "\033[36m"
+# define WHITE "\033[37m"
+
+#endif

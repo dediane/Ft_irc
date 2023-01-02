@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:02:31 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/20 23:21:00 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/02 17:50:11 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,8 +151,6 @@ void Message::parse_commands(std::string str)
                 index++;
             }
         }
-        else
-            std::cout << *it << std::endl; 
     }
 }
 
