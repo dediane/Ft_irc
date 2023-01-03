@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 13:15:20 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/30 15:26:30 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/02 17:47:12 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ std::string RPL_MYINFO(User user)
 
 std::string RPL_UMODEIS(User *user)
 {
-    std::cout << user->getMode() << std::endl;
+    //std::cout << user->getMode() << std::endl;
     std::string buffer = user->getPrefix() + " 221 " + user->getNickname() + " " + user->getMode() + END;
     return buffer;
 }
@@ -56,16 +56,13 @@ std::string RPL_NAMREPLY(User *user, Channel *channel)
     
     for (it = users.begin(); it != users.end(); it++)
     {
-        if ((*it).getNickname() != user->getNickname())
+        if (channel->getUserMode((*it).getFd()).find("o") != std::string::npos)
         {
-            if (channel->getUserMode((*it).getFd()).find("o"))
-            {
-                std::cout << "usermode = " << channel->getUserMode((*it).getFd()) << std::endl;
-                buffer += (" @" + (*it).getNickname());
-            }
-            else
-                buffer += (" " + (*it).getNickname());
+            std::cout << GREEN << "usermode = " << channel->getUserMode((*it).getFd()) << DEFAULT << std::endl;
+            buffer += (" @" + (*it).getNickname());
         }
+        else
+            buffer += (" " + (*it).getNickname());
     }
     buffer += END;
     return buffer;
@@ -105,7 +102,7 @@ std::string RPL_CHANNELMODEIS(User *user, Channel *channel, std::string mode)
 
 void send_reply(int fd, std::string rpl)
 { 
-    std::cout << "SEND reply = " << rpl << std::endl;
+    //std::cout << "SEND reply = " << rpl << std::endl;
     if (send(fd, rpl.c_str(), rpl.length(), 0) == -1)
         std::cout << "error" << std::endl;
 }

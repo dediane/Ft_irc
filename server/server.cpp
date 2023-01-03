@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:12 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/28 16:19:46 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/02 18:20:24 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,7 @@ void Server::accept_new_user()
     if ( fd < 0)
         return;
     User newuser(fd, address);
-    std::cout << "new user -> is register = " << newuser.isRegistered() << std::endl; 
+    //std::cout << "new user -> is register = " << newuser.isRegistered() << std::endl; 
     std::map<int, User>::iterator it;
     it = users.begin();
     users.insert(it, std::make_pair(fd, newuser));

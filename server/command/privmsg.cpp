@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:27:00 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/21 15:34:24 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/02 17:44:03 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ void Command::privmsg(Message *msg, std::vector<std::string> message)
             {
                 channel_name = (*it).substr(0, (*it2).length());
                 (*it).erase(0, ((*it2).length() + 1));
-                std::cout << "valeur de *it = " << (*it) << std::endl;
+                std::cout << RED << "valeur de *it = " << (*it) << std::endl;
                 std::cout << "Channel name = " << channel_name << std:: endl;
                 channel = server->get_channel_by_name(channel_name);
-                std::cout << "channel copy name = " << channel->getName() << std::endl;
+                std::cout << "channel copy name = " << channel->getName() << DEFAULT << std::endl;
                 //:diane!diane@localhost PRIVMSG #lolo :Bonjour
             }
         }

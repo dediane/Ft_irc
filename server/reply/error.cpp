@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:55:26 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/30 14:49:56 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/02 15:55:39 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ std::string ERR_YOUREBANNEDCREEP() {return(" :You are banned from this server\r\
 //467
 //471
 //472
-std::string ERR_UNKNOWNMODE(char c) {return(c + " :is unknown mode char to me\r\n");}
+std::string ERR_UNKNOWNMODE(std::string c) {return(c + " :is unknown mode char to me\r\n");}
 //473
 std::string ERR_INVITEONLYCHAN(std::string channel) {return(channel + " :Cannot join channel (+i)\r\n");}
 //474

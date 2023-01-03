@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 15:58:06 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/21 14:42:06 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/02 18:04:41 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ void Command::user(Message *msg, std::vector<std::string> message)
     {
         user->setisRegistered(true);
         msg->do_handshake();
-    //    user->setisOnline(true);
+        user->setisOnline(true);
     }
 }
