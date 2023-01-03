@@ -6,7 +6,7 @@
 /*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 10:45:32 by parallels         #+#    #+#             */
-/*   Updated: 2022/12/31 17:10:01 by parallels        ###   ########.fr       */
+/*   Updated: 2023/01/02 16:59:35 by parallels        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,39 +24,42 @@
 # include <sys/socket.h>
 # include <netinet/in.h>
 # include <netinet/ip.h>
+# include <netdb.h>
+
+void    ft_exit(std::string str);
+
 class Bot
 {
 	private:
 		int			sockfd;
 		int			port;
-		int			hostname;
+		std::string	hostname;
 		std::string	channel;
 		std::string	nick;
 		std::string	bot_name;
-    	struct sockaddr_in address;
+		
 	
 	public:
 		Bot();
 		Bot(Bot &rhs);
-		Bot(int Port, int Hostname, std::string Channel, std::string Nick);
+		Bot(int Port, std::string Hostname, std::string Channel, std::string Nick);
 		Bot &operator=(Bot &rhs);
 		~Bot();
 
 		int				getPort(void);
-		int				getHostname(void);
+		std::string		getHostname(void);
 		std::string		getChannel(void);
 		std::string		getNick(void);
 		
 		void	setPort(int Port);
-		void	setHostname(int hostname);
+		void	setHostname(std::string hostname);
 		void	setChannel(std::string Channel);
 		void	setNick(std::string Nick);
 
-		void	init();
+		void	init(int port, char *hostname, char *channel, char *nick);
 		void	connect_to_serv();
 };
 
-void    ft_exit(std::string str);
 
 
 # endif

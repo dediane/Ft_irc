@@ -6,7 +6,7 @@
 /*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 10:49:08 by parallels         #+#    #+#             */
-/*   Updated: 2022/12/31 17:09:41 by parallels        ###   ########.fr       */
+/*   Updated: 2023/01/02 14:58:50 by parallels        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,16 @@ int main (int argc, char **argv)
 	int port;
 	if (argc == 5)
 	{   // chek port and Hostname
-		std::cout << "before port " << argv[2] << std::endl;
 		if (!check_port(argv[2]))
 			ft_exit("Wrong input, not a port");
 		port = atoi(argv[2]);
-		std::cout << "after port = " << port << std::endl;
 		if (port <= 0 || port > 65535)
 			ft_exit("Port number must be between 0 and 65335");
-		if (check_port(argv[1]))
-			ft_exit("Wrong input, not a Hostname");
 
-		// set argument 
-		bot.setPort(port);
-		bot.setHostname(atoi(argv[2]));
-		bot.setChannel(argv[3]);
-		bot.setNick(argv[4]);
+		// init the variable
+		bot.init(port, argv[2], argv[3], argv[4]);
 
-		// bot connect to serv
+		// set socket and bot connect to serv
 		bot.connect_to_serv();
 
 		while (1)

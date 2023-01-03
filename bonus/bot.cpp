@@ -6,7 +6,7 @@
 /*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 10:47:46 by parallels         #+#    #+#             */
-/*   Updated: 2022/12/31 17:09:48 by parallels        ###   ########.fr       */
+/*   Updated: 2023/01/03 21:11:48 by parallels        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ Bot::Bot(void)
 {
 	// Constructor Default
     port = 0;
-	hostname = 0;
+	hostname = "NULL";
 	channel = "NULL";
 	nick = "NULL";
 	bot_name = "ShownBot";
 }
 
-Bot::Bot(int Port, int Hostname, std::string Channel, std::string Nick) :
+Bot::Bot(int Port, std::string Hostname, std::string Channel, std::string Nick) :
 	port(Port), hostname(Hostname), channel(Channel), nick(Nick) 
 {
 	// Constructor Params
@@ -56,27 +56,35 @@ Bot	&Bot::operator=(Bot &rhs)
 			///			Fonction			///
 			///////////////////////////////////
 
-void	Bot::init(void)
+void	Bot::init(int port, char *hostname, char *channel, char *nick)
 {
+	// set argument 
+	setPort(port);
+	setHostname(hostname);
+	setChannel(channel);
+	setNick(nick);
+}
+
+void	Bot::connect_to_serv(void)
+{
+	struct sockaddr_in address;
+	struct hostent *host;
 	/* Début de la création du socket */
 	if (( sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
 	{
 		perror("socket creation failed");
 		exit(EXIT_FAILURE);
 	}
+	if (!(host = gethostbyname(hostname.c_str())))
+		ft_exit("Error gethostbyname failed");
 	address.sin_family = AF_INET;
-    address.sin_addr.s_addr = INADDR_ANY;
     address.sin_port = htons(port);
+    address.sin_addr = *((struct in_addr*)host->h_addr);
     //The htons() function converts the unsigned short integer 
     //hostshort from host byte order to network byte order.
-	
 	/* Fin de la création du socket */
-	
-}
 
-void	Bot::connect_to_serv(void)
-{
-	if (connect(sockfd, (struct sockaddr *)&address, sizeof(address)) < 0)
+	if (connect(sockfd, (struct sockaddr *) &address, sizeof(address)) == -1)
 		ft_exit("Do not connect to the server");
 	std::cout << "Nick bot " << bot_name << std::endl;
 	send (sockfd, bot_name.c_str(), bot_name.length(), 0);
@@ -99,7 +107,7 @@ void	Bot::setPort(int Port)
 	port = Port;
 }
 
-void	Bot::setHostname(int Hostname)
+void	Bot::setHostname(std::string Hostname)
 {
 	hostname = Hostname;
 }
@@ -122,7 +130,7 @@ int		Bot::getPort(void)
 	return (port);
 }
 
-int		Bot::getHostname(void)
+std::string		Bot::getHostname(void)
 {
 	return (hostname);
 }
