@@ -4,4 +4,5 @@ server/channel/*.o
 server/user/*.o
 server/*.o
 ircserv
+bot
 *.sh
