@@ -6,7 +6,7 @@
 /*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 10:47:46 by parallels         #+#    #+#             */
-/*   Updated: 2023/01/03 21:11:48 by parallels        ###   ########.fr       */
+/*   Updated: 2023/01/04 11:58:27 by parallels        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,12 @@ void	Bot::init(int port, char *hostname, char *channel, char *nick)
 	setHostname(hostname);
 	setChannel(channel);
 	setNick(nick);
+
+	std::cout << "The bot have for agrs:" << std::endl;
+	std::cout << "Port: " << this->port << std::endl;
+	std::cout << "Hostname: " << this->hostname << std::endl;
+	std::cout << "Channel: " << this->channel << std::endl;
+	std::cout << "Nick: " << this->nick << std::endl << std::endl;;
 }
 
 void	Bot::connect_to_serv(void)
@@ -80,22 +86,22 @@ void	Bot::connect_to_serv(void)
 	address.sin_family = AF_INET;
     address.sin_port = htons(port);
     address.sin_addr = *((struct in_addr*)host->h_addr);
-    //The htons() function converts the unsigned short integer 
+	//The htons() function converts the unsigned short integer 
     //hostshort from host byte order to network byte order.
 	/* Fin de la création du socket */
 
 	if (connect(sockfd, (struct sockaddr *) &address, sizeof(address)) == -1)
 		ft_exit("Do not connect to the server");
-	std::cout << "Nick bot " << bot_name << std::endl;
+	std::cout << "Bot Name: " << bot_name << std::endl;
 	send (sockfd, bot_name.c_str(), bot_name.length(), 0);
 	
-	std::cout << "Nick user " << nick << std::endl;
+	std::cout << "User Nick: " << nick << std::endl;
 	send (sockfd, nick.c_str(), nick.length(), 0);
 	
-	std::cout << "JOIN " << channel << std::endl;
+	std::cout << "Join Channel: " << channel << std::endl;
 	send (sockfd, channel.c_str(), channel.length(), 0);
 	
-	std::cout << "PRIVMSG " << channel << " :yop :-)" << std::endl;
+	std::cout << "Privmsg " << channel << " :yop :-)" << std::endl;
 	send (sockfd, channel.c_str(), channel.length(), 0);
 }
 

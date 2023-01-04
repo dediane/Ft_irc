@@ -6,7 +6,7 @@
 /*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 10:49:08 by parallels         #+#    #+#             */
-/*   Updated: 2023/01/02 14:58:50 by parallels        ###   ########.fr       */
+/*   Updated: 2023/01/04 11:49:31 by parallels        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int main (int argc, char **argv)
 			ft_exit("Port number must be between 0 and 65335");
 
 		// init the variable
-		bot.init(port, argv[2], argv[3], argv[4]);
+		bot.init(port, argv[1], argv[3], argv[4]);
 
 		// set socket and bot connect to serv
 		bot.connect_to_serv();
