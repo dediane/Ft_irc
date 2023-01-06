@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 15:03:22 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/23 17:16:55 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/06 12:55:47 by parallels        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ Command::Command()
     _commandlist.push_back("NOTICE");
     _commandlist.push_back("TOPIC");
     _commandlist.push_back("INVITE");
-
+    _commandlist.push_back("KICK");
     
     return;
 }
@@ -41,12 +41,13 @@ Command::~Command()
 
 void Command::execute(std::string cmd, Message *msg, std::vector<std::string> message, int nb)
 {
-    command_ptr commands[15] = 
+    command_ptr commands[16] = 
     {&Command::pass, &Command::nick, &Command::user, \
     &Command::mode, &Command::ping, &Command::pong, \
     &Command::join, &Command::quit, &Command::whois, \
     &Command::privmsg, &Command::list, &Command::part, \
-    &Command::notice, &Command::topic, &Command::invite};
+    &Command::notice, &Command::topic, &Command::invite, \
+    &Command::kick };
 
     std::vector<std::string>::iterator it;
     for (it = message.begin(); it < message.end(); it++)

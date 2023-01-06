@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   part.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:30:10 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/26 13:44:29 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/06 11:46:39 by parallels        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 
 void Command::part(Message *msg, std::vector<std::string> message)
 {
-    (void)msg;
-    (void)message;
     User *user = msg->getuser();
     Channel *channel;
     Server *server = msg->getserver();
@@ -34,7 +32,6 @@ void Command::part(Message *msg, std::vector<std::string> message)
     // }
     if ((channel = server->get_channel_by_name(message[1])) != NULL)
     {
-        std::cout << "ici part haha" << std::endl;
         if (channel->isUserinChannel(*user))
         {
             send_reply(user->getFd(), user->getPrefix() + " PART " + channel->getName() + END);

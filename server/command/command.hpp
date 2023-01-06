@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 15:03:16 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/27 14:11:11 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/03 21:41:46 by parallels        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ class Command
         void notice(Message *msg, std::vector<std::string> message);
         void topic(Message *msg, std::vector<std::string> message);
         void invite(Message *msg, std::vector<std::string> message);
+        void kick(Message *msg, std::vector<std::string> message);
 
     private:
         //User *user;
