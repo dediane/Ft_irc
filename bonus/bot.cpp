@@ -6,7 +6,7 @@
 /*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 10:47:46 by parallels         #+#    #+#             */
-/*   Updated: 2023/01/04 11:58:27 by parallels        ###   ########.fr       */
+/*   Updated: 2023/01/06 11:02:18 by parallels        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,51 @@ void	Bot::connect_to_serv(void)
 	
 	std::cout << "Privmsg " << channel << " :yop :-)" << std::endl;
 	send (sockfd, channel.c_str(), channel.length(), 0);
+}
+
+void	Bot::run(void)
+{
+	while (1)
+	{
+		// receve from server
+		char buffer[BUFSIZ];
+		std::string	str;
+		recv(sockfd, buffer, BUFSIZ-1, 0);
+		std::cout << "Message receve from serve " << buffer << std::endl;
+
+		/* gestion des pings */
+		if (strstr(buffer, "PING :"))
+		{
+			std::cout << bot_name << ": I send PONG to serv" << std::endl;
+			str = strstr(buffer, "PING :") + strlen("PING :");
+			send(sockfd, str.c_str(), str.length(), 0);
+		}
+		/* fin de gestion des pings */
+
+	/* --------------------animation du channel-------------------- */
+
+	// send to server
+	/* boucles pour les reponses auto */
+	if (strstr(buffer, "salut"))
+	{
+		str = strstr(buffer, "salut");
+		send(sockfd, str.c_str(), str.length(), 0);
+	}
+	
+	if (strstr(buffer, "merci"))
+	{
+		str = strstr(buffer, "merci");
+		send(sockfd, str.c_str(), str.length(), 0);
+	}
+
+	/* ---------------------fin de l'animation--------------------- */
+		
+	}
+}
+
+void	Bot::send_msg(std::string msg)
+{
+	
 }
 
 			///////////////////////////////////

@@ -6,7 +6,7 @@
 /*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 10:45:32 by parallels         #+#    #+#             */
-/*   Updated: 2023/01/02 16:59:35 by parallels        ###   ########.fr       */
+/*   Updated: 2023/01/04 17:18:59 by parallels        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ class Bot
 		void	setNick(std::string Nick);
 
 		void	init(int port, char *hostname, char *channel, char *nick);
-		void	connect_to_serv();
+		void	connect_to_serv(void);
+		void	run(void);
+		void	send_msg(std::string msg); // don't forget to add  msg += "\r\n"
+		void	receve_msg(void);
 };
 
 

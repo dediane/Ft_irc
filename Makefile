@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+         #
+#    By: parallels <parallels@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/24 13:01:02 by ddecourt          #+#    #+#              #
-#    Updated: 2022/12/23 18:12:18 by ddecourt         ###   ########.fr        #
+#    Updated: 2023/01/03 21:44:17 by parallels        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRCS =	server/main.cpp \
 		server/command/part.cpp \
 		server/command/notice.cpp \
 		server/command/operator_cmds/invite.cpp \
+		server/command/operator_cmds/kick.cpp \
 		server/command/operator_cmds/topic.cpp \
 		server/command/command.cpp \
 		server/message/message.cpp \

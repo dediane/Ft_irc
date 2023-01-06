@@ -6,7 +6,7 @@
 /*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 10:49:08 by parallels         #+#    #+#             */
-/*   Updated: 2023/01/04 11:49:31 by parallels        ###   ########.fr       */
+/*   Updated: 2023/01/04 12:03:22 by parallels        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,7 @@ int main (int argc, char **argv)
 		// set socket and bot connect to serv
 		bot.connect_to_serv();
 
-		while (1)
-		{
-			
-		}
+		bot.run();
 		
 	}
 	else
