@@ -157,7 +157,8 @@ User *Channel::get_user(User *user)
     std::vector<User>::iterator it;
     for (it = _users.begin(); it != _users.end(); it++)
     {
-        if (((*it).getFd() != user->getFd()) && ((*it).getFd() > 0))
+        // if (((*it).getFd() != user->getFd()) && ((*it).getFd() > 0))
+        if (((*it).getFd() != user->getFd()))
         {
             if (send((*it).getFd(), rpl.c_str(), rpl.length(), 0) == -1)
             {
