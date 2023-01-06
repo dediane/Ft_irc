@@ -30,8 +30,8 @@ void Command::user(Message *msg, std::vector<std::string> message)
     // std::cout << "is registered? " << user->isRegistered() << std::endl;
     if (!user->isRegistered())
     {
-        // &Command::pass;
-        std::vector<std::string> message;
+        //CONTINUER TESTS
+       /* std::vector<std::string> message;
         message.push_back("PASS");
         message.push_back("");
         Command::pass(msg, message);
@@ -39,10 +39,11 @@ void Command::user(Message *msg, std::vector<std::string> message)
     
         if (user->isPassword() == true)
         {
+            */
             user->setisRegistered(true);
             msg->do_handshake();
             user->setisOnline(true);
-        }
+     //   }
 
     }
 }
