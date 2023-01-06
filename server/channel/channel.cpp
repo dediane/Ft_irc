@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   channel.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:55:27 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/02 16:53:24 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/06 17:58:30 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,10 @@ User *Channel::get_user(User *user)
     for (it = _users.begin(); it != _users.end(); it++)
     {
         if (send((*it).getFd(), rpl.c_str(), rpl.length(), 0) == -1)
-            std::cout << "error" << std::endl;
+        {   
+            std::cout << "error broadcast 1" << std::endl;
+            return ;
+        }
     }
  }
 
@@ -154,10 +157,13 @@ User *Channel::get_user(User *user)
     std::vector<User>::iterator it;
     for (it = _users.begin(); it != _users.end(); it++)
     {
-        if ((*it).getFd() != user->getFd())
+        if (((*it).getFd() != user->getFd()) && ((*it).getFd() > 0))
         {
             if (send((*it).getFd(), rpl.c_str(), rpl.length(), 0) == -1)
-                std::cout << "error" << std::endl;      
+            {
+                std::cout << "error broadcast 2" << std::endl;      
+                return ;
+            }
         }
     }
  }
@@ -192,7 +198,16 @@ bool Channel::is_usermode(int fd, char x)
     return false;
 }
 
-void Channel::setName(std::string name) {_name = name; return;}
+void Channel::setName(std::string name)
+{
+    std::cout << "our name before -->" << name << std::endl;
+    if (name[0] != '#')
+        _name = "#" + name;
+    else
+        _name = name;
+    std::cout << "our name before -->" << _name << std::endl;
+    return;
+}
 void Channel::setTopic(std::string topic) {_topic = topic; return;}
 void Channel::setMode(std::string mode) {_mode = mode; return;}
 void Channel::setKey(std::string key) {_key = key; return;}
