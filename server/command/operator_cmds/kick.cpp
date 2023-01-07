@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   kick.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
+/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:16:10 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/06 12:47:45 by parallels        ###   ########.fr       */
+/*   Updated: 2023/01/07 16:41:34 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,12 @@ void Command::kick(Message *msg, std::vector<std::string> message)
 	
 	//check si user exist
 	if (server->get_user_by_nickname(message[2]) != NULL)
-            user_kick = server->get_user_by_nickname(message[2]);
-	
+        user_kick = server->get_user_by_nickname(message[2]);
+	else
+	{
+   		send_reply(user->getFd(), user->getPrefix() + " 441 " + user->getNickname() + " " + ERR_USERNOTINCHANNEL(message[2], " "));
+		return ;
+	}
 	// check le message a envoyer à irssi
 	if ((channel = server->get_channel_by_name(message[1])))
 	{
@@ -42,6 +46,8 @@ void Command::kick(Message *msg, std::vector<std::string> message)
 			send_reply(user_kick->getFd(), "KICK " + message[1] + " " + message[2] + " :(no reason)" + END);
 			channel->broadcast_msg(user->getPrefix() + " KICK " + channel->getName() + END, user);
 			channel->deleteUser(*user_kick);
+        	std::cout << RED << "==> [KICK] " << BLUE << user->getNickname() << " kicked " << user_kick->getNickname() << " from channel " << channel->getName() << DEFAULT << std::endl;
+
 		}
 	}
 }

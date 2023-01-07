@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   join.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:15:15 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/02 17:30:32 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/07 16:08:03 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void join_channel(Message *msg, std::string message, std::string key)
                 send_reply(user->getFd(), RPL_NAMREPLY(user, channel));
                 send_reply(user->getFd(), RPL_ENDOFNAMES(user, channel));
                 channel->broadcast(user->getPrefix() + " JOIN " + ":" + channel->getName() + END);
+                std::cout << RED << "==> [JOIN] " << BLUE << user->getNickname() << " successful joined channel " << channel->getName() << DEFAULT << std::endl;
             }
             else
                 return (send_reply(user->getFd(), user->getPrefix() + " 475 " + user->getNickname() + " " +  ERR_BADCHANNELKEY(channel->getName())));
@@ -113,6 +114,7 @@ void join_channel(Message *msg, std::string message, std::string key)
         send_reply(user->getFd(), RPL_NAMREPLY(user, &new_channel));
         send_reply(user->getFd(), RPL_ENDOFNAMES(user, &new_channel));
         send_reply(user->getFd(), user->getPrefix() + " JOIN " + ":" + new_channel.getName() + END);
+        std::cout << RED << "==> [JOIN] " << BLUE << user->getNickname() << " successful joined channel " << new_channel.getName() << DEFAULT << std::endl;
     }
 }
 

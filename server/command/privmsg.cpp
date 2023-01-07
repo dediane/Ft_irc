@@ -6,7 +6,7 @@
 /*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:27:00 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/07 12:08:10 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/07 16:18:29 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void Command::privmsg(Message *msg, std::vector<std::string> message)
     {
         if (message.size() >= 2)
             return(send_reply(user->getFd(), user->getPrefix() + " 404 " + ERR_NOSUCHCHANNEL(message[1])));
-        return (send_reply(user->getFd(), user->getPrefix() + " 421 " + ERR_UNKNOWNCOMMAND("PRIVMSG without arg")));
+        return (send_reply(user->getFd(), ERR_UNKNOWNCOMMAND("PRIVMSG without arg")));
     }
     for (it = message.begin(); it != message.end(); it++)
     {
@@ -44,10 +44,7 @@ void Command::privmsg(Message *msg, std::vector<std::string> message)
             {
                 channel_name = (*it).substr(0, (*it2).length());
                 (*it).erase(0, ((*it2).length() + 1));
-                std::cout << RED << "valeur de *it = " << (*it) << std::endl;
-                std::cout << "Channel name = " << channel_name << std:: endl;
                 channel = server->get_channel_by_name(channel_name);
-                std::cout << "channel copy name = " << channel->getName() << DEFAULT << std::endl;
                 //:diane!diane@localhost PRIVMSG #lolo :Bonjour
             }
         }
@@ -56,14 +53,5 @@ void Command::privmsg(Message *msg, std::vector<std::string> message)
     }
     buffer.erase(0, 2);
     channel->broadcast_msg(user->getPrefix() + " PRIVMSG " + channel_name + " " + buffer + END, user);
-
-    // if (*tmp.begin() == '#')
-    // {
-    //     std::cout << "send message in channel, need to broadcast" << std::endl;
-    //     channel = server->get_channel_by_name(*tmp);
-    //     //channel = server->get_channel_by_name(tmp);
-    //     //std::cout << "channel name = " << channel->getName() << std::endl;
-    // }
-    std::cout << "Je passe dans la commande PRIVMSG" << std::endl;
-    
+    //std::cout << RED << "==> [PRIVMSG] " << BLUE << user->getNickname() << " send a message in channel " << channel->getName() << DEFAULT << std::endl;
 }

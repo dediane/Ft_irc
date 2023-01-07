@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   user.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 15:58:06 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/02 18:04:41 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/07 16:06:15 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void Command::user(Message *msg, std::vector<std::string> message)
 {
-    std::cout << "Je passe dans la commande USER" << std::endl;
     User *user = msg->getuser();
-    // (void)message;
-    // std::cout << "I am user function" << std::endl;
+
     if (message.size() < 5)
         return(send_reply(user->getFd(), ERR_NEEDMOREPARAMS(message[0])));
+    if (user->isOnline() == false)
+        return ;
     user->setUsername(message[1]);
     user->setHostname(message[3]);
     user->setRealname(message[4]);
@@ -30,8 +30,9 @@ void Command::user(Message *msg, std::vector<std::string> message)
     // std::cout << "is registered? " << user->isRegistered() << std::endl;
     if (!user->isRegistered())
     {
+        std::cout << GREEN << "==> " <<  user->getNickname() << " is registered" << DEFAULT << std::endl;
         user->setisRegistered(true);
         msg->do_handshake();
         user->setisOnline(true);
-    }
+    }    
 }

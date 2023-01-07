@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:12 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/02 18:20:24 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/07 15:38:57 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ Server::Server()
     last_ping = 0;
     heartbeat = time(0);
     creation = time(0);
-    std::cout << "Create new server" << std::endl;
+    std::cout << GREEN << "==> Create new server" << DEFAULT << std::endl;
 }
 
 Server::Server(const Server &lhs)
@@ -50,7 +50,7 @@ void Server::init(int port)
         // exit(EXIT_FAILURE);
     }
     else
-        std::cout << "Socket succesfully created" << std::endl;
+        std::cout << GREEN << "==> Socket succesfully created" << DEFAULT << std::endl;
 
     if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt, sizeof(opt)))
     {
@@ -131,7 +131,7 @@ void Server::execute()
     if(this->fds[0].revents == POLLIN)
     {
         accept_new_user();
-        std::cout << "New user accepted" << std::endl;   
+        std::cout << BLUE << "==> New user try to connect" << DEFAULT << std::endl;   
     }
     else
     {

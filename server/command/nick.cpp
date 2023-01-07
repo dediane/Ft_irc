@@ -6,7 +6,7 @@
 /*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:16:46 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/23 17:49:53 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/07 16:22:25 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ void Command::nick(Message *msg, std::vector<std::string> message)
     usr->setNickname(nickname);
     if (usr->isRegistered())
     {
-        // std::cout << "FD = " << usr->getFd() << std::endl;
-        std::cout << "Je passe dans la commande NICK" << std::endl;
         send_reply(usr->getFd(),":" + oldnick + "!" + usr->getUsername() + "@" + usr->getHostname() + " NICK :" + usr->getNickname() + END);
+        std::cout << RED << "==> [NICK] " << BLUE << oldnick << " change his nickname to " << usr->getNickname() << DEFAULT << std::endl;
     }
 } 

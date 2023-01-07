@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   part.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
+/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:30:10 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/06 11:46:39 by parallels        ###   ########.fr       */
+/*   Updated: 2023/01/07 16:02:04 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,5 @@ void Command::part(Message *msg, std::vector<std::string> message)
             channel->deleteUser(*user);
         }
     }
-    
-    
-    std::cout << "Je passe dans la commande PART" << std::endl;
-    
+    std::cout << RED << "==> [PART] " << CYAN << "User " << user->getNickname() << " part from channel " << channel->getName() << DEFAULT << std::endl;   
 }

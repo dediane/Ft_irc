@@ -6,7 +6,7 @@
 /*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:55:27 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/06 17:58:30 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/07 16:16:14 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,14 +106,14 @@ void Channel::addUserInvited(User user)
 
 void Channel::deleteUser(User user)
 {
-std::vector<User>::iterator it;
-for (it = _users.begin(); it != _users.end(); it++)
-{
-    if ((*it).getNickname() == user.getNickname())
-        break;
-}
-_users.erase(it);
-return;
+    std::vector<User>::iterator it;
+    for (it = _users.begin(); it != _users.end(); it++)
+    {
+        if ((*it).getNickname() == user.getNickname())
+            break;
+    }
+    _users.erase(it);
+    return;
 }
 
 void Channel::addUserMode(int fd, std::string mode)
@@ -146,14 +146,14 @@ User *Channel::get_user(User *user)
     {
         if (send((*it).getFd(), rpl.c_str(), rpl.length(), 0) == -1)
         {   
-            std::cout << "error broadcast 1" << std::endl;
+            std::cout << PURPLE << "Error: send function failed" << DEFAULT << std::endl;
             return ;
         }
     }
  }
 
   void Channel::broadcast_msg(std::string rpl, User *user)
- {
+ {    
     std::vector<User>::iterator it;
     for (it = _users.begin(); it != _users.end(); it++)
     {
@@ -161,7 +161,7 @@ User *Channel::get_user(User *user)
         {
             if (send((*it).getFd(), rpl.c_str(), rpl.length(), 0) == -1)
             {
-                std::cout << "error broadcast 2" << std::endl;      
+                std::cout << PURPLE << "Error: send function failed" << DEFAULT << std::endl;      
                 return ;
             }
         }
@@ -200,12 +200,10 @@ bool Channel::is_usermode(int fd, char x)
 
 void Channel::setName(std::string name)
 {
-    std::cout << "our name before -->" << name << std::endl;
     if (name[0] != '#')
         _name = "#" + name;
     else
         _name = name;
-    std::cout << "our name before -->" << _name << std::endl;
     return;
 }
 void Channel::setTopic(std::string topic) {_topic = topic; return;}
