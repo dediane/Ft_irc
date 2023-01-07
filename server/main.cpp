@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:03:05 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/20 12:33:59 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/07 11:52:50 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void handler(int sig)
 {
     std::cout << "OK" << std::endl;
     (void) sig;
-    exit(1);
+    exit(0);
 }
 
 bool check_port(std::string port)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   privmsg.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:27:00 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/02 17:44:03 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/07 12:08:10 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@ void Command::privmsg(Message *msg, std::vector<std::string> message)
     std::string channel_name;
     std::string buffer;
 
+    if (message.size() != 3)
+    {
+        if (message.size() >= 2)
+            return(send_reply(user->getFd(), user->getPrefix() + " 404 " + ERR_NOSUCHCHANNEL(message[1])));
+        return (send_reply(user->getFd(), user->getPrefix() + " 421 " + ERR_UNKNOWNCOMMAND("PRIVMSG without arg")));
+    }
     for (it = message.begin(); it != message.end(); it++)
     {
         for(it2 = channels_names.begin(); it2 != channels_names.end(); it2++)
