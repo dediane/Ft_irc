@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   whois.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:16:51 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/20 00:18:58 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/07 16:50:40 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void Command::whois(Message *msg, std::vector<std::string> message)
 {
     (void)msg;
     (void)message;
-    std::cout << "Je suis dans WHOIS" << std::endl;
     User *user = msg->getuser();
     Server *server = msg->getserver();
     std::vector<std::string> users = server->get_all_nicknames();
@@ -31,5 +30,6 @@ void Command::whois(Message *msg, std::vector<std::string> message)
         send_reply(user->getFd(), RPL_YOURHOST(*user) + RPL_WHOISSERVER(user));
         if (user2->getMode() == "+o") //a verifier apres qu'on s'occupe des operators
             send_reply(user->getFd(), RPL_WHOISSERVER(user2));
+        std::cout << RED << "==> [WHOIS] " << BLUE << " command whois called" << DEFAULT << std::endl;  
     }
 }
