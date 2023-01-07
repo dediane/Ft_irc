@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   notice.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 00:13:06 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/07 16:50:03 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/07 18:25:57 by parallels        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void Command::notice(Message *msg, std::vector<std::string> message)
             buffer += (*it) + " ";
         }
         send_reply(receiver->getFd(), buffer + END);
-        std::cout << RED << "==> [NOTICE] " << BLUE << user->getNickname() " send a message to " << receiver->getNickname() << DEFAULT << std::endl;
+        std::cout << RED << "==> [NOTICE] " << BLUE << user->getNickname() << " send a message to " << receiver->getNickname() << DEFAULT << std::endl;
     }
     return;
 }
