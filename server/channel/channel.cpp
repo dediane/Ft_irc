@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   channel.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:55:27 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/07 16:16:14 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/08 11:56:48 by parallels        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,12 @@ User *Channel::get_user(User *user)
   void Channel::broadcast_msg(std::string rpl, User *user)
  {    
     std::vector<User>::iterator it;
+    std::cout << "users number in this channel " << _users.size() << std::endl;
+    if (_users.size() > 10)
+    {
+        std::cout << "segfault and abort here a cause du nombre de users ca le fait que avec nc" << std::endl;
+        return ;
+    }
     for (it = _users.begin(); it != _users.end(); it++)
     {
         if (((*it).getFd() != user->getFd()) && ((*it).getFd() > 0))
