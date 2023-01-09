@@ -6,7 +6,7 @@
 /*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 15:58:09 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/07 15:31:47 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/09 15:07:37 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,12 @@ void Command::pass(Message *msg, std::vector<std::string> message)
     if (message[1] != serverPassword)
     {
         user->setisOnline(false);
-        return(send_reply(user->getFd(), user->getPrefix() + " 462 " + ERR_PASSWDMISMATCH()));
+        return(send_reply(user->getFd(), user->getPrefix() + " 464 " + ERR_PASSWDMISMATCH()));
     }
     if (message[1] == serverPassword)
+    {
         user->setisPassword(true);
+        std::cout << GREEN << "==> " <<  user->getNickname() << " Valid password !" << DEFAULT << std::endl;
+    }
+    
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   user.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:58:37 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/28 15:39:19 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/09 15:08:52 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@ int User::getFd() {return (fd);}
 
 bool User::isRegistered() {return (_registered);}
 bool User::isOnline() {return (_online);}
-bool User::isDeleted() { return (_deleted);}
+bool User::isDeleted() {return (_deleted);}
+bool User::isPassword() {return (_password);};
 
 bool User::is_mode(char x)
 {

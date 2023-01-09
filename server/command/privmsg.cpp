@@ -6,7 +6,7 @@
 /*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:27:00 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/07 16:18:29 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/09 15:12:48 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ void Command::privmsg(Message *msg, std::vector<std::string> message)
     std::string channel_name;
     std::string buffer;
 
-    if (message.size() != 3)
+    if (message.size() < 3)
     {
-        if (message.size() >= 2)
-            return(send_reply(user->getFd(), user->getPrefix() + " 404 " + ERR_NOSUCHCHANNEL(message[1])));
+        if (message.size() == 2)
+            return(send_reply(user->getFd(), user->getPrefix() + " 404 " + ERR_CANNOTSENDTOCHAN(message[1])));
         return (send_reply(user->getFd(), ERR_UNKNOWNCOMMAND("PRIVMSG without arg")));
     }
     for (it = message.begin(); it != message.end(); it++)

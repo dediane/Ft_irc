@@ -6,7 +6,7 @@
 /*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:30:10 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/07 16:02:04 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/09 15:14:33 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,5 @@ void Command::part(Message *msg, std::vector<std::string> message)
             channel->deleteUser(*user);
         }
     }
-    std::cout << RED << "==> [PART] " << CYAN << "User " << user->getNickname() << " part from channel " << channel->getName() << DEFAULT << std::endl;   
+    std::cout << RED << "==> [PART] " << CYAN << "User " << user->getNickname() << " part from the channel " << DEFAULT << std::endl;   
 }
