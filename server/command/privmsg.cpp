@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   privmsg.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:27:00 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/09 15:12:48 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/09 20:25:43 by parallels        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,14 @@ void Command::privmsg(Message *msg, std::vector<std::string> message)
     std::string channel_name;
     std::string buffer;
 
-    if (message.size() < 3)
+    if (message.size() <= 3)
     {
+        if (message[1][0] != '#') 
+            return (send_reply(user->getFd(), "Error: channel must begin with '#'"));
         if (message.size() == 2)
-            return(send_reply(user->getFd(), user->getPrefix() + " 404 " + ERR_CANNOTSENDTOCHAN(message[1])));
-        return (send_reply(user->getFd(), ERR_UNKNOWNCOMMAND("PRIVMSG without arg")));
+            return (send_reply(user->getFd(), ERR_UNKNOWNCOMMAND("PRIVMSG without arg")));
+        if (message[2] == ":")
+            return (send_reply(user->getFd(), user->getPrefix() + " 404 " + ERR_CANNOTSENDTOCHAN(message[1])));
     }
     for (it = message.begin(); it != message.end(); it++)
     {
@@ -44,13 +47,14 @@ void Command::privmsg(Message *msg, std::vector<std::string> message)
             {
                 channel_name = (*it).substr(0, (*it2).length());
                 (*it).erase(0, ((*it2).length() + 1));
-                channel = server->get_channel_by_name(channel_name);
                 //:diane!diane@localhost PRIVMSG #lolo :Bonjour
             }
         }
         if (it != message.begin())
             buffer += (*it) + " ";
     }
+    if(!(channel = server->get_channel_by_name(channel_name)))
+        return (send_reply(user->getFd(), user->getPrefix() + " 403 " + ERR_NOSUCHCHANNEL(channel_name)));
     buffer.erase(0, 2);
     channel->broadcast_msg(user->getPrefix() + " PRIVMSG " + channel_name + " " + buffer + END, user);
     //std::cout << RED << "==> [PRIVMSG] " << BLUE << user->getNickname() << " send a message in channel " << channel->getName() << DEFAULT << std::endl;

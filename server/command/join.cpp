@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   join.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:15:15 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/07 16:08:03 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/09 20:29:55 by parallels        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,9 @@ void join_channel(Message *msg, std::string message, std::string key)
     Server *server = msg->getserver();
     Channel *channel;
 
+    if (message[0] != '#')
+        return (send_reply(user->getFd(), user->getPrefix() + " Error: channel must begin with '#' "));
     std::vector<std::string> names = server->get_all_channels_names();
-    // std::vector<std::string>::iterator it;
-    // for (it = names.begin(); it != names.end(); it++)
-    // {
-    //     //std::cout << (*it) << std::endl;
-    // }
     if ((channel = server->get_channel_by_name(message)) != NULL)
     {
         // check if the user is invited 
@@ -100,8 +97,6 @@ void join_channel(Message *msg, std::string message, std::string key)
             }
             else
                 return (send_reply(user->getFd(), user->getPrefix() + " 475 " + user->getNickname() + " " +  ERR_BADCHANNELKEY(channel->getName())));
-                // then need to be change with this error:         475     ERR_BADCHANNELKEY
-                //std::cout << "ERROR" << std::endl;
         }
     }
     else
@@ -170,7 +165,6 @@ void Command::join(Message *msg, std::vector<std::string> message)
     else
     {
         nb_of_channel = 1;
-        //if (!message[2].empty()) laiser la ligne d'en dessous pck sinon ca abort avec la commande ( /join chan )
         if (message.size() == 3)
             join_channel(msg, message[1], message[2]);
         else

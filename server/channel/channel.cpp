@@ -6,7 +6,7 @@
 /*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:55:27 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/08 11:56:48 by parallels        ###   ########.fr       */
+/*   Updated: 2023/01/09 20:05:18 by parallels        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,12 +155,6 @@ User *Channel::get_user(User *user)
   void Channel::broadcast_msg(std::string rpl, User *user)
  {    
     std::vector<User>::iterator it;
-    std::cout << "users number in this channel " << _users.size() << std::endl;
-    if (_users.size() > 10)
-    {
-        std::cout << "segfault and abort here a cause du nombre de users ca le fait que avec nc" << std::endl;
-        return ;
-    }
     for (it = _users.begin(); it != _users.end(); it++)
     {
         if (((*it).getFd() != user->getFd()) && ((*it).getFd() > 0))
@@ -206,10 +200,7 @@ bool Channel::is_usermode(int fd, char x)
 
 void Channel::setName(std::string name)
 {
-    if (name[0] != '#')
-        _name = "#" + name;
-    else
-        _name = name;
+    _name = name;
     return;
 }
 void Channel::setTopic(std::string topic) {_topic = topic; return;}
@@ -220,18 +211,4 @@ void    Channel::RemoveUserFromChan(User user)
 {
     if (isUserinChannel(user) == true)
         deleteUser(user);
-
-    // Server server;
-    // Channel channels = server.get_all_channels();
-    // std::vector<Channel> *channel = server.get_all_channels();
-    // std::vector<Channel>::iterator it; 
-    // for(it = channel->begin(); it != channel->end(); it++)
-    // {
-    //     if ((*it).isUserinChannel(user) == true)
-    //     {
-    //         std::cout << "User name = " << user.getNickname() << std::endl;
-    //         (*it).deleteUser(user);
-
-    //     }
-    // }
 }
