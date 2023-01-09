@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:12 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/07 15:38:57 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/09 22:24:06 by parallels        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,11 @@ Server::~Server()
 void Server::init(int port)
 {
     int opt = 1;
-    //int PORT = 1054;
 
     if (( sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
     {
         perror("socket creation failed");
-        // exit(EXIT_FAILURE);
+        exit(EXIT_FAILURE);
     }
     else
         std::cout << GREEN << "==> Socket succesfully created" << DEFAULT << std::endl;
@@ -55,13 +54,13 @@ void Server::init(int port)
     if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt, sizeof(opt)))
     {
         perror("setsockopt");
-        // exit(EXIT_FAILURE);
+        exit(EXIT_FAILURE);
     }
     
     if (fcntl(sockfd, F_SETFL, O_NONBLOCK) < 0)
     {
         perror("fcntl failed");
-        // exit(EXIT_FAILURE);
+        exit(EXIT_FAILURE);
     }
 
     struct sockaddr_in address;
@@ -74,13 +73,13 @@ void Server::init(int port)
     if (bind(sockfd, (struct sockaddr*)&address, sizeof(address)) < 0)
     {
         perror("bind failed");
-        // exit(EXIT_FAILURE);
+        exit(EXIT_FAILURE);
     }
 
     if (listen(sockfd, address.sin_port) < 0) 
     {
         perror("listen");
-        // exit(EXIT_FAILURE);
+        exit(EXIT_FAILURE);
     }
 
     //memset(&this->fds[0], 0 , sizeof(fds));
@@ -101,14 +100,8 @@ void Server::execute()
 
     if (now - last_ping >= (timeout / 1000)) 
     {
-        // std::cout << "NOW time = " << now << std::endl;
-        // std::cout << "result = " << (now - last_ping >= ping) << std::endl;
-        // std::cout << "Ping time = " << ping << std::endl;
-        // std::cout << "Last Ping time = " << last_ping << std::endl;
         heartbeat_management(timeout, now);
     }
-    
-    //std::cout << "Start executing" << std::endl;
     
     // fds -> Use ref ptr &myvar[0]
     // nfds -> Nbr of fd open myvar.size()
@@ -121,12 +114,6 @@ void Server::execute()
         std::cerr << "  poll() failed." << std::endl;
         return;
     }
-    
-    // if (rc == 0)
-    // {
-    //     std::cerr << "  poll() timed out.  End program." << std::endl;
-    //     return;
-    // }
     
     if(this->fds[0].revents == POLLIN)
     {
@@ -141,7 +128,7 @@ void Server::execute()
             //if(this->fds[it].revents == POLLIN)
             //    receive (UDF)
         std::vector<pollfd>::iterator it; 
-         for (it = fds.begin() ; it != fds.end(); it++)
+        for (it = fds.begin() ; it != fds.end(); it++)
         {
             if((*it).revents == POLLIN)
             {

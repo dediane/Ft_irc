@@ -6,7 +6,7 @@
 #    By: parallels <parallels@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/24 13:01:02 by ddecourt          #+#    #+#              #
-#    Updated: 2023/01/03 21:44:17 by parallels        ###   ########.fr        #
+#    Updated: 2023/01/09 22:23:04 by parallels        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ endif
 NAME =	ircserv
 BONUS	= bot
 
-CFLAGS	=	-Wall -Wextra -Werror -g -fsanitize=address -std=c++98
+CFLAGS	=	-Wall -Wextra -Werror -g3 -fsanitize=address -std=c++98
 
 SRCS =	server/main.cpp \
 		server/server.cpp \

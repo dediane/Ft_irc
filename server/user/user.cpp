@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   user.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:58:37 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/09 15:08:52 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/09 21:33:18 by parallels        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,22 @@
 User::User()
 {
     _last_ping = time(0);
+    _nickname = "NULL";
+    _username = "NULL";
+    _realname = "NULL";
+    _hostname = "NULL";
+    _hostaddr = "NULL";
+    _mode = "NULL"; 
 }
 
 User::User(int newfd, sockaddr_in address)
 {
+    _nickname = "NULL";
+    _username = "NULL";
+    _realname = "NULL";
+    _hostname = "NULL";
+    _hostaddr = "NULL";
+    _mode = "NULL"; 
     fd = newfd;
     _last_ping = time(0);
     _registered = false;
