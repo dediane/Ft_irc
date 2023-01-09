@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   error.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 18:15:54 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/27 13:02:28 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/09 17:40:52 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+// http://www.iprelax.fr/irc/irc_rfcus6.php
 
 std::string ERR_NOSUCHNICK(std::string nickname);
 std::string ERR_NOSUCHSERVER(std::string server);
