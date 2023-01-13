@@ -6,7 +6,7 @@
 /*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:55:27 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/09 20:05:18 by parallels        ###   ########.fr       */
+/*   Updated: 2023/01/13 15:47:04 by parallels        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ Channel::Channel(std::string name, User user)
 
 Channel::Channel(User user)
 {
-    //user.setNickname("@" + user.getNickname());
     _users.push_back(user);
     _mode = "+n";
     _users_mode.insert(std::pair<int, std::string>(user.getFd(), "+o"));
@@ -123,7 +122,10 @@ void Channel::addUserMode(int fd, std::string mode)
 
 void Channel::removeUserMode(int fd)
 {
-    _users_mode.erase(_users_mode.find(fd));
+    std::map<int, std::string>::iterator it;
+    it = _users_mode.find(fd);
+    if (it != _users_mode.end())
+        _users_mode.erase(it);
 }
 
 User *Channel::get_user(User *user)
@@ -183,6 +185,8 @@ std::string Channel::getMode() {return _mode;}
 std::string Channel::getKey() {return _key;}
 std::vector<User> Channel::getUsers() {return _users;}
 std::string Channel::getUserMode(int fd) {return  (_users_mode.find(fd))->second;}
+int Channel::usr_size(){return (_users.size());};
+
 
 bool Channel::is_mode(char x)
 {
@@ -206,6 +210,11 @@ void Channel::setName(std::string name)
 void Channel::setTopic(std::string topic) {_topic = topic; return;}
 void Channel::setMode(std::string mode) {_mode = mode; return;}
 void Channel::setKey(std::string key) {_key = key; return;}
+void Channel::setUserMode(std::string mode, User user)
+{
+    _users_mode.insert(std::pair<int, std::string>(user.getFd(), mode));
+}
+
 
 void    Channel::RemoveUserFromChan(User user)
 {

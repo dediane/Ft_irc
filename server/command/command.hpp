@@ -6,7 +6,7 @@
 /*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 15:03:16 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/03 21:41:46 by parallels        ###   ########.fr       */
+/*   Updated: 2023/01/13 16:42:11 by parallels        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,15 @@ class Command
         void invite(Message *msg, std::vector<std::string> message);
         void kick(Message *msg, std::vector<std::string> message);
 
-    private:
+    // helper
+
+    void mode_user(Message *msg, std::vector<std::string> message);
+    void mode_channel(Message *msg, std::vector<std::string> message);
+    std::string addmode(std::string mode, std::string oldmode);
+    std::string deletemode(std::string mode, std::string oldmode);
+    
+
+//    private:
         //User *user;
         //Server *server;
 };

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   channel.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:46:55 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/02 16:05:06 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/12 17:07:56 by parallels        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ class Channel
         void setTopic(std::string topic);         
         void setMode(std::string mode);
         void setKey(std::string key);
-
+        void setUserMode(std::string mode, User user);
 
         //helper
         bool isUserinChannel(User user);
@@ -59,6 +59,7 @@ class Channel
         void RemoveUserFromChan(User user);
         User *get_user(User *user);
         void print_users();
+        int  usr_size();
 
     private:
         std::string _name;

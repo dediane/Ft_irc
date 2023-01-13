@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   mode.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:35:32 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/28 16:24:45 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/13 16:41:59 by parallels        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.hpp"
+#include "command.hpp"
 
 //User modes
 // - [o] - User is an operator (prefix @).
@@ -63,7 +64,7 @@ bool isvalid_mode(std::string mode, std::string validmodes)
     return (false);
 }
 
-std::string addmode(std::string mode, std::string oldmode)
+std::string Command::addmode(std::string mode, std::string oldmode)
 {
     std::string::iterator it;
     std::string::iterator it2;
@@ -81,7 +82,7 @@ std::string addmode(std::string mode, std::string oldmode)
     return (oldmode);
 }
 
-std::string deletemode(std::string mode, std::string oldmode)
+std::string Command::deletemode(std::string mode, std::string oldmode)
 {
     std::string::iterator it;
     std::string::iterator it2;
@@ -98,7 +99,7 @@ std::string deletemode(std::string mode, std::string oldmode)
     return (copy);
 }
 
-void mode_channel(Message *msg, std::vector<std::string> message)
+void Command::mode_channel(Message *msg, std::vector<std::string> message)
 {
     Server *server = msg->getserver();
     Channel *channel;
@@ -132,15 +133,6 @@ void mode_channel(Message *msg, std::vector<std::string> message)
             mode = user->getNickname() + " " + channel->getName() + " " + tmp + " " + target->getNickname(); 
             send_reply(user->getFd(), RPL_CHANNELMODEIS(user, channel, mode));
             send_reply(target->getFd(), RPL_CHANNELMODEIS(user, channel, mode));
-            // if (new_mode.find("o"))
-            // {
-            //     if (*(channel_user->getNickname()).begin() != '@')
-            //     {
-            //         std::string oldnick = channel_user->getNickname();
-            //         channel_user->setNickname("@" + oldnick);
-            //     }
-            // }
-             //:diana!diane@localhost 324 diana #lala +o dianita
             return;
         }
     }
@@ -163,7 +155,7 @@ void mode_channel(Message *msg, std::vector<std::string> message)
     return;
 }
 
-void mode_user(Message *msg, std::vector<std::string> message)
+void Command::mode_user(Message *msg, std::vector<std::string> message)
 {
     Server *server = msg->getserver();
     User *user = msg->getuser();

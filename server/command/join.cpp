@@ -6,7 +6,7 @@
 /*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:15:15 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/09 20:29:55 by parallels        ###   ########.fr       */
+/*   Updated: 2023/01/13 14:55:41 by parallels        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void join_channel(Message *msg, std::string message, std::string key)
     Channel *channel;
 
     if (message[0] != '#')
-        return (send_reply(user->getFd(), user->getPrefix() + " Error: channel must begin with '#' "));
+        return (send_reply(user->getFd(), user->getPrefix() + " Error: channel must begin with '#' " + END));
     std::vector<std::string> names = server->get_all_channels_names();
     if ((channel = server->get_channel_by_name(message)) != NULL)
     {
