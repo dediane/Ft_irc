@@ -6,7 +6,7 @@
 /*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:27:00 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/15 16:08:44 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/15 18:48:47 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,6 @@
 
 void Command::privmsg(Message *msg, std::vector<std::string> message)
 {
-    (void)msg;
-    //(void)message;
-
-    
     Channel *channel;
     User *user = msg->getuser();
     Server *server = msg->getserver();
@@ -39,6 +35,8 @@ void Command::privmsg(Message *msg, std::vector<std::string> message)
         if (message[2] == ":")
             return (send_reply(user->getFd(), user->getPrefix() + " 404 " + ERR_CANNOTSENDTOCHAN(message[1])));
     }
+    if (message[1][message[1].length() - 1] == ':' || message[2][0] != ':')
+            return (send_reply(user->getFd(),("bad arg! : PRIVMSG #name_chan :message")));
     for (it = message.begin(); it != message.end(); ++it)
     {
         for(it2 = channels_names.begin(); it2 != channels_names.end(); ++it2)
