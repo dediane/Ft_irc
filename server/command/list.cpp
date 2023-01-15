@@ -6,7 +6,7 @@
 /*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:16:44 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/07 16:24:18 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/15 16:07:32 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void Command::list(Message *msg, std::vector<std::string> message)
     if ((message.size() == 1))
     {
         std::vector<Channel>::iterator it;
-        for (it = channels->begin(); it != channels->end(); it++)
+        for (it = channels->begin(); it != channels->end(); ++it)
         {
             int a = (*it).getUsers().size();
             std::stringstream ss;

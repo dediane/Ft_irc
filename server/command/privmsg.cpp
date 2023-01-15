@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   privmsg.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
+/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:27:00 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/09 20:25:43 by parallels        ###   ########.fr       */
+/*   Updated: 2023/01/15 16:08:44 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ void Command::privmsg(Message *msg, std::vector<std::string> message)
         if (message[2] == ":")
             return (send_reply(user->getFd(), user->getPrefix() + " 404 " + ERR_CANNOTSENDTOCHAN(message[1])));
     }
-    for (it = message.begin(); it != message.end(); it++)
+    for (it = message.begin(); it != message.end(); ++it)
     {
-        for(it2 = channels_names.begin(); it2 != channels_names.end(); it2++)
+        for(it2 = channels_names.begin(); it2 != channels_names.end(); ++it2)
         {
             if ((*it).find(*it2) != std::string::npos)
             {

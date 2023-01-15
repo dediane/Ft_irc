@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   topic.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:16:49 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/30 14:31:49 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/15 16:07:45 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void Command::topic(Message *msg, std::vector<std::string> message)
             {
                 std::vector<std::string>::iterator it;
                 std::string buffer;
-                for (it = message.begin() + 2; it != message.end(); it++)
+                for (it = message.begin() + 2; it != message.end(); ++it)
                 {
                     buffer += (*it) + " ";
                 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   message.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:02:31 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/02 17:50:11 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/15 18:05:11 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void Message::split_buffer(std::string recvline)
 	replacerbyn(recvline);
 	std::vector<std::string> cmds = get_split(recvline, "\n");
     std::vector<std::string>::iterator it;
-    for (it = cmds.begin(); it != cmds.end(); it++)
+    for (it = cmds.begin(); it != cmds.end(); ++it)
         _messages.push_back(*it);
 	// print_tokens(cmds);
 }
@@ -116,7 +116,7 @@ void Message::receive_msg()
     //std::cout << user_buffer << std::endl;
     split_buffer(msg_buffer);
     std::vector<std::string>::iterator it;
-    for (it = _messages.begin(); it != _messages.end(); it++)
+    for (it = _messages.begin(); it != _messages.end(); ++it)
         parse_commands(*it);
 }
 
@@ -125,14 +125,14 @@ void Message::parse_commands(std::string str)
     int index = 0;
     std::vector<std::string> commands = getTokens(str);
     std::vector<std::string>::iterator it;
-    for (it = commands.begin(); it != commands.end(); it++)
+    for (it = commands.begin(); it != commands.end(); ++it)
     {
         //std::cout << "Command message -> " << (*it) << std::endl;
         if (it == commands.begin())
         {
             index = 0;
             std::vector<std::string>::iterator it2;
-            for (it2 = _user->_cmd->_commandlist.begin(); it2 != _user->_cmd->_commandlist.end(); it2++)
+            for (it2 = _user->_cmd->_commandlist.begin(); it2 != _user->_cmd->_commandlist.end(); ++it2)
             {
                 if (*it == *it2)
                 {

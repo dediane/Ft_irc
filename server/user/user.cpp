@@ -6,7 +6,7 @@
 /*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:58:37 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/11 13:42:40 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/15 18:05:40 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ User::User()
     _hostaddr = "NULL";
     _mode = "NULL";
     _registered = false;
-    _online = false;
+    _online =  true;
     _deleted = false;
     _password = false;
 }
@@ -42,6 +42,12 @@ User::User(int newfd, sockaddr_in address)
     _hostname = buffer;
     _mode = "+w";
     _cmd = new Command();
+    _nickname = "NULL";
+    _username = "NULL";
+    _realname = "NULL";
+    _mode = "NULL";
+    _deleted = false;
+    _password = false;
 }
 
 User::User(const User &lhs)

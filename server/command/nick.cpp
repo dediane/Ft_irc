@@ -6,7 +6,7 @@
 /*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:16:46 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/07 16:22:25 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/15 16:08:15 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ void Command::nick(Message *msg, std::vector<std::string> message)
         return(send_reply(usr->getFd(), ERR_ERRONEUSNICKNAME(nickname)));
     std::vector<std::string>::iterator it;
     std::vector<std::string>::iterator ite;
-    for (it = nicknames.begin(); it != nicknames.end(); it++)
+    for (it = nicknames.begin(); it != nicknames.end(); ++it)
     {
         if ((*it) == nickname)
         {
-            for (ite = nicknames.begin(); ite != nicknames.end(); ite++)
+            for (ite = nicknames.begin(); ite != nicknames.end(); ++ite)
             {
                 if (*ite == nickname + "_")
                     nickname += "_";

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mode.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:35:32 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/28 16:24:45 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/15 16:08:42 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ bool isvalid_mode(std::string mode, std::string validmodes)
         std::string::iterator it2;
         if (!(*mode.begin() == '+' || *mode.begin() == '-'))
             return(false); 
-        for (it2 = mode.begin() + 1 ; it2 != mode.end(); it2++)
+        for (it2 = mode.begin() + 1 ; it2 != mode.end(); ++it2)
         {
             it = modes.begin();
-            for (it = modes.begin(); it != modes.end(); it++)
+            for (it = modes.begin(); it != modes.end(); ++it)
                 if (!mode.find(*it))
                     return(false); //"ERROR 472"
         }
@@ -69,9 +69,9 @@ std::string addmode(std::string mode, std::string oldmode)
     std::string::iterator it2;
     mode.erase(0,1);
     std::string copy = mode;
-    for (it = mode.begin(); it != mode.end(); it++)
+    for (it = mode.begin(); it != mode.end(); ++it)
     {
-        for (it2 = oldmode.begin() + 1; it2 != oldmode.end(); it2++)
+        for (it2 = oldmode.begin() + 1; it2 != oldmode.end(); ++it2)
         {
             if (*it == *it2)
                 copy.erase(copy.find(*it), 1);
@@ -87,9 +87,9 @@ std::string deletemode(std::string mode, std::string oldmode)
     std::string::iterator it2;
     std::string copy = oldmode;
     mode.erase(0,1);
-    for (it = mode.begin(); it != mode.end(); it++)
+    for (it = mode.begin(); it != mode.end(); ++it)
     {
-        for (it2 = oldmode.begin() + 1; it2 != oldmode.end(); it2++)
+        for (it2 = oldmode.begin() + 1; it2 != oldmode.end(); ++it2)
         {
             if (*it == *it2)
                copy.erase(copy.find(*it), 1);

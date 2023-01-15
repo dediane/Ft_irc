@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   channel.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
+/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:55:27 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/09 20:05:18 by parallels        ###   ########.fr       */
+/*   Updated: 2023/01/15 16:07:20 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,12 @@ Channel::~Channel()
 bool Channel::isUserinChannel(User user)
 {
     std::vector<User>::iterator it;
-    for (it = _users.begin(); it != _users.end(); it++)
+    for (it = _users.begin(); it != _users.end(); ++it)
     {
         if (user.getNickname() == (*it).getNickname())
             return true;
     }
-    for (it = _users.begin(); it != _users.end(); it++)
+    for (it = _users.begin(); it != _users.end(); ++it)
     {
         if ("@" + user.getNickname() == (*it).getNickname())
             return true;
@@ -84,7 +84,7 @@ bool Channel::isUserinChannel(User user)
 bool Channel::isUserinvited(User user)
 {
     std::vector<User>::iterator it;
-    for (it = _users_invited.begin(); it != _users_invited.end(); it++)
+    for (it = _users_invited.begin(); it != _users_invited.end(); ++it)
     {
         if (user.getNickname() == (*it).getNickname())
             return true;
@@ -107,7 +107,7 @@ void Channel::addUserInvited(User user)
 void Channel::deleteUser(User user)
 {
     std::vector<User>::iterator it;
-    for (it = _users.begin(); it != _users.end(); it++)
+    for (it = _users.begin(); it != _users.end(); ++it)
     {
         if ((*it).getNickname() == user.getNickname())
             break;
@@ -129,7 +129,7 @@ void Channel::removeUserMode(int fd)
 User *Channel::get_user(User *user)
 {
     std::vector<User>::iterator it;
-    for (it = _users.begin(); it != _users.end(); it++)
+    for (it = _users.begin(); it != _users.end(); ++it)
     {
         if((*it).getFd() == user->getFd()) 
         {    
@@ -142,7 +142,7 @@ User *Channel::get_user(User *user)
  void Channel::broadcast(std::string rpl)
  {
     std::vector<User>::iterator it;
-    for (it = _users.begin(); it != _users.end(); it++)
+    for (it = _users.begin(); it != _users.end(); ++it)
     {
         if (send((*it).getFd(), rpl.c_str(), rpl.length(), 0) == -1)
         {   
@@ -155,7 +155,7 @@ User *Channel::get_user(User *user)
   void Channel::broadcast_msg(std::string rpl, User *user)
  {    
     std::vector<User>::iterator it;
-    for (it = _users.begin(); it != _users.end(); it++)
+    for (it = _users.begin(); it != _users.end(); ++it)
     {
         if (((*it).getFd() != user->getFd()) && ((*it).getFd() > 0))
         {
@@ -171,7 +171,7 @@ User *Channel::get_user(User *user)
 void Channel::print_users()
 {
     std::vector<User>::iterator it;
-    for(it = _users.begin(); it != _users.end(); it++)
+    for(it = _users.begin(); it != _users.end(); ++it)
     {
         std::cout << RED << (*it).getNickname() << DEFAULT << std::endl;
     }

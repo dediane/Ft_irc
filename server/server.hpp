@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:20 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/22 20:22:17 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/15 17:11:57 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
             void execute();
             void accept_new_user();
             void do_handshake(int fd, User user);
-            void heartbeat_management(int timeout, int now);
+            void heartbeat_management();
             User *get_user_by_fd(int user_fd);
             User *get_user_by_nickname(std::string nickname);
             std::vector<std::string> get_all_nicknames();

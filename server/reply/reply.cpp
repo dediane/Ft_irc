@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reply.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 13:15:20 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/02 17:47:12 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/15 16:07:46 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ std::string RPL_NAMREPLY(User *user, Channel *channel)
     users = channel->getUsers();
     std::string buffer = user->getPrefix() + " 353 " + user->getNickname() + " = " + channel->getName() + " :";
     
-    for (it = users.begin(); it != users.end(); it++)
+    for (it = users.begin(); it != users.end(); ++it)
     {
         if (channel->getUserMode((*it).getFd()).find("o") != std::string::npos)
         {

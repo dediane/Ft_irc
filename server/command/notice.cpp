@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   notice.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
+/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 00:13:06 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/07 18:25:57 by parallels        ###   ########.fr       */
+/*   Updated: 2023/01/15 16:07:41 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void Command::notice(Message *msg, std::vector<std::string> message)
         else
             return;
         buffer = user->getPrefix() + " NOTICE " + receiver->getNickname() + " :";
-        for (it = message.begin() + 2; it != message.end(); it++)
+        for (it = message.begin() + 2; it != message.end(); ++it)
         {
             buffer += (*it) + " ";
         }

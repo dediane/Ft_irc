@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   join.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
+/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:15:15 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/09 20:29:55 by parallels        ###   ########.fr       */
+/*   Updated: 2023/01/15 16:07:31 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ void Command::join(Message *msg, std::vector<std::string> message)
     }
     if (message[1].find(',') != std::string::npos)
     {
-        for (it = message.begin(); it != message.end(); it++)
+        for (it = message.begin(); it != message.end(); ++it)
         {
             if (((it) == message.begin() + 1) && ((*it).find(",") != std::string::npos))
             {

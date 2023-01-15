@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
+/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 15:03:22 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/06 12:55:47 by parallels        ###   ########.fr       */
+/*   Updated: 2023/01/15 16:07:21 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void Command::execute(std::string cmd, Message *msg, std::vector<std::string> me
     &Command::kick };
 
     std::vector<std::string>::iterator it;
-    for (it = message.begin(); it < message.end(); it++)
+    for (it = message.begin(); it < message.end(); ++it)
     {
         if (*it == cmd)
         {
