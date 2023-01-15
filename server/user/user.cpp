@@ -6,7 +6,7 @@
 /*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:58:37 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/15 18:05:40 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/15 19:38:06 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@ User::User()
 
 User::User(int newfd, sockaddr_in address)
 {
+    _nickname = "NULL";
+    _username = "NULL";
+    _realname = "NULL";
+    _hostname = "NULL";
+    _hostaddr = "NULL";
+    _mode = "NULL"; 
     fd = newfd;
     _last_ping = time(0);
     _registered = false;

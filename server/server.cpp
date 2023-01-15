@@ -6,7 +6,7 @@
 /*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:12 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/15 19:34:21 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/15 19:37:37 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,11 @@ void Server::init(int port)
     channels.clear();
     users.clear();
     int opt = 1;
-    //int PORT = 1054;
 
     if (( sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
     {
         perror("socket creation failed");
-        // exit(EXIT_FAILURE);
+        exit(EXIT_FAILURE);
     }
     else
         std::cout << GREEN << "==> Socket succesfully created" << DEFAULT << std::endl;
@@ -58,13 +57,13 @@ void Server::init(int port)
     if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt, sizeof(opt)))
     {
         perror("setsockopt");
-        // exit(EXIT_FAILURE);
+        exit(EXIT_FAILURE);
     }
     
     if (fcntl(sockfd, F_SETFL, O_NONBLOCK) < 0)
     {
         perror("fcntl failed");
-        // exit(EXIT_FAILURE);
+        exit(EXIT_FAILURE);
     }
 
     struct sockaddr_in address;
@@ -77,13 +76,13 @@ void Server::init(int port)
     if (bind(sockfd, (struct sockaddr*)&address, sizeof(address)) < 0)
     {
         perror("bind failed");
-        // exit(EXIT_FAILURE);
+        exit(EXIT_FAILURE);
     }
 
     if (listen(sockfd, address.sin_port) < 0) 
     {
         perror("listen");
-        // exit(EXIT_FAILURE);
+        exit(EXIT_FAILURE);
     }
 
     //memset(&this->fds[0], 0 , sizeof(fds));
