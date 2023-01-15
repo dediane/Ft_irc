@@ -6,7 +6,7 @@
 /*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:12 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/15 18:00:24 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/15 18:12:56 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -290,6 +290,7 @@ void Server::remove_user(User *user)
 {
     std::map<int, User>::iterator it;
     it = users.find(user->getFd());
+    int buf;
     std::vector<Channel> *channel = get_all_channels();
     if ((*it).second.isOnline() == false)
     {
@@ -303,8 +304,9 @@ void Server::remove_user(User *user)
         // ite = users.find(user->getFd());
         // if (ite != users.end())
         // {
-            // close(user->getFd());
-            users.erase(user->getFd());
+        buf = (*it).second.getFd();
+        users.erase(user->getFd());
+        close(buf);
         // }
     }
 }
