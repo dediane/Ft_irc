@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: parallels <parallels@student.42.fr>        +#+  +:+       +#+         #
+#    By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/24 13:01:02 by ddecourt          #+#    #+#              #
-#    Updated: 2023/01/03 21:44:17 by parallels        ###   ########.fr        #
+#    Updated: 2023/01/15 18:16:11 by bben-yaa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ endif
 NAME =	ircserv
 BONUS	= bot
 
-CFLAGS	=	-Wall -Wextra -Werror -g -fsanitize=address -std=c++98
+CFLAGS	=	-Wall -Wextra -Werror -g3 -std=c++98
 
 SRCS =	server/main.cpp \
 		server/server.cpp \

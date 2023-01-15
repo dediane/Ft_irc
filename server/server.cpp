@@ -6,7 +6,7 @@
 /*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:12 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/15 18:12:56 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/15 19:34:21 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,15 +143,15 @@ void Server::execute()
     }
 // User usr;
 // users.insert(std::pair<int, User>(12, usr));
-    // std::map<int, User>::iterator it = users.begin();
-    // while (it != users.end())
-    // {
-    //     if ((*it).second.isOnline() == false)
-    //         remove_user(&(*it).second);
-    //     else
-    //         ++it;
+    std::map<int, User>::iterator it = users.begin();
+    while (it != users.end())
+    {
+        if ((*it).second.isOnline() == false)
+            remove_user(&(*it).second);
+        else
+            ++it;
             
-    // }
+    }
 }
 
 void Server::accept_new_user()
@@ -188,7 +188,7 @@ void Server::heartbeat_management(void)
         {
             (*it).second.setisOnline(false);
         }
-        else if ((*it).second.isOnline() == true)
+        else if ((*it).second.getFd() > 0 && (*it).second.isOnline() == true)
         {
             send_reply((*it).second.getFd(), "PING " + (*it).second.getNickname());
         }
@@ -290,24 +290,22 @@ void Server::remove_user(User *user)
 {
     std::map<int, User>::iterator it;
     it = users.find(user->getFd());
-    int buf;
-    std::vector<Channel> *channel = get_all_channels();
-    if ((*it).second.isOnline() == false)
+    if (it != users.end())
     {
-        //remove user from channel list.
-        std::vector<Channel>::iterator it2; 
-        for(it2 = channel->begin(); it2 != channel->end(); ++it2)
+        int buf;
+        std::vector<Channel> *channel = get_all_channels();
+        if ((*it).second.isOnline() == false)
+        {
+            //remove user from channel list.
+            std::vector<Channel>::iterator it2; 
+            for(it2 = channel->begin(); it2 != channel->end(); ++it2)
             (*it2).RemoveUserFromChan((*it).second);
-        delete ((*it).second)._cmd;
-        remove_pollfd(user);
-        // std::map<int, User>::iterator ite;
-        // ite = users.find(user->getFd());
-        // if (ite != users.end())
-        // {
-        buf = (*it).second.getFd();
-        users.erase(user->getFd());
-        close(buf);
-        // }
+            delete ((*it).second)._cmd;
+            remove_pollfd(user);
+            buf = (*it).second.getFd();
+            users.erase(user->getFd());
+            close(buf);
+        }
     }
 }
 

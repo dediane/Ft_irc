@@ -6,7 +6,7 @@
 /*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:55:27 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/15 16:07:20 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/15 19:34:39 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ User *Channel::get_user(User *user)
     std::vector<User>::iterator it;
     for (it = _users.begin(); it != _users.end(); ++it)
     {
-        if (((*it).getFd() != user->getFd()) && ((*it).getFd() > 0))
+        if (((*it).getFd() != user->getFd()) && ((*it).getFd() > 0) && (*it).isOnline() == true)
         {
             if (send((*it).getFd(), rpl.c_str(), rpl.length(), 0) == -1)
             {
