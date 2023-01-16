@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:03:02 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/02 16:51:02 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/16 11:18:52 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 #include <time.h>
 #include <netdb.h>
 #include <sstream>
-
+#include <csignal>
 #include "server.hpp"
 #include "user/user.hpp"
 #include "channel/channel.hpp"

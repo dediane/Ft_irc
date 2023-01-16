@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   message.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:02:39 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/21 23:06:06 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/16 11:47:17 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ class Message
         Message(Message &lhs);
         ~Message();
 
-        void receive_msg();
+        int receive_msg();
         void split_buffer(std::string str);
         void parse_commands(std::string str);
         void do_handshake();

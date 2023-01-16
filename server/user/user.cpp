@@ -6,7 +6,7 @@
 /*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:58:37 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/15 19:38:06 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/16 09:55:23 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,17 @@
 User::User()
 {
     _last_ping = time(0);
-    fd = 0;
-    _nickname = "NULL";
-    _username = "NULL";
-    _realname = "NULL";
-    _hostname = "NULL";
-    _hostaddr = "NULL";
-    _mode = "NULL";
-    _registered = false;
-    _online =  true;
-    _deleted = false;
-    _password = false;
+    return ;
 }
 
 User::User(int newfd, sockaddr_in address)
 {
-    _nickname = "NULL";
-    _username = "NULL";
-    _realname = "NULL";
-    _hostname = "NULL";
-    _hostaddr = "NULL";
-    _mode = "NULL"; 
+    _nickname = "";
+    _username = "";
+    _realname = "";
+    _hostname = "";
+    _hostaddr = "";
+    _mode = "+w";
     fd = newfd;
     _last_ping = time(0);
     _registered = false;
@@ -46,12 +36,7 @@ User::User(int newfd, sockaddr_in address)
     if (getnameinfo((sockaddr *)&address, sizeof(address), buffer, NI_MAXHOST, NULL, 0, NI_NUMERICSERV) == -1)
         std::cout << "error getnameinfo" << std::endl;
     _hostname = buffer;
-    _mode = "+w";
     _cmd = new Command();
-    _nickname = "NULL";
-    _username = "NULL";
-    _realname = "NULL";
-    _mode = "NULL";
     _deleted = false;
     _password = false;
 }

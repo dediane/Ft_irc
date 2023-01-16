@@ -6,7 +6,7 @@
 /*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:12 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/15 19:37:37 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/16 12:24:50 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ void Server::execute()
 {
     //https://www.ibm.com/docs/en/i/7.2?topic=designs-using-poll-instead-select
     
-    int ping = 60;
+    int ping = 2000;
+    int timeout = (15 * 1000);
 
     int rc = -1;
     if ((rc = poll(&this->fds[0], fds.size(), ping)) < 0)
@@ -104,13 +105,8 @@ void Server::execute()
         std::cerr << "  poll() failed." << std::endl;
         return;
     }
-    
-    if (time(0) - last_ping >= ping) 
+    if (time(0) - last_ping >= (timeout / 1000)) 
     {
-        // std::cout << "NOW time = " << now << std::endl;
-        // std::cout << "result = " << (now - last_ping >= ping) << std::endl;
-        // std::cout << "Ping time = " << ping << std::endl;
-        // std::cout << "Last Ping time = " << last_ping << std::endl;
         heartbeat_management();
         last_ping = time(0);
     }
@@ -133,8 +129,11 @@ void Server::execute()
                     if (user)
                     {
                         Message message(user, this);
-                        message.receive_msg();
-                        
+                        if (message.receive_msg() == -1)
+                        {
+                            std::cout << "ctrl C" << std::endl; 
+                            user->setisOnline(false);
+                        }
                     }
                 }
             }       
@@ -143,15 +142,27 @@ void Server::execute()
 // User usr;
 // users.insert(std::pair<int, User>(12, usr));
     std::map<int, User>::iterator it = users.begin();
-    while (it != users.end())
+    // std::cout << users.size() << " user size" << std::endl;
+    std::map<int, User> buf = users;
+    for (it = buf.begin(); it != buf.end(); it++)
     {
         if ((*it).second.isOnline() == false)
-            remove_user(&(*it).second);
-        else
-            ++it;
-            
+            remove_user(get_user_by_fd((*it).first));
     }
+    // while (it != users.end())
+    // {
+    //     // std::cout << "loooppppp" << std::endl;
+    // }
 }
+
+// void Server::handlestop(void)
+// {
+//     for (int i = 0; i < fds.size(); i++)
+//     {
+//         std::cout << "-> fd no " << fds[i].fd << std::endl;
+//         if (fds[i].events == sockfd)
+//     }
+// }
 
 void Server::accept_new_user()
 {
@@ -177,36 +188,48 @@ void Server::accept_new_user()
 
 void Server::heartbeat_management(void)
 {
-    time_t current = time(0);
-    int timeout = 300;
+    time_t now = time(0);
+    int timeout = (15 * 100);
 
-    std::map<int, User >::iterator it;
-    for (it = users.begin(); it != users.end(); ++it)
-    {
-        if ( current -  (*it).second.getLastPing() >= timeout)
-        {
-            (*it).second.setisOnline(false);
-        }
-        else if ((*it).second.getFd() > 0 && (*it).second.isOnline() == true)
-        {
-            send_reply((*it).second.getFd(), "PING " + (*it).second.getNickname());
-        }
-    }
-    // std::map<int, User>::iterator it;
+    // std::map<int, User >::iterator it;
     // for (it = users.begin(); it != users.end(); ++it)
     // {
-    //     //std::cout << "CURRENT USER " << (*it).second.getNickname() << "   " << (now - (*it).second.getLastPing()) << std::endl;
-    //     if (now - (*it).second.getLastPing() >= timeout)
+    //     std::cout << "NOW time = " << current << std::endl;
+    //     std::cout << "Last Ping time = " << (*it).second.getLastPing() << std::endl;
+    //     if ( current -  (*it).second.getLastPing() >= timeout)
     //     {
-    //         std::cout << "need to delete user, user timeout" << std::endl;
+    //         std::cout << "the user time ouy" << std::endl;
+    //         (*it).second.setisOnline(false);
+    //         // remove_user(&(*it).second);
+    //         return;
     //     }
-    //     else if (now - (*it).second.getLastPing() >= (timeout / 1000))
-    //         send_reply((*it).second.getFd(), "PING :" + (*it).second.getNickname() + END);
-    //     else {
+    //     else if (current - (*it).second.getLastPing() >= (timeout / 1000))//((*it).second.getFd() > 0 && (*it).second.isOnline() == true && (*it).second.isRegistered() == true)
+    //     {
+    //         std::cout << "send ping" << std::endl;
+    //         send_reply((*it).second.getFd(), "PING " + (*it).second.getNickname());
+    //     }
+    //     else
+    //     {
+    //         std::cout << "else" << std::endl;
     //         return;
     //     }
     // }
-    // last_ping = time(0);
+    std::map<int, User>::iterator it;
+    for (it = users.begin(); it != users.end(); ++it)
+    {
+        //std::cout << "CURRENT USER " << (*it).second.getNickname() << "   " << (now - (*it).second.getLastPing()) << std::endl;
+        if (now - (*it).second.getLastPing() >= timeout)
+        {
+            std::cout << "need to delete user, user timeout" << std::endl;
+            (*it).second.setisOnline(false);
+        }
+        else if (now - (*it).second.getLastPing() >= (timeout / 1000) && (*it).second.isRegistered() == true)
+            send_reply((*it).second.getFd(), "PING :" + (*it).second.getNickname() + END);
+        else {
+            return;
+        }
+    }
+    last_ping = time(0);
 }
 
 std::vector<std::string> Server::get_all_nicknames()
@@ -287,6 +310,7 @@ std::string Server::getCreationTime()
 
 void Server::remove_user(User *user)
 {
+    std::cout << "USER DELETED" << std::endl;
     std::map<int, User>::iterator it;
     it = users.find(user->getFd());
     if (it != users.end())

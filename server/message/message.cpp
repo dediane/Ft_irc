@@ -6,7 +6,7 @@
 /*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:02:31 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/15 18:05:11 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/16 12:10:47 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,16 +101,16 @@ std::vector<std::string> Message::getTokens(std::string cmd)
 	return (tokens);
 }
 
-void Message::receive_msg()
+int Message::receive_msg()
 {
     char buffer[BUFFER_SIZE + 1];
     ssize_t response_size = recv(_user->getFd(), buffer, BUFFER_SIZE, 0);
     if (response_size == -1)
-        return;
+        return (-1);
     //std::cout << buffer << std::endl;
     //std::cout << response_size << std::endl;
     if (response_size == 0)
-        return;
+        return (-1);
     buffer[response_size] = 0;
     msg_buffer = msg_buffer + buffer;
     //std::cout << user_buffer << std::endl;
@@ -118,6 +118,7 @@ void Message::receive_msg()
     std::vector<std::string>::iterator it;
     for (it = _messages.begin(); it != _messages.end(); ++it)
         parse_commands(*it);
+    return (0);
 }
 
 void Message::parse_commands(std::string str)
