@@ -101,23 +101,44 @@ std::vector<std::string> Message::getTokens(std::string cmd)
 	return (tokens);
 }
 
+// void	appendMessage(const char *buffer)
+// {
+// 	this->_message += buffer;
+// }
+
+// if (peer.getMessage() == "\r\n")
+// 			{
+// 				peer.clearMessage();
+// 				return 1;
+// 			}
+
 int Message::receive_msg()
 {
     char buffer[BUFFER_SIZE + 1];
     ssize_t response_size = recv(_user->getFd(), buffer, BUFFER_SIZE, 0);
     if (response_size == -1)
         return (-1);
-    //std::cout << buffer << std::endl;
-    //std::cout << response_size << std::endl;
     if (response_size == 0)
         return (-1);
-    buffer[response_size] = 0;
-    msg_buffer = msg_buffer + buffer;
-    //std::cout << user_buffer << std::endl;
-    split_buffer(msg_buffer);
-    std::vector<std::string>::iterator it;
-    for (it = _messages.begin(); it != _messages.end(); ++it)
-        parse_commands(*it);
+    std::cout << "oui" << std::endl;
+    buffer[response_size] = '\0';
+    std::cout << "before --" << buffer << "--" << std::endl;
+    std::cout << "before --" << _user->msgbuffer << "--" << std::endl;
+    _user->msgbuffer += buffer;
+    std::cout << "after --" << _user->msgbuffer << "--" << std::endl;
+    while ( (_user->msgbuffer).find("\n") != std::string::npos)
+    {
+        if (_user->msgbuffer == "\r\n")
+        {
+            _user->msgbuffer.clear();
+            return -1;
+        }
+        split_buffer(_user->msgbuffer);
+        std::vector<std::string>::iterator it;
+        for (it = _messages.begin(); it != _messages.end(); ++it)
+            parse_commands(*it);
+        _user->msgbuffer.clear();
+    }
     return (0);
 }
 

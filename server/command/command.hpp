@@ -42,6 +42,7 @@ class Command
         void kick(Message *msg, std::vector<std::string> message);
 
     private:
+        
         //User *user;
         //Server *server;
 };
