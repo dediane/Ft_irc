@@ -107,17 +107,23 @@ int Message::receive_msg()
     ssize_t response_size = recv(_user->getFd(), buffer, BUFFER_SIZE, 0);
     if (response_size == -1)
         return (-1);
-    //std::cout << buffer << std::endl;
-    //std::cout << response_size << std::endl;
     if (response_size == 0)
         return (-1);
-    buffer[response_size] = 0;
-    msg_buffer = msg_buffer + buffer;
-    //std::cout << user_buffer << std::endl;
-    split_buffer(msg_buffer);
-    std::vector<std::string>::iterator it;
-    for (it = _messages.begin(); it != _messages.end(); ++it)
-        parse_commands(*it);
+    buffer[response_size] = '\0';
+    _user->msgbuffer += buffer;
+    while ( (_user->msgbuffer).find("\n") != std::string::npos)
+    {
+        if (_user->msgbuffer == "\r\n")
+        {
+            _user->msgbuffer.clear();
+            return -1;
+        }
+        split_buffer(_user->msgbuffer);
+        std::vector<std::string>::iterator it;
+        for (it = _messages.begin(); it != _messages.end(); ++it)
+            parse_commands(*it);
+        _user->msgbuffer.clear();
+    }
     return (0);
 }
 

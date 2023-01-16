@@ -59,6 +59,8 @@ class User
         bool is_mode(char x);
         
         Command *_cmd;
+        std::string msgbuffer;
+
         
     private:
         int             fd;

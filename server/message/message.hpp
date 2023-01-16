@@ -47,6 +47,7 @@ class Message
         bool cmd;
         std::string command;
         std::vector<std::string> _messages;
+        // std::map<int, char *> UserMsgBuffer; //fd de luser, char buffer
 };
 
 #endif
