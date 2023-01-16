@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mode.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:35:32 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/15 16:08:42 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/16 21:30:15 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@
 // [e] - set/remove an exception mask to override a ban mask;
 // [I] - set/remove an invitation mask to automatically override the invite-only flag;
 
+
+//check if the mode is valid
 bool isvalid_mode(std::string mode, std::string validmodes)
 {
     //mode valid for channel : [t][i][k][n][m][v]  && [o] for user in channel
@@ -132,15 +134,6 @@ void mode_channel(Message *msg, std::vector<std::string> message)
             mode = user->getNickname() + " " + channel->getName() + " " + tmp + " " + target->getNickname(); 
             send_reply(user->getFd(), RPL_CHANNELMODEIS(user, channel, mode));
             send_reply(target->getFd(), RPL_CHANNELMODEIS(user, channel, mode));
-            // if (new_mode.find("o"))
-            // {
-            //     if (*(channel_user->getNickname()).begin() != '@')
-            //     {
-            //         std::string oldnick = channel_user->getNickname();
-            //         channel_user->setNickname("@" + oldnick);
-            //     }
-            // }
-             //:diana!diane@localhost 324 diana #lala +o dianita
             return;
         }
     }
@@ -202,6 +195,7 @@ void Command::mode(Message *msg, std::vector<std::string> message)
         return(send_reply(usr->getFd(), ERR_NEEDMOREPARAMS("MODE")));
     if (message[1].find("#") != std::string::npos)
         mode_channel(msg, message);
-    else
+    else if (message.size() != 2)
         mode_user(msg, message);
+    return;
 }
