@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   nick.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:16:46 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/15 16:08:15 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/16 20:48:09 by parallels        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,16 @@ void Command::nick(Message *msg, std::vector<std::string> message)
     Server *server = msg->getserver();
     std::string oldnick;
     std::vector<std::string> nicknames = server->get_all_nicknames();
-    (void) server;
-    (void)message;
     if (message.size() == 1)
         return(send_reply(usr->getFd(), ERR_NONICKNAMEGIVEN(usr->getNickname())));
     std::string nickname = message[1];
     if (nickname.length() > 9)
         return(send_reply(usr->getFd(), ERR_ERRONEUSNICKNAME(nickname)));
     std::vector<std::string>::iterator it;
-    std::vector<std::string>::iterator ite;
     for (it = nicknames.begin(); it != nicknames.end(); ++it)
     {
         if ((*it) == nickname)
-        {
-            for (ite = nicknames.begin(); ite != nicknames.end(); ++ite)
-            {
-                if (*ite == nickname + "_")
-                    nickname += "_";
-            }
-            usr->setNickname(nickname + "_");
-            return(send_reply(usr->getFd(), ERR_NICKNAMEINUSE(nickname)));
-        }
+            return (send_reply(usr->getFd(), usr->getPrefix() + " 401 " + usr->getNickname() + " " + ERR_NICKNAMEINUSE(message[1])));
     }
     oldnick = usr->getNickname();
     usr->setNickname(nickname);

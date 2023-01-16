@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:12 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/16 16:36:05 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/16 20:56:47 by parallels        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,10 +130,7 @@ void Server::execute()
                     {
                         Message message(user, this);
                         if (message.receive_msg() == -1)
-                        {
-                            std::cout << "ctrl C" << std::endl; 
                             user->setisOnline(false);
-                        }
                     }
                 }
             }       
@@ -310,7 +307,6 @@ std::string Server::getCreationTime()
 
 void Server::remove_user(User *user)
 {
-    std::cout << "USER DELETED" << std::endl;
     std::map<int, User>::iterator it;
     it = users.find(user->getFd());
     if (it != users.end())
