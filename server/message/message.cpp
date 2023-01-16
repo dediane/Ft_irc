@@ -109,12 +109,8 @@ int Message::receive_msg()
         return (-1);
     if (response_size == 0)
         return (-1);
-    std::cout << "oui" << std::endl;
     buffer[response_size] = '\0';
-    std::cout << "before --" << buffer << "--" << std::endl;
-    std::cout << "before --" << _user->msgbuffer << "--" << std::endl;
     _user->msgbuffer += buffer;
-    std::cout << "after --" << _user->msgbuffer << "--" << std::endl;
     while ( (_user->msgbuffer).find("\n") != std::string::npos)
     {
         if (_user->msgbuffer == "\r\n")
