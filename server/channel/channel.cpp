@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   channel.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:55:27 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/15 19:34:39 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/16 23:14:46 by parallels        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 Channel::Channel()
 {
+    _mode = "+n";
     return;
 }
 
@@ -119,6 +120,11 @@ void Channel::deleteUser(User user)
 void Channel::addUserMode(int fd, std::string mode)
 {
     _users_mode.insert(std::pair<int, std::string>(fd, mode));
+}
+
+void Channel::ChangeMode(int fd, std::string mode)
+{
+    _users_mode[fd] = mode;
 }
 
 void Channel::removeUserMode(int fd)

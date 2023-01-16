@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   channel.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:46:55 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/02 16:05:06 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/16 23:15:03 by parallels        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ class Channel
         void RemoveUserFromChan(User user);
         User *get_user(User *user);
         void print_users();
+        void ChangeMode(int fd, std::string mode);
 
     private:
         std::string _name;
