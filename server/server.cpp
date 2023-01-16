@@ -6,7 +6,7 @@
 /*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:12 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/16 12:24:50 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/16 16:36:05 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void Server::setLastping(time_t time)
 
 Server::~Server()
 {
-    std::cout << "Server deleted" << std::endl;
+    return ;
 }
 
 //https://www.geeksforgeeks.org/socket-programming-cc/

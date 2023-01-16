@@ -6,13 +6,11 @@
 /*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:27:00 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/15 18:48:47 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/16 16:37:52 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.hpp"
-
-//NEED TO FINISH PRIVMSG BY DOING PROPER PARSING cf RFC doc
 
 void Command::privmsg(Message *msg, std::vector<std::string> message)
 {
@@ -31,12 +29,12 @@ void Command::privmsg(Message *msg, std::vector<std::string> message)
         if (message[1][0] != '#') 
             return (send_reply(user->getFd(), "Error: channel must begin with '#'"));
         if (message.size() == 2)
-            return (send_reply(user->getFd(), ERR_UNKNOWNCOMMAND("PRIVMSG without arg")));
+            return (send_reply(user->getFd(), user->getPrefix() + " 412 " + ERR_NOTEXTTOSEND()));
         if (message[2] == ":")
             return (send_reply(user->getFd(), user->getPrefix() + " 404 " + ERR_CANNOTSENDTOCHAN(message[1])));
     }
     if (message[1][message[1].length() - 1] == ':' || message[2][0] != ':')
-            return (send_reply(user->getFd(),("bad arg! : PRIVMSG #name_chan :message")));
+        return (send_reply(user->getFd(), user->getPrefix() + " 461 " + ERR_NEEDMOREPARAMS("PRIVMSG")));
     for (it = message.begin(); it != message.end(); ++it)
     {
         for(it2 = channels_names.begin(); it2 != channels_names.end(); ++it2)
