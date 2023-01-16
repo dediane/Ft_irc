@@ -101,17 +101,6 @@ std::vector<std::string> Message::getTokens(std::string cmd)
 	return (tokens);
 }
 
-// void	appendMessage(const char *buffer)
-// {
-// 	this->_message += buffer;
-// }
-
-// if (peer.getMessage() == "\r\n")
-// 			{
-// 				peer.clearMessage();
-// 				return 1;
-// 			}
-
 int Message::receive_msg()
 {
     char buffer[BUFFER_SIZE + 1];
