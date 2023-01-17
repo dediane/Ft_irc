@@ -6,7 +6,7 @@
 /*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:02:31 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/17 13:18:46 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/17 13:30:35 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ Message::Message(Message &lhs)
 }
 
 Message::~Message()
-{ 
+{   
 }
 
 Server  *Message::getserver() { return _server; }
