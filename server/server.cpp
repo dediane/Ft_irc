@@ -35,7 +35,7 @@ void Server::setLastping(time_t time)
 
 Server::~Server()
 {
-    return ;
+    fds.clear();
 }
 
 //https://www.geeksforgeeks.org/socket-programming-cc/
