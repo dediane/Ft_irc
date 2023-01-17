@@ -6,7 +6,7 @@
 /*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:27:00 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/17 13:42:13 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/17 13:46:00 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void Command::privmsg(Message *msg, std::vector<std::string> message)
     }
     if (channel->is_mode('m'))
     {
-        if (!channel->is_usermode(user->getFd(), 'v') || !channel->is_usermode(user->getFd(), 'o'))
+        if (!channel->is_usermode(user->getFd(), 'v') && !channel->is_usermode(user->getFd(), 'o'))
    		    return (send_reply(user->getFd(), user->getPrefix() + " 404 " + user->getNickname() + " " + ERR_CANNOTSENDTOCHAN(channel->getName())));
     }
     buffer.erase(0, 2);
