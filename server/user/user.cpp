@@ -60,7 +60,6 @@ User::User(const User &lhs)
 
 User::~User()
 {
-    // delete _cmd;
     return;
 }
 
