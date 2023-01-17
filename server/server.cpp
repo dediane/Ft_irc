@@ -36,7 +36,11 @@ void Server::setLastping(time_t time)
 Server::~Server()
 {
     fds.clear();
+    std::map<int, User>::iterator it;
+    for(it = users.begin(); it != users.end(); it++)
+         delete ((*it).second)._cmd;
 }
+
 
 //https://www.geeksforgeeks.org/socket-programming-cc/
 void Server::init(int port)
