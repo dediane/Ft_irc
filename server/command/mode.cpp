@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mode.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:35:32 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/17 09:48:40 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/17 11:08:05 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,9 +144,7 @@ void mode_channel(Message *msg, std::vector<std::string> message)
             return (send_reply(user->getFd(), user->getPrefix() + " 482 " + user->getNickname() + " " + ERR_CHANOPRIVNEEDED(channel->getName())));
         mode = message[2];
         if (isvalid_mode(mode, "tiknmv") == true)
-        {
-            std::cout << "Je suis ici" << std::endl;
-            
+        {   
             if (!channel->getMode().empty() && *mode.begin() == '+')
                 channel->setMode(addmode(mode, channel->getMode()));
             else if (!channel->getMode().empty() && *mode.begin() == '-')

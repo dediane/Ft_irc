@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:55:26 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/02 15:55:39 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/17 11:11:01 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ std::string ERR_ERRONEUSNICKNAME(std::string nickname) {return(nickname + " :Err
 std::string ERR_NICKNAMEINUSE(std::string nickname) {return(nickname + " :Nickname is already in use\r\n");}
 //436
 //441
-std::string ERR_USERNOTINCHANNEL(std::string nickname, std::string channel) {return(nickname + " " + channel + " :is already on channel\r\n");}
+std::string ERR_USERNOTINCHANNEL(std::string nickname, std::string channel) {return(nickname + " " + channel + " :They aren't on that channel\r\n");}
 //442
 std::string ERR_NOTONCHANNEL(std::string channel) {return(channel + " :You're not on that channel\r\n");}
 //443
-std::string ERR_USERONCHANNEL(std::string user, std::string channel) {return(user + channel + " :is already on channel\r\n");}
+std::string ERR_USERONCHANNEL(std::string user, std::string channel) {return(user + channel + " :You're not on that channel\r\n");}
 //444
 std::string ERR_NOLOGIN(std::string user) {return(user + " :User not logged in\r\n");}
 //445
