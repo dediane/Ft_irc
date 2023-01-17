@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   kick.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:16:10 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/07 16:41:34 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/17 09:49:45 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void Command::kick(Message *msg, std::vector<std::string> message)
 	if ((channel = server->get_channel_by_name(message[1])))
 	{
 		// check si le user kick est operator
-		if (!(channel->getUserMode(user->getFd()).find("o") != std::string::npos))
-			return ; // message error here canno't kick
+		// if (!(channel->getUserMode(user->getFd()).find("o") != std::string::npos))
+		// 	return ; // message error here canno't kick
 
 		if (channel->isUserinChannel(*user) && (channel->isUserinChannel(*user_kick)))
 		{

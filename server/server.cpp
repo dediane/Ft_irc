@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:12 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/16 20:56:47 by parallels        ###   ########.fr       */
+/*   Updated: 2023/01/17 10:01:25 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,7 +220,7 @@ void Server::heartbeat_management(void)
             std::cout << "need to delete user, user timeout" << std::endl;
             (*it).second.setisOnline(false);
         }
-        else if (now - (*it).second.getLastPing() >= (timeout / 1000) && (*it).second.isRegistered() == true)
+        else if (now - (*it).second.getLastPing() >= (timeout / 1000) && (*it).second.isRegistered() == true && (*it).second.isOnline() == false)
             send_reply((*it).second.getFd(), "PING :" + (*it).second.getNickname() + END);
         else {
             return;

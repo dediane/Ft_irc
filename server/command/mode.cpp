@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:35:32 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/16 21:30:15 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/17 09:48:40 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,8 +128,9 @@ void mode_channel(Message *msg, std::vector<std::string> message)
                 new_mode =  addmode(mode, channel->getUserMode(channel_user->getFd()));
             else if  (!channel->getUserMode(channel_user->getFd()).empty() && *mode.begin() == '-')
                 new_mode = deletemode(mode, channel->getUserMode(channel_user->getFd()));
-            channel->removeUserMode(channel_user->getFd());
-            channel->addUserMode(channel_user->getFd(), new_mode);
+            /*channel->removeUserMode(channel_user->getFd());
+            channel->addUserMode(channel_user->getFd(), new_mode);*/
+            channel->ChangeMode(target->getFd(), new_mode);
             std::string tmp = mode;
             mode = user->getNickname() + " " + channel->getName() + " " + tmp + " " + target->getNickname(); 
             send_reply(user->getFd(), RPL_CHANNELMODEIS(user, channel, mode));
@@ -161,7 +162,7 @@ void mode_user(Message *msg, std::vector<std::string> message)
     Server *server = msg->getserver();
     User *user = msg->getuser();
     User *target;
-    std::string mode = message[2];
+    std::string mode;
 
     if(!(target = server->get_user_by_nickname(message[1])))
         return (send_reply(user->getFd(), user->getPrefix() + " 401 " + ERR_NOSUCHNICK(message[2])));
@@ -182,7 +183,7 @@ void mode_user(Message *msg, std::vector<std::string> message)
                 user->setMode(deletemode(mode, user->getMode()));
         }
     }
-    send_reply(user->getFd(),RPL_UMODEIS(user));
+    send_reply(user->getFd(), RPL_UMODEIS(user));
     return;
 }
 
@@ -195,7 +196,7 @@ void Command::mode(Message *msg, std::vector<std::string> message)
         return(send_reply(usr->getFd(), ERR_NEEDMOREPARAMS("MODE")));
     if (message[1].find("#") != std::string::npos)
         mode_channel(msg, message);
-    else if (message.size() != 2)
+    else if (message.size() < 4)
         mode_user(msg, message);
     return;
 }

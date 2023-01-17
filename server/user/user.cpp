@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   user.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:58:37 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/16 15:20:54 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/17 09:58:00 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ User::User()
 {
     _last_ping = time(0);
     _nickname = "";
+    _mode = "+";
     return ;
 }
 
@@ -26,7 +27,7 @@ User::User(int newfd, sockaddr_in address)
     _realname = "";
     _hostname = "";
     _hostaddr = "";
-    _mode = "+w";
+    _mode = "+";
     fd = newfd;
     _last_ping = time(0);
     _registered = false;
