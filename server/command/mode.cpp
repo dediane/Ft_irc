@@ -6,7 +6,7 @@
 /*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:35:32 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/17 11:08:05 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/17 11:35:00 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,8 @@ void mode_channel(Message *msg, std::vector<std::string> message)
     }
     if (message.size() == 3)
     {
+        if ((message[2].size() == 1) && (message[2].find("b") != std::string::npos))
+            return;
         if(!channel->is_usermode(user->getFd(), 'o'))
             return (send_reply(user->getFd(), user->getPrefix() + " 482 " + user->getNickname() + " " + ERR_CHANOPRIVNEEDED(channel->getName())));
         mode = message[2];
@@ -163,7 +165,7 @@ void mode_user(Message *msg, std::vector<std::string> message)
     std::string mode;
 
     if(!(target = server->get_user_by_nickname(message[1])))
-        return (send_reply(user->getFd(), user->getPrefix() + " 401 " + ERR_NOSUCHNICK(message[2])));
+        return (send_reply(user->getFd(), user->getPrefix() + " 401 " + ERR_NOSUCHNICK(message[1])));
     if (target->getNickname() != user->getNickname())
         return (send_reply(user->getFd(), user->getPrefix() + " 502 " + ERR_USERSDONTMATCH()));
     if (message.size() == 3)

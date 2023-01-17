@@ -22,7 +22,7 @@ void handler(int sig)
 {
     (void) sig;
     std::cout << std::endl << YELLOW << "bye!!" << DEFAULT << std::endl;
-    exit(0);
+    stop = true;
 }
 
 bool check_port(std::string port)

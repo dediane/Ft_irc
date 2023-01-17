@@ -30,6 +30,7 @@ Message::Message(Message &lhs)
 
 Message::~Message()
 {
+    _user->msgbuffer.clear();
     
 }
 

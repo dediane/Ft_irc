@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:16:10 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/17 09:49:45 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/17 11:06:23 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,18 @@ void Command::kick(Message *msg, std::vector<std::string> message)
         user_kick = server->get_user_by_nickname(message[2]);
 	else
 	{
-   		send_reply(user->getFd(), user->getPrefix() + " 441 " + user->getNickname() + " " + ERR_USERNOTINCHANNEL(message[2], " "));
+   		send_reply(user->getFd(), user->getPrefix() + " 441 " + user->getNickname() + " " + ERR_USERNOTINCHANNEL(message[0], message[1]));
 		return ;
 	}
 	// check le message a envoyer à irssi
 	if ((channel = server->get_channel_by_name(message[1])))
 	{
 		// check si le user kick est operator
-		// if (!(channel->getUserMode(user->getFd()).find("o") != std::string::npos))
-		// 	return ; // message error here canno't kick
+		if (!(channel->getUserMode(user->getFd()).find("o") != std::string::npos))
+		{
+			send_reply(user->getFd(), user->getPrefix() + " 461 " + user->getNickname() + " " + ERR_CHANOPRIVNEEDED(message[1]));
+			return ; // message error here canno't kick
+		}
 
 		if (channel->isUserinChannel(*user) && (channel->isUserinChannel(*user_kick)))
 		{
@@ -47,7 +50,6 @@ void Command::kick(Message *msg, std::vector<std::string> message)
 			channel->broadcast_msg(user->getPrefix() + " KICK " + channel->getName() + END, user);
 			channel->deleteUser(*user_kick);
         	std::cout << RED << "==> [KICK] " << BLUE << user->getNickname() << " kicked " << user_kick->getNickname() << " from channel " << channel->getName() << DEFAULT << std::endl;
-
 		}
 	}
 }
