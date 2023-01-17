@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   part.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
+/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:30:10 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/16 23:15:57 by parallels        ###   ########.fr       */
+/*   Updated: 2023/01/17 13:28:39 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,22 @@ void Command::part(Message *msg, std::vector<std::string> message)
             {
                 all_usr = channel->getUsers();
                 std::vector<User>::iterator it;
-                for (it = all_usr.begin(); it != all_usr.end(); it++)
-                {
-                    if ((*it).getNickname() != user->getNickname() && channel->getUserMode((*it).getFd()).find("o") != std::string::npos) {
-                        break ;
+                if (all_usr.size() > 1) {
+                    for (it = all_usr.begin(); it != all_usr.end(); it++)
+                    {
+                        if ((*it).getNickname() != user->getNickname() && channel->getUserMode((*it).getFd()).find("o") != std::string::npos) {
+                            break ;
+                        }
                     }
-                }
-                if (it == all_usr.end()) {
-                    it = all_usr.begin();
-                    if ((*it).getNickname() != user->getNickname()) {   
-                        channel->ChangeMode((*it).getFd(), "+o");
-                    }
-                    else {
-                        it++;
-                        channel->ChangeMode((*it).getFd(), "+o");
+                    if (it == all_usr.end()) {
+                        it = all_usr.begin();
+                        if ((*it).getNickname() != user->getNickname()) {   
+                            channel->ChangeMode((*it).getFd(), "+o");
+                        }
+                        else {
+                            it++;
+                            channel->ChangeMode((*it).getFd(), "+o");
+                        }
                     }
                 }
             }
