@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:15:15 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/17 09:58:50 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/17 11:01:41 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void join_channel(Message *msg, std::string message, std::string key)
             if (key == channel->getKey())
             {
                 channel->addUser(*user);
-                channel->addUserMode(user->getFd(), "");
+                channel->addUserMode(user->getFd(), "+");
                 send_reply(user->getFd(), RPL_NAMREPLY(user, channel));
                 send_reply(user->getFd(), RPL_ENDOFNAMES(user, channel));
                 channel->broadcast(user->getPrefix() + " JOIN " + ":" + channel->getName() + END);
