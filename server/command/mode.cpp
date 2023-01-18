@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:35:32 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/18 13:13:38 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/18 13:48:03 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,6 @@ std::string deletemode(std::string mode, std::string oldmode)
 
 void mode_channel(Message *msg, std::vector<std::string> message)
 {
-    std::cout << RED << "Je suis dans mode_channel" << DEFAULT <<std::endl;
     Server *server = msg->getserver();
     Channel *channel;
     User *user = msg->getuser();
@@ -131,10 +130,8 @@ void mode_channel(Message *msg, std::vector<std::string> message)
 
     if(!(channel = server->get_channel_by_name(message[1])))
         return (send_reply(user->getFd(), user->getPrefix() + " 403 " + ERR_NOSUCHCHANNEL(message[1])));
-    channel->print_users();
     if (message.size() == 4)
     {
-        std::cout << "message size = 4" << std::endl;
         if(!channel->is_usermode(user->getFd(), 'o'))
             return (send_reply(user->getFd(), user->getPrefix() + " 482 " + user->getNickname() + " " + ERR_CHANOPRIVNEEDED(channel->getName())));
         mode = message[2];
@@ -144,7 +141,6 @@ void mode_channel(Message *msg, std::vector<std::string> message)
             return (send_reply(user->getFd(), user->getPrefix() + " 442 " + ERR_NOTONCHANNEL(message[3])));
         channel_user = channel->get_user(target);
         removeDuplicates(mode);
-        std::cout << "MODE = " << mode << std::endl;
         if (isvalid_mode(mode, "ov", user) == true)
         {
             std::string new_mode;
@@ -162,7 +158,6 @@ void mode_channel(Message *msg, std::vector<std::string> message)
     }
     if (message.size() == 3)
     {
-        std::cout << "message size = 3" << std::endl;
         if ((message[2].size() == 1) && (message[2].find("b") != std::string::npos))
             return;
         if(!channel->is_usermode(user->getFd(), 'o'))
@@ -184,7 +179,6 @@ void mode_channel(Message *msg, std::vector<std::string> message)
 
 void mode_user(Message *msg, std::vector<std::string> message)
 {
-    std::cout << RED << "Je suis dans mode_user" << DEFAULT << std::endl;
     Server *server = msg->getserver();
     User *user = msg->getuser();
     User *target;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   part.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:30:10 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/18 09:26:38 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/18 13:47:39 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void Command::part(Message *msg, std::vector<std::string> message)
     {
         if (channel->isUserinChannel(*user))
         {
-		    if ((channel->getUserMode(user->getFd()).find("o") != std::string::npos))
+		    if (channel->is_usermode( user->getFd() , 'o'))
             {
                 all_usr = channel->getUsers();
                 std::vector<User>::iterator it;
