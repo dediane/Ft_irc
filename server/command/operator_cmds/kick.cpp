@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   kick.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:16:10 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/17 11:06:23 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/18 09:18:19 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void Command::kick(Message *msg, std::vector<std::string> message)
 		if (channel->isUserinChannel(*user) && (channel->isUserinChannel(*user_kick)))
 		{
 			// send to irssi ->KICK #chan toto :(no reason)
-			send_reply(user_kick->getFd(), "KICK " + message[1] + " " + message[2] + " :(no reason)" + END);
+			send_reply(user_kick->getFd(), user->getPrefix() + " KICK " + message[1] + " " + message[2] + " :(no reason)" + END);
 			channel->broadcast_msg(user->getPrefix() + " KICK " + channel->getName() + END, user);
 			channel->deleteUser(*user_kick);
         	std::cout << RED << "==> [KICK] " << BLUE << user->getNickname() << " kicked " << user_kick->getNickname() << " from channel " << channel->getName() << DEFAULT << std::endl;

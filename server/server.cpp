@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:12 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/17 10:01:25 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/18 09:38:21 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,44 +140,27 @@ void Server::execute()
             }       
         }
     }
-// User usr;
-// users.insert(std::pair<int, User>(12, usr));
     std::map<int, User>::iterator it = users.begin();
-    // std::cout << users.size() << " user size" << std::endl;
     std::map<int, User> buf = users;
     for (it = buf.begin(); it != buf.end(); it++)
     {
         if ((*it).second.isOnline() == false)
             remove_user(get_user_by_fd((*it).first));
     }
-    // while (it != users.end())
-    // {
-    //     // std::cout << "loooppppp" << std::endl;
-    // }
+
 }
 
-// void Server::handlestop(void)
-// {
-//     for (int i = 0; i < fds.size(); i++)
-//     {
-//         std::cout << "-> fd no " << fds[i].fd << std::endl;
-//         if (fds[i].events == sockfd)
-//     }
-// }
 
 void Server::accept_new_user()
 {
-    //std::cout << "need to accept a user in the channel" << std::endl;
     sockaddr_in address;
     socklen_t len = sizeof(address);
-    //std::string infos;
 
     //int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
     int fd = accept(sockfd, (struct sockaddr*)&address, &len);
     if ( fd < 0)
         return;
     User newuser(fd, address);
-    //std::cout << "new user -> is register = " << newuser.isRegistered() << std::endl; 
     std::map<int, User>::iterator it;
     it = users.begin();
     users.insert(it, std::make_pair(fd, newuser));
@@ -192,33 +175,9 @@ void Server::heartbeat_management(void)
     time_t now = time(0);
     int timeout = (15 * 100);
 
-    // std::map<int, User >::iterator it;
-    // for (it = users.begin(); it != users.end(); ++it)
-    // {
-    //     std::cout << "NOW time = " << current << std::endl;
-    //     std::cout << "Last Ping time = " << (*it).second.getLastPing() << std::endl;
-    //     if ( current -  (*it).second.getLastPing() >= timeout)
-    //     {
-    //         std::cout << "the user time ouy" << std::endl;
-    //         (*it).second.setisOnline(false);
-    //         // remove_user(&(*it).second);
-    //         return;
-    //     }
-    //     else if (current - (*it).second.getLastPing() >= (timeout / 1000))//((*it).second.getFd() > 0 && (*it).second.isOnline() == true && (*it).second.isRegistered() == true)
-    //     {
-    //         std::cout << "send ping" << std::endl;
-    //         send_reply((*it).second.getFd(), "PING " + (*it).second.getNickname());
-    //     }
-    //     else
-    //     {
-    //         std::cout << "else" << std::endl;
-    //         return;
-    //     }
-    // }
     std::map<int, User>::iterator it;
     for (it = users.begin(); it != users.end(); ++it)
     {
-        //std::cout << "CURRENT USER " << (*it).second.getNickname() << "   " << (now - (*it).second.getLastPing()) << std::endl;
         if (now - (*it).second.getLastPing() >= timeout)
         {
             std::cout << "need to delete user, user timeout" << std::endl;

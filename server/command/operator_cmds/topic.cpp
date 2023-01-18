@@ -6,7 +6,7 @@
 /*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:16:49 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/15 16:07:45 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/18 09:47:34 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void Command::topic(Message *msg, std::vector<std::string> message)
         }
         else
         {
-            if (channel->is_usermode(user->getFd(), 't') && (!(channel->getUserMode(user->getFd()).find("o") != std::string::npos)))
+            if (channel->is_mode('t') && (!(channel->getUserMode(user->getFd()).find("o") != std::string::npos)))
                 return(send_reply(user->getFd(), user->getPrefix() + " 482 " + ERR_CHANOPRIVNEEDED(channel->getName())));
             else
             {

@@ -6,7 +6,7 @@
 /*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:30:10 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/17 13:28:39 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/18 09:26:38 by bben-yaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void Command::part(Message *msg, std::vector<std::string> message)
             std::cout << RED << "==> [PART] " << CYAN << "User " << user->getNickname() << " part from the channel " << DEFAULT << std::endl;   
             return ;
         }
-        return (send_reply(user->getFd(), user->getPrefix() + " 441 " + ERR_USERNOTINCHANNEL(user->getNickname(), message[1])));
+        return (send_reply(user->getFd(), user->getPrefix() + " 442 " + ERR_NOTONCHANNEL(channel->getName())));
     }
     return (send_reply(user->getFd(), user->getPrefix() + " 403 " + ERR_NOSUCHCHANNEL(message[1])));
 }
