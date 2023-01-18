@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   channel.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parallels <parallels@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:55:27 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/16 23:22:24 by parallels        ###   ########.fr       */
+/*   Updated: 2023/01/18 13:15:00 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ Channel::Channel()
 Channel::Channel(std::string name, User user)
 {
     _name = name;
-    //user.setNickname("@" + user.getNickname());
     _users.push_back(user);
     _mode = "+n";
     _users_mode.insert(std::pair<int, std::string>(user.getFd(), "+o"));
@@ -30,7 +29,6 @@ Channel::Channel(std::string name, User user)
 
 Channel::Channel(User user)
 {
-    //user.setNickname("@" + user.getNickname());
     _users.push_back(user);
     _mode = "+n";
     _users_mode.insert(std::pair<int, std::string>(user.getFd(), "+o"));

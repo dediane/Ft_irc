@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:16:44 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/15 16:07:32 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/18 13:16:00 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void Command::list(Message *msg, std::vector<std::string> message)
 {
         (void)msg;
     (void)message;
-    // msg->print_tokens(message);
     Server *server = msg->getserver();
     User *user = msg->getuser();
     std::vector<Channel> * channels = server->get_all_channels();

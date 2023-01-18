@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:05:20 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/15 17:11:57 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/18 13:21:16 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,8 @@
             void remove_pollfd(User *user);
             std::string const getPassword()const{return _password;};
             void    setPassword(std::string const  & password){_password = password;};
-        
-            // std::map<int, User> getUsers() {return users;}
             
         private:
-            //We don't need it cause it is in <poll.h>
             // struct pollfd 
             // {
             //     int   fd;         /* file descriptor */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reply.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 13:15:20 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/15 16:07:46 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/18 13:00:59 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ std::string RPL_TOPIC(User *user, Channel *channel)
 
 std::string RPL_INVITING(User *user, Channel *channel, std::string nick)
 {
-    std::string buffer = user->getPrefix() + " 341 " + user->getNickname() + " " + channel->getName() + " " + nick + END;
+    std::string buffer = user->getPrefix() + " 341 "+ " INVITE " + nick + " " + channel->getName() + " " + nick + END;
     return (buffer);  
 }
 

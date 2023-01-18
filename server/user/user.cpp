@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:58:37 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/17 09:58:00 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/18 13:20:23 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ User::User(const User &lhs)
     this->_hostname = lhs._hostname;
     this->_username = lhs._username;
     this->_mode = lhs._mode;
-    //this->_commands = lhs._commands;
     this->_cmd = lhs._cmd;
     this->_registered = lhs._registered;
     this->_online = lhs._online;
@@ -70,7 +69,6 @@ User &User::operator=(const User &lhs)
     this->_hostname = lhs._hostname;
     this->_username = lhs._username;
     this->_mode = lhs._mode;
-    //this->_commands = lhs._commands;
     this->_cmd = lhs._cmd;
     this->_registered = lhs._registered;
     this->_online = lhs._online;

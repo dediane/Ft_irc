@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:15:15 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/17 11:01:41 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/18 13:15:45 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,29 +28,6 @@
 // This will make you join the #irchelp channel using "trout" as the password.
 
 #include "main.hpp"
-
-
-// bool is_channel_name_valide(std::string str)
-// {
-//     // il faut envoyer seulement le nom du chan sans ','
-//     for(unsigned int i = 0; i < str.length(); ++i)
-//     {
-//         if (str[0] == '#' || str[0] == '&')
-//             i++;
-//         char c = str[i];
-//         (void)c;
-//         /*if (std::isalpha((int)c) || c == '_' )
-//         {
-//             i++;
-//         }
-//         else
-//         {
-//             std::cout << "je return false car str[i] vaut " << str[i] << std::endl;
-//             return (false);
-//         }*/
-//     }
-//     return (true);
-// }
 
 //function to get all the channels from the join command if more than one
 std::vector<std::string>   parse_element(std::string str)
@@ -170,16 +147,4 @@ void Command::join(Message *msg, std::vector<std::string> message)
         else
             join_channel(msg, message[1], "x");
     }
-    // donc pour rejoindre des chan -> chan,chan,chan
-    // separer par des , et des qu'il a un ' ' c'est les keys
-    // pour les chan respectifs
-
-            // -> sert a sovair si le chanel existe server->get_channel_by_name(message[1])
-            //function to join many channels parsing here
-            // -> check number of channel
-            // -> check if channel are valid
-            // -> check if channel already exist then -> check password and join success OR wrongpassword
-
-
-    // creation of channel
 }

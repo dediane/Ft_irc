@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   privmsg.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:27:00 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/17 13:46:00 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/18 13:18:30 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void Command::privmsg(Message *msg, std::vector<std::string> message)
             {
                 channel_name = (*it).substr(0, (*it2).length());
                 (*it).erase(0, ((*it2).length() + 1));
-                //:diane!diane@localhost PRIVMSG #lolo :Bonjour
             }
         }
         if (it != message.begin())
@@ -63,5 +62,5 @@ void Command::privmsg(Message *msg, std::vector<std::string> message)
     }
     buffer.erase(0, 2);
     channel->broadcast_msg(user->getPrefix() + " PRIVMSG " + channel_name + " " + buffer + END, user);
-    //std::cout << RED << "==> [PRIVMSG] " << BLUE << user->getNickname() << " send a message in channel " << channel->getName() << DEFAULT << std::endl;
+
 }

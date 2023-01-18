@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   mode.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:35:32 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/18 11:26:17 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/18 13:13:38 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.hpp"
 
 //User modes
-// - [o] - User is an operator (prefix @).
+// - [o] - User is an operator.
 // - [w] - User receives wallops;
 // - [r] - restricted user connection.
 
@@ -54,43 +54,29 @@ void removeDuplicates(std::string& str)
 }
 
 //check if the mode is valid
-bool isvalid_mode(std::string mode, std::string validmodes, User *user)
+bool isvalid_mode(std::string str, std::string charset, User *user)
 {
     //mode valid for channel : [t][i][n][m][v]  && [o] for user in channel
     //mode valid for user: [o][i][w]
-    std::cout << "our mode "<< mode << std::endl;
-    std::cout << "valid mode "<< validmodes << std::endl;
-    size_t t = 0;
+    (void)user;
 
-    if (mode.size() > 1)
+    if (str.size() > 1)
     {
-        std::string modes = validmodes;
-        if (!(*mode.begin() == '+' || *mode.begin() == '-'))
+        std::string strs = charset;
+        if (!(*str.begin() == '+' || *str.begin() == '-'))
             return(false); 
         std::string::iterator it;
-        std::string::iterator it2;
-
-        removeDuplicates(mode);
-        std::cout << "mode after " << mode << std::endl;
-        for (it2 = mode.begin() + 1 ; it2 != mode.end(); ++it2)
+        for (it = str.begin() + 1; it != str.end(); it++)
         {
-            it = modes.begin();
-            for (it = modes.begin(); it != modes.end(); ++it)
+            if (charset.find(*it) == std::string::npos)
             {
-                if (mode.find(*it) == std::string::npos)
-                {
-                    send_reply(user->getFd(), user->getPrefix() + " 472 " + (*it) + " :is unknown mode char to me\r\n");
-                    t++;
-                }
-            }
-            if (t == (mode.size() - 1))
-            {
-                return (false);
+                send_reply(user->getFd(), user->getPrefix() + " 472 " + (*it) + " :is unknown mode char to me\r\n");
+                return false;
             }
         }
-        return (true);
+        return true;
     }
-    return (false);
+    return false;
 }
 
 std::string addmode(std::string mode, std::string oldmode)
@@ -104,7 +90,11 @@ std::string addmode(std::string mode, std::string oldmode)
         for (it2 = oldmode.begin() + 1; it2 != oldmode.end(); ++it2)
         {
             if (*it == *it2)
-                copy.erase(copy.find(*it), 1);
+            {
+                size_t found = copy.find(*it);
+                if (found != std::string::npos)
+                    copy.erase(found, 1);
+            }
         }
     }
     oldmode.append(copy);
@@ -130,6 +120,7 @@ std::string deletemode(std::string mode, std::string oldmode)
 
 void mode_channel(Message *msg, std::vector<std::string> message)
 {
+    std::cout << RED << "Je suis dans mode_channel" << DEFAULT <<std::endl;
     Server *server = msg->getserver();
     Channel *channel;
     User *user = msg->getuser();
@@ -143,6 +134,7 @@ void mode_channel(Message *msg, std::vector<std::string> message)
     channel->print_users();
     if (message.size() == 4)
     {
+        std::cout << "message size = 4" << std::endl;
         if(!channel->is_usermode(user->getFd(), 'o'))
             return (send_reply(user->getFd(), user->getPrefix() + " 482 " + user->getNickname() + " " + ERR_CHANOPRIVNEEDED(channel->getName())));
         mode = message[2];
@@ -151,6 +143,8 @@ void mode_channel(Message *msg, std::vector<std::string> message)
         if (!channel->isUserinChannel(*target))
             return (send_reply(user->getFd(), user->getPrefix() + " 442 " + ERR_NOTONCHANNEL(message[3])));
         channel_user = channel->get_user(target);
+        removeDuplicates(mode);
+        std::cout << "MODE = " << mode << std::endl;
         if (isvalid_mode(mode, "ov", user) == true)
         {
             std::string new_mode;
@@ -158,8 +152,6 @@ void mode_channel(Message *msg, std::vector<std::string> message)
                 new_mode =  addmode(mode, channel->getUserMode(channel_user->getFd()));
             else if  (!channel->getUserMode(channel_user->getFd()).empty() && *mode.begin() == '-')
                 new_mode = deletemode(mode, channel->getUserMode(channel_user->getFd()));
-            /*channel->removeUserMode(channel_user->getFd());
-            channel->addUserMode(channel_user->getFd(), new_mode);*/
             channel->ChangeMode(target->getFd(), new_mode);
             std::string tmp = mode;
             mode = user->getNickname() + " " + channel->getName() + " " + tmp + " " + target->getNickname(); 
@@ -170,11 +162,13 @@ void mode_channel(Message *msg, std::vector<std::string> message)
     }
     if (message.size() == 3)
     {
+        std::cout << "message size = 3" << std::endl;
         if ((message[2].size() == 1) && (message[2].find("b") != std::string::npos))
             return;
         if(!channel->is_usermode(user->getFd(), 'o'))
             return (send_reply(user->getFd(), user->getPrefix() + " 482 " + user->getNickname() + " " + ERR_CHANOPRIVNEEDED(channel->getName())));
         mode = message[2];
+        removeDuplicates(mode);
         if (isvalid_mode(mode, "tinm", user) == true)
         {   
             if (!channel->getMode().empty() && *mode.begin() == '+')
@@ -183,12 +177,14 @@ void mode_channel(Message *msg, std::vector<std::string> message)
                 channel->setMode(deletemode(mode, channel->getMode()));
         }
     }
-    send_reply(user->getFd(), RPL_CHANNELMODEIS(user, channel, user->getNickname() + " " + channel->getName() + " " + channel->getMode()));
+    if (message.size() <= 3)
+        send_reply(user->getFd(), RPL_CHANNELMODEIS(user, channel, user->getNickname() + " " + channel->getName() + " " + channel->getMode()));
     return;
 }
 
 void mode_user(Message *msg, std::vector<std::string> message)
 {
+    std::cout << RED << "Je suis dans mode_user" << DEFAULT << std::endl;
     Server *server = msg->getserver();
     User *user = msg->getuser();
     User *target;
@@ -201,6 +197,7 @@ void mode_user(Message *msg, std::vector<std::string> message)
     if (message.size() == 3)
     {
         mode = message[2];
+        removeDuplicates(mode);
         if (isvalid_mode(mode, "oiw", user) == true)
         {
             if (!user->getMode().empty() && *mode.begin() == '+')

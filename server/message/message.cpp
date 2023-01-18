@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   message.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bben-yaa <bben-yaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:02:31 by ddecourt          #+#    #+#             */
-/*   Updated: 2023/01/17 13:30:35 by bben-yaa         ###   ########.fr       */
+/*   Updated: 2023/01/18 13:19:50 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ User    *Message::getuser() { return _user; }
 
 void Message::make_uppercase(std::string &token)
 {
-//	std::cout << "making command uppercase " << std::endl;
 	for(size_t i = 0; i < token.length(); i++)
 		token[i] = std::toupper(token[i]);
 }
@@ -89,14 +88,12 @@ void Message::split_buffer(std::string recvline)
     std::vector<std::string>::iterator it;
     for (it = cmds.begin(); it != cmds.end(); ++it)
         _messages.push_back(*it);
-	// print_tokens(cmds);
 }
 
 std::vector<std::string> Message::getTokens(std::string cmd)
 {
     std::vector<std::string> tokens = get_split(cmd, " ");
 	make_uppercase(tokens[0]);
-	// print_tokens(tokens);
 	return (tokens);
 }
 
@@ -141,19 +138,7 @@ void Message::parse_commands(std::string str)
             for (it2 = _user->_cmd->_commandlist.begin(); it2 != _user->_cmd->_commandlist.end(); ++it2)
             {
                 if (*it == *it2)
-                {
-                    //std::cout << index << std::endl;
-                    //std::cout << "command = " << *it2 << std::endl;
                     _user->_cmd->execute(*it, this, commands, index);
-                    // if (_user->isRegistered())
-                    // {
-                        // std::cout << "[message.cpp] Nickname = " << _user->getNickname() << std::endl;
-                        // std::cout << "[message.cpp] Username = " << _user->getUsername() << std::endl;
-                        // std::cout << "[message.cpp] Realname = " << _user->getRealname() << std::endl;
-                        // std::cout << "[message.cpp] Hostname = " << _user->getHostname() << std::endl;
-                        
-                    // }
-                }
                 index++;
             }
         }
