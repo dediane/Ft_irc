@@ -6,7 +6,7 @@
 /*   By: ddecourt <ddecourt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:14:48 by ddecourt          #+#    #+#             */
-/*   Updated: 2022/12/30 14:53:39 by ddecourt         ###   ########.fr       */
+/*   Updated: 2023/01/18 11:39:06 by ddecourt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ void Command::invite(Message *msg, std::vector<std::string> message)
     nick = message[1];
     if (!(receiver = server->get_user_by_nickname(nick)))
         return (send_reply(user->getFd(), user->getPrefix() + " 401 " + user->getNickname() + " " + ERR_NOSUCHNICK(message[1])));
-    if (*(message[2].begin()) != '#')
-        message[2] = "#" + message[2];
     if(!(channel = server->get_channel_by_name(message[2])))
         return (send_reply(user->getFd(), user->getPrefix() + " 403 " + user->getNickname() + " " + ERR_NOSUCHCHANNEL(message[2])));
     if (channel->isUserinChannel(*receiver) == true)
